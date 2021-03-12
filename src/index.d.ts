@@ -575,6 +575,14 @@ declare namespace cv {
         | TM_CCOEFF
         | TM_CCOEFF_NORMED;
 
+    // LineTypes
+    class FILLED {}
+    class LINE_4 {}
+    class LINE_8 {}
+    class LINE_AA {}
+
+    type LineTypes = FILLED | LINE_4 | LINE_8 | LINE_AA;
+
     // Data structures
 
     /**
@@ -669,6 +677,8 @@ declare namespace cv {
      */
     class Point {
         constructor(x: number, y: number);
+        x: number;
+        y: number;
     }
 
     /**
@@ -694,7 +704,7 @@ declare namespace cv {
         /**
          * @param video source video
          */
-        constructor(video: HTMLVideoElement | HTMLCanvasElement);
+        constructor(video: HTMLVideoElement | HTMLCanvasElement | string);
         /**
          * Reads a frame / image from the video class member
          * @param output output Mat
@@ -710,8 +720,9 @@ declare namespace cv {
          * @param r pixel value of red channel.
          * @param g pixel value of green channel.
          * @param b pixel value of blue channel.
+         * @param a alpha
          */
-        constructor(r: number, g: number, b: number);
+        constructor(r: number, g: number, b: number, a?: number);
     }
     /**
      * Template class for 2D rectangles.
@@ -760,8 +771,91 @@ declare namespace cv {
         borderType: BorderTypes
     ): void;
 
-    function rectangle(src: Mat, p1: Point, p2: Point, color: Scalar): void;
-    function rectangle(x1: number, y1: number, x2: number, y2: number): void;
+    /**
+     * Draws a simple, thick, or filled up-right rectangle onto a provided source cv.Mat
+     * @param img source cv.Mat where the rectangle will be rendered
+     * @param pt1 a cv.Point which represnents the top left of the rectangle
+     * @param pt2 a cv.Point which represents the bottom right of the rectangle
+     * @param color a cv.Scalar which represents the color of the rectangle
+     * @param thickness Thickness of lines that make up the rectangle. Negative values, like cv.FILLED, mean that the function has to draw a filled rectangle.
+     * @see https://docs.opencv.org/3.4/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8eed13bc9
+     */
+    function rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar, thickness?: number): void;
+    /**
+     * Draws a simple, thick, or filled up-right rectangle onto a provided source cv.Mat
+     * @param img source cv.Mat where the rectangle will be rendered
+     * @param pt1 a cv.Point which represnents the top left of the rectangle
+     * @param pt2 a cv.Point which represents the bottom right of the rectangle
+     * @param color a cv.Scalar which represents the color of the rectangle
+     * @param thickness Thickness of lines that make up the rectangle. Negative values, like cv.FILLED, mean that the function has to draw a filled rectangle.
+     * @param lineType Type of the line. See cv.LineTypes
+     * @see https://docs.opencv.org/3.4/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8eed13bc9
+     */
+    function rectangle(
+        img: Mat,
+        pt1: Point,
+        pt2: Point,
+        color: Scalar,
+        thickness: number,
+        lineType?: LineTypes
+    ): void;
+    /**
+     * Draws a simple, thick, or filled up-right rectangle onto a provided source cv.Mat
+     * @param img source cv.Mat where the rectangle will be rendered
+     * @param pt1 a cv.Point which represnents the top left of the rectangle
+     * @param pt2 a cv.Point which represents the bottom right of the rectangle
+     * @param color a cv.Scalar which represents the color of the rectangle
+     * @param thickness Thickness of lines that make up the rectangle. Negative values, like cv.FILLED, mean that the function has to draw a filled rectangle.
+     * @param lineType Type of the line. See cv.LineTypes
+     * @param shift Number of fractional bits in the point coordinates.
+     * @see https://docs.opencv.org/3.4/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8eed13bc9
+     */
+    function rectangle(
+        img: Mat,
+        pt1: Point,
+        pt2: Point,
+        color: Scalar,
+        thickness: number,
+        lineType: LineTypes,
+        shift?: number
+    ): void;
+    /**
+     * Draws a simple, thick, or filled up-right rectangle onto a provided source cv.Mat
+     * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
+     * @param img source cv.Mat where the rectangle will be rendered
+     * @param rec a cv.Rect that represents the rectangle to be rendered
+     * @param thickness Thickness of lines that make up the rectangle. Negative values, like cv.FILLED, mean that the function has to draw a filled rectangle.
+     * @see https://docs.opencv.org/3.4/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8eed13bc9
+     */
+    function rectangle(img: Mat, rec: Rect, thickness?: number): void;
+    /**
+     * Draws a simple, thick, or filled up-right rectangle onto a provided source cv.Mat
+     * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
+     * @param img source cv.Mat where the rectangle will be rendered
+     * @param rec a cv.Rect that represents the rectangle to be rendered
+     * @param thickness Thickness of lines that make up the rectangle. Negative values, like cv.FILLED, mean that the function has to draw a filled rectangle.
+     * @param lineType Type of the line. See cv.LineTypes
+     * @see https://docs.opencv.org/3.4/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8eed13bc9
+     */
+    function rectangle(img: Mat, rec: Rect, thickness: number, lineType?: LineTypes): void;
+    /**
+     * Draws a simple, thick, or filled up-right rectangle onto a provided source cv.Mat
+     * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
+     * @param img source cv.Mat where the rectangle will be rendered
+     * @param rec a cv.Rect that represents the rectangle to be rendered
+     * @param thickness Thickness of lines that make up the rectangle. Negative values, like cv.FILLED, mean that the function has to draw a filled rectangle.
+     * @param lineType Type of the line. See cv.LineTypes
+     * @param shift Number of fractional bits in the point coordinates.
+     * @see https://docs.opencv.org/3.4/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8eed13bc9
+     */
+    function rectangle(
+        img: Mat,
+        rec: Rect,
+        thickness: number,
+        lineType: LineTypes,
+        shift?: number
+    ): void;
+
     function add(src1: Mat, src2: Mat, dst: Mat, mask?: Mat | Rect, dtype?: number): void;
 
     /**
@@ -842,11 +936,19 @@ declare namespace cv {
         method: TemplateMatchModes,
         mask?: Mat
     ): void;
+
+    interface minMaxLoc {
+        maxLoc: Point;
+        maxVal: number;
+        minLoc: Point;
+        minVal: number;
+    }
+
     /**
      * Gets the minimum and maximum correlation of the template matching results
      * @param dst
      * @param mask
      * @returns The minimum and maximum correlation values of the template matching result
      */
-    function minMaxLoc(dst: Mat, mask: Mat): any;
+    function minMaxLoc(dst: Mat, mask: Mat): minMaxLoc;
 }
