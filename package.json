@@ -7,5 +7,6 @@
     "dependencies": {
         "tsc": "^1.20150623.0",
         "typescript": "^4.2.3"
-    }
+    },
+    "author": "Grant Davidson"
 }
