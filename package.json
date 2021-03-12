@@ -1,0 +1,11 @@
+{
+    "name": "opencv-ts",
+    "version": "1.0.0",
+    "main": "src/opencv.js",
+    "types": "src/index.d.ts",
+    "license": "MIT",
+    "dependencies": {
+        "tsc": "^1.20150623.0",
+        "typescript": "^4.2.3"
+    }
+}
