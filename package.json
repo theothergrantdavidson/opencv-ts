@@ -8,5 +8,12 @@
         "tsc": "^1.20150623.0",
         "typescript": "^4.2.3"
     },
-    "author": "Grant Davidson"
+    "publishConfig": {
+        "registry": "https://npm.pkg.github.com"
+    },
+    "author": "Grant Davidson",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/theothergrantdavidson/opencv-ts"
+    }
 }
