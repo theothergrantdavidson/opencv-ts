@@ -7,9 +7,11 @@
     "dependencies": {
         "typescript": "^4.2.3"
     },
-    "publishConfig": {
-        "registry": "https://npm.pkg.github.com"
-    },
+    "keywords": [
+        "typescript",
+        "opencvjs",
+        "opencv"
+    ],
     "author": "Grant Davidson",
     "repository": {
         "type": "git",
