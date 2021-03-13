@@ -598,9 +598,9 @@ declare namespace cv {
          * @param cols
          * @param type
          */
-        constructor(rows: number, cols: number, type: ColorConversionCodes);
+        constructor(rows: number, cols: number, type: DataTypes);
         constructor(size: any, type: any);
-        constructor(rows: number, cols: number, type: ColorConversionCodes, color: Scalar);
+        constructor(rows: number, cols: number, type: DataTypes, color: Scalar);
         constructor(m: Mat);
         constructor();
 
@@ -645,31 +645,35 @@ declare namespace cv {
          * @param size a size of cv.Size
          * @param type color type of soure cv.Mat
          */
-        static zeros(size: Size, type: ColorConversionCodes): Mat;
+        static zeros(size: Size, type: DataTypes): Mat;
         /**
          * Create a Mat which is full of zeros
          * @param rows the width of the source cv.Mat
          * @param cols the height of the source cv.Mat
-         * @param type the color type of the source cv.Mat (cv.ColorConversionCodes)
+         * @param type the color type of the source cv.Mat (cv.DataTypes)
          */
-        static zeros(rows: number, cols: number, type: ColorConversionCodes): Mat;
+        static zeros(rows: number, cols: number, type: DataTypes): Mat;
         /**
          * Create a Mat which is full of ones
          * @param size a size of cv.Size
          * @param type color type of soure cv.Mat
          */
-        static ones(size: Size, type: ColorConversionCodes): Mat;
+        static ones(size: Size, type: DataTypes): Mat;
         /**
          * * Create a Mat which is full of ones
          * @param rows the width of the source cv.Mat
          * @param cols the height of the source cv.Mat
-         * @param type the color type of the source cv.Mat (cv.ColorConversionCodes)
+         * @param type the color type of the source cv.Mat (cv.DataTypes)
          */
-        static ones(rows: number, cols: number, type: ColorConversionCodes): Mat;
+        static ones(rows: number, cols: number, type: DataTypes): Mat;
         /**
          * Remove Mat from memory
          */
         delete(): void;
+        /**
+         * @returns the type of cv.DataTypes of the source cv.Mat
+         */
+        type(): cv.DataTypes;
     }
     /**
      * Template class for 2D points specified by its coordinates x and y.
@@ -827,7 +831,7 @@ declare namespace cv {
      * @param thickness Thickness of lines that make up the rectangle. Negative values, like cv.FILLED, mean that the function has to draw a filled rectangle.
      * @see https://docs.opencv.org/3.4/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8eed13bc9
      */
-    function rectangle(img: Mat, rec: Rect, thickness?: number): void;
+    function rectangle(img: Mat, rec: Rect, color: Scalar, thickness?: number): void;
     /**
      * Draws a simple, thick, or filled up-right rectangle onto a provided source cv.Mat
      * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -837,7 +841,13 @@ declare namespace cv {
      * @param lineType Type of the line. See cv.LineTypes
      * @see https://docs.opencv.org/3.4/d6/d6e/group__imgproc__draw.html#ga07d2f74cadcf8e305e810ce8eed13bc9
      */
-    function rectangle(img: Mat, rec: Rect, thickness: number, lineType?: LineTypes): void;
+    function rectangle(
+        img: Mat,
+        rec: Rect,
+        color: Scalar,
+        thickness: number,
+        lineType?: LineTypes
+    ): void;
     /**
      * Draws a simple, thick, or filled up-right rectangle onto a provided source cv.Mat
      * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts.
@@ -851,6 +861,7 @@ declare namespace cv {
     function rectangle(
         img: Mat,
         rec: Rect,
+        color: Scalar,
         thickness: number,
         lineType: LineTypes,
         shift?: number
@@ -893,7 +904,7 @@ declare namespace cv {
     function grabCut(
         image: Mat,
         mask: Mat,
-        rect: Mat,
+        rect: Rect,
         bgdModel: Mat,
         fgdModel: Mat,
         iterCount: number,
