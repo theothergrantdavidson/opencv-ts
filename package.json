@@ -3,6 +3,7 @@
     "version": "1.0.0",
     "main": "src/opencv.js",
     "types": "src/index.d.ts",
+    "description": "This package is a work in progress to translate opecv with a typescript definition",
     "license": "MIT",
     "dependencies": {
         "typescript": "^4.2.3"
