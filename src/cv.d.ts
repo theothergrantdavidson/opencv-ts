@@ -31,7 +31,13 @@ import {
 } from './DataStructures';
 import { ImageFiltering, _SpecialFilter, SpecialFilter, Elem } from './ImageProcFilter';
 import { Histograms, _HistCompMethods, HistCompMethods } from './ImgpProcHist';
+import {
+    ImageProcessing,
+    _ColorConversionCodes,
+    ColorConversionCodes,
+} from './ImgProcColorConversions';
 import { DrawingFunctions, _LineTypes, LineTypes } from './ImgprocDraw';
+import { FeatureDetection } from './ImgProcFeature';
 import { ObjectDetection, _TemplateMatchModes, TemplateMatchModes } from './ImgProcObject';
 import {
     GeometricImageTransformations,
@@ -60,9 +66,219 @@ interface cv
         HistCompMethods,
         Histograms,
         LineTypes,
-        DrawingFunctions {}
+        DrawingFunctions,
+        FeatureDetection,
+        ColorConversionCodes,
+        ImageProcessing {}
 
 declare class base implements cv {
+    COLOR_BGR2BGRA: _ColorConversionCodes.COLOR_BGR2BGRA;
+    COLOR_RGB2RGBA: _ColorConversionCodes.COLOR_RGB2RGBA;
+    COLOR_BGRA2BGR: _ColorConversionCodes.COLOR_BGRA2BGR;
+    COLOR_RGBA2RGB: _ColorConversionCodes.COLOR_RGBA2RGB;
+    COLOR_BGR2RGBA: _ColorConversionCodes.COLOR_BGR2RGBA;
+    COLOR_RGB2BGRA: _ColorConversionCodes.COLOR_RGB2BGRA;
+    COLOR_RGBA2BGR: _ColorConversionCodes.COLOR_RGBA2BGR;
+    COLOR_BGRA2RGB: _ColorConversionCodes.COLOR_BGRA2RGB;
+    COLOR_BGR2RGB: _ColorConversionCodes.COLOR_BGR2RGB;
+    COLOR_RGB2BGR: _ColorConversionCodes.COLOR_RGB2BGR;
+    COLOR_BGRA2RGBA: _ColorConversionCodes.COLOR_BGRA2RGBA;
+    COLOR_RGBA2BGRA: _ColorConversionCodes.COLOR_RGBA2BGRA;
+    COLOR_BGR2GRAY: _ColorConversionCodes.COLOR_BGR2GRAY;
+    COLOR_RGB2GRAY: _ColorConversionCodes.COLOR_RGB2GRAY;
+    COLOR_GRAY2BGR: _ColorConversionCodes.COLOR_GRAY2BGR;
+    COLOR_GRAY2RGB: _ColorConversionCodes.COLOR_GRAY2RGB;
+    COLOR_GRAY2BGRA: _ColorConversionCodes.COLOR_GRAY2BGRA;
+    COLOR_GRAY2RGBA: _ColorConversionCodes.COLOR_GRAY2RGBA;
+    COLOR_BGRA2GRAY: _ColorConversionCodes.COLOR_BGRA2GRAY;
+    COLOR_RGBA2GRAY: _ColorConversionCodes.COLOR_RGBA2GRAY;
+    COLOR_BGR2BGR565: _ColorConversionCodes.COLOR_BGR2BGR565;
+    COLOR_RGB2BGR565: _ColorConversionCodes.COLOR_RGB2BGR565;
+    COLOR_BGR5652BGR: _ColorConversionCodes.COLOR_BGR5652BGR;
+    COLOR_BGR5652RGB: _ColorConversionCodes.COLOR_BGR5652RGB;
+    COLOR_BGRA2BGR565: _ColorConversionCodes.COLOR_BGRA2BGR565;
+    COLOR_RGBA2BGR565: _ColorConversionCodes.COLOR_RGBA2BGR565;
+    COLOR_BGR5652BGRA: _ColorConversionCodes.COLOR_BGR5652BGRA;
+    COLOR_BGR5652RGBA: _ColorConversionCodes.COLOR_BGR5652RGBA;
+    COLOR_GRAY2BGR565: _ColorConversionCodes.COLOR_GRAY2BGR565;
+    COLOR_BGR5652GRAY: _ColorConversionCodes.COLOR_BGR5652GRAY;
+    COLOR_BGR2BGR555: _ColorConversionCodes.COLOR_BGR2BGR555;
+    COLOR_RGB2BGR555: _ColorConversionCodes.COLOR_RGB2BGR555;
+    COLOR_BGR5552BGR: _ColorConversionCodes.COLOR_BGR5552BGR;
+    COLOR_BGR5552RGB: _ColorConversionCodes.COLOR_BGR5552RGB;
+    COLOR_BGRA2BGR555: _ColorConversionCodes.COLOR_BGRA2BGR555;
+    COLOR_RGBA2BGR555: _ColorConversionCodes.COLOR_RGBA2BGR555;
+    COLOR_BGR5552BGRA: _ColorConversionCodes.COLOR_BGR5552BGRA;
+    COLOR_BGR5552RGBA: _ColorConversionCodes.COLOR_BGR5552RGBA;
+    COLOR_GRAY2BGR555: _ColorConversionCodes.COLOR_GRAY2BGR555;
+    COLOR_BGR5552GRAY: _ColorConversionCodes.COLOR_BGR5552GRAY;
+    COLOR_BGR2XYZ: _ColorConversionCodes.COLOR_BGR2XYZ;
+    COLOR_RGB2XYZ: _ColorConversionCodes.COLOR_RGB2XYZ;
+    COLOR_XYZ2BGR: _ColorConversionCodes.COLOR_XYZ2BGR;
+    COLOR_XYZ2RGB: _ColorConversionCodes.COLOR_XYZ2RGB;
+    COLOR_BGR2YCrCb: _ColorConversionCodes.COLOR_BGR2YCrCb;
+    COLOR_RGB2YCrCb: _ColorConversionCodes.COLOR_RGB2YCrCb;
+    COLOR_YCrCb2BGR: _ColorConversionCodes.COLOR_YCrCb2BGR;
+    COLOR_YCrCb2RGB: _ColorConversionCodes.COLOR_YCrCb2RGB;
+    COLOR_BGR2HSV: _ColorConversionCodes.COLOR_BGR2HSV;
+    COLOR_RGB2HSV: _ColorConversionCodes.COLOR_RGB2HSV;
+    COLOR_BGR2Lab: _ColorConversionCodes.COLOR_BGR2Lab;
+    COLOR_RGB2Lab: _ColorConversionCodes.COLOR_RGB2Lab;
+    COLOR_BGR2Luv: _ColorConversionCodes.COLOR_BGR2Luv;
+    COLOR_RGB2Luv: _ColorConversionCodes.COLOR_RGB2Luv;
+    COLOR_BGR2HLS: _ColorConversionCodes.COLOR_BGR2HLS;
+    COLOR_RGB2HLS: _ColorConversionCodes.COLOR_RGB2HLS;
+    COLOR_HSV2BGR: _ColorConversionCodes.COLOR_HSV2BGR;
+    COLOR_HSV2RGB: _ColorConversionCodes.COLOR_HSV2RGB;
+    COLOR_Lab2BGR: _ColorConversionCodes.COLOR_Lab2BGR;
+    COLOR_Lab2RGB: _ColorConversionCodes.COLOR_Lab2RGB;
+    COLOR_Luv2BGR: _ColorConversionCodes.COLOR_Luv2BGR;
+    COLOR_Luv2RGB: _ColorConversionCodes.COLOR_Luv2RGB;
+    COLOR_HLS2BGR: _ColorConversionCodes.COLOR_HLS2BGR;
+    COLOR_HLS2RGB: _ColorConversionCodes.COLOR_HLS2RGB;
+    COLOR_BGR2HSV_FULL: _ColorConversionCodes.COLOR_BGR2HSV_FULL;
+    COLOR_RGB2HSV_FULL: _ColorConversionCodes.COLOR_RGB2HSV_FULL;
+    COLOR_BGR2HLS_FULL: _ColorConversionCodes.COLOR_BGR2HLS_FULL;
+    COLOR_RGB2HLS_FULL: _ColorConversionCodes.COLOR_RGB2HLS_FULL;
+    COLOR_HSV2BGR_FULL: _ColorConversionCodes.COLOR_HSV2BGR_FULL;
+    COLOR_HSV2RGB_FULL: _ColorConversionCodes.COLOR_HSV2RGB_FULL;
+    COLOR_HLS2BGR_FULL: _ColorConversionCodes.COLOR_HLS2BGR_FULL;
+    COLOR_HLS2RGB_FULL: _ColorConversionCodes.COLOR_HLS2RGB_FULL;
+    COLOR_LBGR2Lab: _ColorConversionCodes.COLOR_LBGR2Lab;
+    COLOR_LRGB2Lab: _ColorConversionCodes.COLOR_LRGB2Lab;
+    COLOR_LBGR2Luv: _ColorConversionCodes.COLOR_LBGR2Luv;
+    COLOR_LRGB2Luv: _ColorConversionCodes.COLOR_LRGB2Luv;
+    COLOR_Lab2LBGR: _ColorConversionCodes.COLOR_Lab2LBGR;
+    COLOR_Lab2LRGB: _ColorConversionCodes.COLOR_Lab2LRGB;
+    COLOR_Luv2LBGR: _ColorConversionCodes.COLOR_Luv2LBGR;
+    COLOR_Luv2LRGB: _ColorConversionCodes.COLOR_Luv2LRGB;
+    COLOR_BGR2YUV: _ColorConversionCodes.COLOR_BGR2YUV;
+    COLOR_RGB2YUV: _ColorConversionCodes.COLOR_RGB2YUV;
+    COLOR_YUV2BGR: _ColorConversionCodes.COLOR_YUV2BGR;
+    COLOR_YUV2RGB: _ColorConversionCodes.COLOR_YUV2RGB;
+    COLOR_YUV2RGB_NV12: _ColorConversionCodes.COLOR_YUV2RGB_NV12;
+    COLOR_YUV2BGR_NV12: _ColorConversionCodes.COLOR_YUV2BGR_NV12;
+    COLOR_YUV2RGB_NV21: _ColorConversionCodes.COLOR_YUV2RGB_NV21;
+    COLOR_YUV2BGR_NV21: _ColorConversionCodes.COLOR_YUV2BGR_NV21;
+    COLOR_YUV420sp2RGB: _ColorConversionCodes.COLOR_YUV420sp2RGB;
+    COLOR_YUV420sp2BGR: _ColorConversionCodes.COLOR_YUV420sp2BGR;
+    COLOR_YUV2RGBA_NV12: _ColorConversionCodes.COLOR_YUV2RGBA_NV12;
+    COLOR_YUV2BGRA_NV12: _ColorConversionCodes.COLOR_YUV2BGRA_NV12;
+    COLOR_YUV2RGBA_NV21: _ColorConversionCodes.COLOR_YUV2RGBA_NV21;
+    COLOR_YUV2BGRA_NV21: _ColorConversionCodes.COLOR_YUV2BGRA_NV21;
+    COLOR_YUV420sp2RGBA: _ColorConversionCodes.COLOR_YUV420sp2RGBA;
+    COLOR_YUV420sp2BGRA: _ColorConversionCodes.COLOR_YUV420sp2BGRA;
+    COLOR_YUV2RGB_YV12: _ColorConversionCodes.COLOR_YUV2RGB_YV12;
+    COLOR_YUV2BGR_YV12: _ColorConversionCodes.COLOR_YUV2BGR_YV12;
+    COLOR_YUV2RGB_IYUV: _ColorConversionCodes.COLOR_YUV2RGB_IYUV;
+    COLOR_YUV2BGR_IYUV: _ColorConversionCodes.COLOR_YUV2BGR_IYUV;
+    COLOR_YUV2RGB_I420: _ColorConversionCodes.COLOR_YUV2RGB_I420;
+    COLOR_YUV2BGR_I420: _ColorConversionCodes.COLOR_YUV2BGR_I420;
+    COLOR_YUV420p2RGB: _ColorConversionCodes.COLOR_YUV420p2RGB;
+    COLOR_YUV420p2BGR: _ColorConversionCodes.COLOR_YUV420p2BGR;
+    COLOR_YUV2RGBA_YV12: _ColorConversionCodes.COLOR_YUV2RGBA_YV12;
+    COLOR_YUV2BGRA_YV12: _ColorConversionCodes.COLOR_YUV2BGRA_YV12;
+    COLOR_YUV2RGBA_IYUV: _ColorConversionCodes.COLOR_YUV2RGBA_IYUV;
+    COLOR_YUV2BGRA_IYUV: _ColorConversionCodes.COLOR_YUV2BGRA_IYUV;
+    COLOR_YUV2RGBA_I420: _ColorConversionCodes.COLOR_YUV2RGBA_I420;
+    COLOR_YUV2BGRA_I420: _ColorConversionCodes.COLOR_YUV2BGRA_I420;
+    COLOR_YUV420p2RGBA: _ColorConversionCodes.COLOR_YUV420p2RGBA;
+    COLOR_YUV420p2BGRA: _ColorConversionCodes.COLOR_YUV420p2BGRA;
+    COLOR_YUV2GRAY_420: _ColorConversionCodes.COLOR_YUV2GRAY_420;
+    COLOR_YUV2GRAY_NV21: _ColorConversionCodes.COLOR_YUV2GRAY_NV21;
+    COLOR_YUV2GRAY_NV12: _ColorConversionCodes.COLOR_YUV2GRAY_NV12;
+    COLOR_YUV2GRAY_YV12: _ColorConversionCodes.COLOR_YUV2GRAY_YV12;
+    COLOR_YUV2GRAY_IYUV: _ColorConversionCodes.COLOR_YUV2GRAY_IYUV;
+    COLOR_YUV2GRAY_I420: _ColorConversionCodes.COLOR_YUV2GRAY_I420;
+    COLOR_YUV420sp2GRAY: _ColorConversionCodes.COLOR_YUV420sp2GRAY;
+    COLOR_YUV420p2GRAY: _ColorConversionCodes.COLOR_YUV420p2GRAY;
+    COLOR_YUV2RGB_UYVY: _ColorConversionCodes.COLOR_YUV2RGB_UYVY;
+    COLOR_YUV2BGR_UYVY: _ColorConversionCodes.COLOR_YUV2BGR_UYVY;
+    COLOR_YUV2RGB_Y422: _ColorConversionCodes.COLOR_YUV2RGB_Y422;
+    COLOR_YUV2BGR_Y422: _ColorConversionCodes.COLOR_YUV2BGR_Y422;
+    COLOR_YUV2RGB_UYNV: _ColorConversionCodes.COLOR_YUV2RGB_UYNV;
+    COLOR_YUV2BGR_UYNV: _ColorConversionCodes.COLOR_YUV2BGR_UYNV;
+    COLOR_YUV2RGBA_UYVY: _ColorConversionCodes.COLOR_YUV2RGBA_UYVY;
+    COLOR_YUV2BGRA_UYVY: _ColorConversionCodes.COLOR_YUV2BGRA_UYVY;
+    COLOR_YUV2RGBA_Y422: _ColorConversionCodes.COLOR_YUV2RGBA_Y422;
+    COLOR_YUV2BGRA_Y422: _ColorConversionCodes.COLOR_YUV2BGRA_Y422;
+    COLOR_YUV2RGBA_UYNV: _ColorConversionCodes.COLOR_YUV2RGBA_UYNV;
+    COLOR_YUV2BGRA_UYNV: _ColorConversionCodes.COLOR_YUV2BGRA_UYNV;
+    COLOR_YUV2RGB_YUY2: _ColorConversionCodes.COLOR_YUV2RGB_YUY2;
+    COLOR_YUV2BGR_YUY2: _ColorConversionCodes.COLOR_YUV2BGR_YUY2;
+    COLOR_YUV2RGB_YVYU: _ColorConversionCodes.COLOR_YUV2RGB_YVYU;
+    COLOR_YUV2BGR_YVYU: _ColorConversionCodes.COLOR_YUV2BGR_YVYU;
+    COLOR_YUV2RGB_YUYV: _ColorConversionCodes.COLOR_YUV2RGB_YUYV;
+    COLOR_YUV2BGR_YUYV: _ColorConversionCodes.COLOR_YUV2BGR_YUYV;
+    COLOR_YUV2RGB_YUNV: _ColorConversionCodes.COLOR_YUV2RGB_YUNV;
+    COLOR_YUV2BGR_YUNV: _ColorConversionCodes.COLOR_YUV2BGR_YUNV;
+    COLOR_YUV2RGBA_YUY2: _ColorConversionCodes.COLOR_YUV2RGBA_YUY2;
+    COLOR_YUV2BGRA_YUY2: _ColorConversionCodes.COLOR_YUV2BGRA_YUY2;
+    COLOR_YUV2RGBA_YVYU: _ColorConversionCodes.COLOR_YUV2RGBA_YVYU;
+    COLOR_YUV2BGRA_YVYU: _ColorConversionCodes.COLOR_YUV2BGRA_YVYU;
+    COLOR_YUV2RGBA_YUYV: _ColorConversionCodes.COLOR_YUV2RGBA_YUYV;
+    COLOR_YUV2BGRA_YUYV: _ColorConversionCodes.COLOR_YUV2BGRA_YUYV;
+    COLOR_YUV2RGBA_YUNV: _ColorConversionCodes.COLOR_YUV2RGBA_YUNV;
+    COLOR_YUV2BGRA_YUNV: _ColorConversionCodes.COLOR_YUV2BGRA_YUNV;
+    COLOR_YUV2GRAY_UYVY: _ColorConversionCodes.COLOR_YUV2GRAY_UYVY;
+    COLOR_YUV2GRAY_YUY2: _ColorConversionCodes.COLOR_YUV2GRAY_YUY2;
+    COLOR_YUV2GRAY_Y422: _ColorConversionCodes.COLOR_YUV2GRAY_Y422;
+    COLOR_YUV2GRAY_UYNV: _ColorConversionCodes.COLOR_YUV2GRAY_UYNV;
+    COLOR_YUV2GRAY_YVYU: _ColorConversionCodes.COLOR_YUV2GRAY_YVYU;
+    COLOR_YUV2GRAY_YUYV: _ColorConversionCodes.COLOR_YUV2GRAY_YUYV;
+    COLOR_YUV2GRAY_YUNV: _ColorConversionCodes.COLOR_YUV2GRAY_YUNV;
+    COLOR_RGBA2mRGBA: _ColorConversionCodes.COLOR_RGBA2mRGBA;
+    COLOR_mRGBA2RGBA: _ColorConversionCodes.COLOR_mRGBA2RGBA;
+    COLOR_RGB2YUV_I420: _ColorConversionCodes.COLOR_RGB2YUV_I420;
+    COLOR_BGR2YUV_I420: _ColorConversionCodes.COLOR_BGR2YUV_I420;
+    COLOR_RGB2YUV_IYUV: _ColorConversionCodes.COLOR_RGB2YUV_IYUV;
+    COLOR_BGR2YUV_IYUV: _ColorConversionCodes.COLOR_BGR2YUV_IYUV;
+    COLOR_RGBA2YUV_I420: _ColorConversionCodes.COLOR_RGBA2YUV_I420;
+    COLOR_BGRA2YUV_I420: _ColorConversionCodes.COLOR_BGRA2YUV_I420;
+    COLOR_RGBA2YUV_IYUV: _ColorConversionCodes.COLOR_RGBA2YUV_IYUV;
+    COLOR_BGRA2YUV_IYUV: _ColorConversionCodes.COLOR_BGRA2YUV_IYUV;
+    COLOR_RGB2YUV_YV12: _ColorConversionCodes.COLOR_RGB2YUV_YV12;
+    COLOR_BGR2YUV_YV12: _ColorConversionCodes.COLOR_BGR2YUV_YV12;
+    COLOR_RGBA2YUV_YV12: _ColorConversionCodes.COLOR_RGBA2YUV_YV12;
+    COLOR_BGRA2YUV_YV12: _ColorConversionCodes.COLOR_BGRA2YUV_YV12;
+    COLOR_BayerBG2BGR: _ColorConversionCodes.COLOR_BayerBG2BGR;
+    COLOR_BayerGB2BGR: _ColorConversionCodes.COLOR_BayerGB2BGR;
+    COLOR_BayerRG2BGR: _ColorConversionCodes.COLOR_BayerRG2BGR;
+    COLOR_BayerGR2BGR: _ColorConversionCodes.COLOR_BayerGR2BGR;
+    COLOR_BayerBG2RGB: _ColorConversionCodes.COLOR_BayerBG2RGB;
+    COLOR_BayerGB2RGB: _ColorConversionCodes.COLOR_BayerGB2RGB;
+    COLOR_BayerRG2RGB: _ColorConversionCodes.COLOR_BayerRG2RGB;
+    COLOR_BayerGR2RGB: _ColorConversionCodes.COLOR_BayerGR2RGB;
+    COLOR_BayerBG2GRAY: _ColorConversionCodes.COLOR_BayerBG2GRAY;
+    COLOR_BayerGB2GRAY: _ColorConversionCodes.COLOR_BayerGB2GRAY;
+    COLOR_BayerRG2GRAY: _ColorConversionCodes.COLOR_BayerRG2GRAY;
+    COLOR_BayerGR2GRAY: _ColorConversionCodes.COLOR_BayerGR2GRAY;
+    COLOR_BayerBG2BGR_VNG: _ColorConversionCodes.COLOR_BayerBG2BGR_VNG;
+    COLOR_BayerGB2BGR_VNG: _ColorConversionCodes.COLOR_BayerGB2BGR_VNG;
+    COLOR_BayerRG2BGR_VNG: _ColorConversionCodes.COLOR_BayerRG2BGR_VNG;
+    COLOR_BayerGR2BGR_VNG: _ColorConversionCodes.COLOR_BayerGR2BGR_VNG;
+    COLOR_BayerBG2RGB_VNG: _ColorConversionCodes.COLOR_BayerBG2RGB_VNG;
+    COLOR_BayerGB2RGB_VNG: _ColorConversionCodes.COLOR_BayerGB2RGB_VNG;
+    COLOR_BayerRG2RGB_VNG: _ColorConversionCodes.COLOR_BayerRG2RGB_VNG;
+    COLOR_BayerGR2RGB_VNG: _ColorConversionCodes.COLOR_BayerGR2RGB_VNG;
+    COLOR_BayerBG2BGR_EA: _ColorConversionCodes.COLOR_BayerBG2BGR_EA;
+    COLOR_BayerGB2BGR_EA: _ColorConversionCodes.COLOR_BayerGB2BGR_EA;
+    COLOR_BayerRG2BGR_EA: _ColorConversionCodes.COLOR_BayerRG2BGR_EA;
+    COLOR_BayerGR2BGR_EA: _ColorConversionCodes.COLOR_BayerGR2BGR_EA;
+    COLOR_BayerBG2RGB_EA: _ColorConversionCodes.COLOR_BayerBG2RGB_EA;
+    COLOR_BayerGB2RGB_EA: _ColorConversionCodes.COLOR_BayerGB2RGB_EA;
+    COLOR_BayerRG2RGB_EA: _ColorConversionCodes.COLOR_BayerRG2RGB_EA;
+    COLOR_BayerGR2RGB_EA: _ColorConversionCodes.COLOR_BayerGR2RGB_EA;
+    COLOR_BayerBG2BGRA: _ColorConversionCodes.COLOR_BayerBG2BGRA;
+    COLOR_BayerGB2BGRA: _ColorConversionCodes.COLOR_BayerGB2BGRA;
+    COLOR_BayerRG2BGRA: _ColorConversionCodes.COLOR_BayerRG2BGRA;
+    COLOR_BayerGR2BGRA: _ColorConversionCodes.COLOR_BayerGR2BGRA;
+    COLOR_BayerBG2RGBA: _ColorConversionCodes.COLOR_BayerBG2RGBA;
+    COLOR_BayerGB2RGBA: _ColorConversionCodes.COLOR_BayerGB2RGBA;
+    COLOR_BayerRG2RGBA: _ColorConversionCodes.COLOR_BayerRG2RGBA;
+    COLOR_BayerGR2RGBA: _ColorConversionCodes.COLOR_BayerGR2RGBA;
+    COLOR_COLORCVT_MAX: _ColorConversionCodes.COLOR_COLORCVT_MAX;
+
     FILLED: _LineTypes.FILLED;
     LINE_4: _LineTypes.LINE_4;
     LINE_8: _LineTypes.LINE_8;
@@ -421,6 +637,20 @@ declare class base implements cv {
         shift?: number
     ): void;
     minMaxLoc(dst: Mat, mask: Mat): minMaxLoc;
+    cvtColor(src: Mat, dst: Mat, code: _ColorConversionCodes, dstCv?: number): void;
+    cvtColorTwoPlane(src1: Mat, src2: Mat, dst: Mat, code: _ColorConversionCodes): void;
+    demosaicing(src: Mat, dst: Mat, code: _ColorConversionCodes, dstCv: number | undefined): void;
+    goodFeaturesToTrack(
+        image: Mat,
+        corners: Mat,
+        maxCorners: number,
+        qualityLevel: number,
+        minDistance: number,
+        mask: Mat | undefined,
+        blockSize: number,
+        useHarrisDetector: boolean,
+        k: number | undefined
+    ): void;
 }
 
 declare const cv: base;
