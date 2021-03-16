@@ -21,4 +21,4 @@ cv.onRuntimeInitialized = () => {
 };
 
 ```
-<video src="https://user-images.githubusercontent.com/9585683/111277271-00134500-8684-11eb-9afa-c70189b6f87e.mp4" autoplay loop controls></video>
+<video src="https://user-images.githubusercontent.com/9585683/111277271-00134500-8684-11eb-9afa-c70189b6f87e.mp4" autoplay loop controls height="300" width="100%"></video>
