@@ -22,5 +22,4 @@ cv.onRuntimeInitialized = () => {
 
 ```
 
-
-https://user-images.githubusercontent.com/9585683/111277271-00134500-8684-11eb-9afa-c70189b6f87e.mp4
+![example](https://user-images.githubusercontent.com/9585683/111277722-7b74f680-8684-11eb-9d83-a105b1d04084.gif)
