@@ -1,4 +1,4 @@
-import { BorderTypes } from '../core/Base';
+import { BorderTypes } from '../core/ArrayOps';
 import { DataTypes } from '../core/HalInterface';
 import { Mat } from '../core/Mat';
 import { Scalar } from '../core/Scalar';

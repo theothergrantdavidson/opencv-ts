@@ -3,7 +3,7 @@ import { DataTypes, _DataTypes } from './HalInterface';
 import { Scalar } from './Scalar';
 import { Size } from './Size';
 import { Range } from './Range';
-import { DecompTypes } from './Base';
+import { DecompTypes } from './ArrayOps';
 import { Rect } from './Rect';
 
 declare module Mat {

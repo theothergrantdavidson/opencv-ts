@@ -20,7 +20,7 @@ import {
     ImageFiltering,
 } from './ImageProcessing/ImageFiltering';
 import { TermCriteria } from './core/TermCriteria';
-import { BorderTypes } from './core/Base';
+import { BorderTypes } from './core/ArrayOps';
 
 declare module opencv {
     interface VideoCapture {
