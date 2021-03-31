@@ -1,11 +1,11 @@
-# opencv*ts
+# opencv-ts
 Package for opencvjs in typescript (WIP), adding class and function definiitons progresssively.
 
 
 ## example use
 
 ```typescript
-import cv, { Mat, Rect } from "opencv*ts";
+import cv, { Mat, Rect } from "opencv-ts";
 
 cv.onRuntimeInitialized = () => {
     const src = cv.imread("inputCanvas");
