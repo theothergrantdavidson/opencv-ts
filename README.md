@@ -1,11 +1,11 @@
-# opencv-ts
+# opencv*ts
 Package for opencvjs in typescript (WIP), adding class and function definiitons progresssively.
 
 
-#example use
+## example use
 
 ```typescript
-import cv, { Mat, Rect } from "opencv-ts";
+import cv, { Mat, Rect } from "opencv*ts";
 
 cv.onRuntimeInitialized = () => {
     const src = cv.imread("inputCanvas");
@@ -22,21 +22,21 @@ cv.onRuntimeInitialized = () => {
 
 ```
 
-#Typings Progress
-    - Modules
-      - Core
-        - Basic Structures: Done
-        - Operations on Arrays: In progress
-      - Image Processing
-        - Image Filtering: Done
-        - Geometric Image Transformations: started
-        - Drawing Functions: Not started
-        - Color Space Conversions: Done
-        - ColorMaps in OpenCV: Not started
-        - Planar Subdivision: Not started
-        - Histograms: Not started
-        - Structural Analysis and Shape Descriptors: Not started
-        - Motion Analysis and Object Tracking: Not started
-        - Feature Detection: Not started
-        - Object Detection: Not started
-        - Image Segmentation: Not started
+## Typings Progress
+* Modules
+  * Core
+    * Basic Structures: Done
+    * Operations on Arrays: In progress
+  * Image Processing
+    * Image Filtering: Done
+    * Geometric Image Transformations: started
+    * Drawing Functions: Not started
+    * Color Space Conversions: Done
+    * ColorMaps in OpenCV: Not started
+    * Planar Subdivision: Not started
+    * Histograms: Not started
+    * Structural Analysis and Shape Descriptors: Not started
+    * Motion Analysis and Object Tracking: Not started
+    * Feature Detection: Not started
+    * Object Detection: Not started
+    * Image Segmentation: Not started
