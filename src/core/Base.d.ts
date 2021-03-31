@@ -1,0 +1,44 @@
+declare module Base {
+    enum DecompTypes {
+        DECOMP_LU = 'DECOMP_LU',
+        DECOMP_SVD = 'DECOMP_SVD',
+        DECOMP_EIG = 'DECOMP_EIG',
+        DECOMP_CHOLESKY = 'DECOMP_CHOLESKY',
+        DECOMP_QR = 'DECOMP_QR',
+        DECOMP_NORMAL = 'DECOMP_NORMAL',
+    }
+
+    interface _DecompTypes {
+        DECOMP_LU: DecompTypes.DECOMP_LU;
+        DECOMP_SVD: DecompTypes.DECOMP_SVD;
+        DECOMP_EIG: DecompTypes.DECOMP_EIG;
+        DECOMP_CHOLESKY: DecompTypes.DECOMP_CHOLESKY;
+        DECOMP_QR: DecompTypes.DECOMP_QR;
+        DECOMP_NORMAL: DecompTypes.DECOMP_NORMAL;
+    }
+
+    enum BorderTypes {
+        BORDER_CONSTANT = 'BORDER_CONSTANT',
+        BORDER_REPLICATE = 'BORDER_REPLICATE',
+        BORDER_REFLECT = 'BORDER_REFLECT',
+        BORDER_WRAP = 'BORDER_WRAP',
+        BORDER_REFLECT_101 = 'BORDER_REFLECT_101',
+        BORDER_TRANSPARENT = 'BORDER_TRANSPARENT',
+        BORDER_REFLECT101 = 'BORDER_REFLECT101',
+        BORDER_DEFAULT = 'BORDER_DEFAULT',
+        BORDER_ISOLATED = 'BORDER_ISOLATED',
+    }
+
+    interface _BorderTypes {
+        BORDER_CONSTANT: BorderTypes.BORDER_CONSTANT;
+        BORDER_REPLICATE: BorderTypes.BORDER_REPLICATE;
+        BORDER_REFLECT: BorderTypes.BORDER_REFLECT;
+        BORDER_WRAP: BorderTypes.BORDER_WRAP;
+        BORDER_REFLECT_101: BorderTypes.BORDER_REFLECT_101;
+        BORDER_TRANSPARENT: BorderTypes.BORDER_TRANSPARENT;
+        BORDER_REFLECT101: BorderTypes.BORDER_REFLECT101;
+        BORDER_DEFAULT: BorderTypes.BORDER_DEFAULT;
+        BORDER_ISOLATED: BorderTypes.BORDER_ISOLATED;
+    }
+}
+export = Base;

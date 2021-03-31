@@ -21,4 +21,22 @@ cv.onRuntimeInitialized = () => {
 };
 
 ```
-<video src="https://user-images.githubusercontent.com/9585683/111277271-00134500-8684-11eb-9afa-c70189b6f87e.mp4" autoplay loop controls height="300" width="100%"></video>
+
+#Typings Progress
+    - Modules
+      - Core
+        - Basic Structures: Done
+        - Operations on Arrays: In progress
+      - Image Processing
+        - Image Filtering: Done
+        - Geometric Image Transformations: started
+        - Drawing Functions: Not started
+        - Color Space Conversions: Done
+        - ColorMaps in OpenCV: Not started
+        - Planar Subdivision: Not started
+        - Histograms: Not started
+        - Structural Analysis and Shape Descriptors: Not started
+        - Motion Analysis and Object Tracking: Not started
+        - Feature Detection: Not started
+        - Object Detection: Not started
+        - Image Segmentation: Not started
