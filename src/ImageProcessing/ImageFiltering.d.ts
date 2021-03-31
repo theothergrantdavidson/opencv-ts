@@ -1,4 +1,4 @@
-import { BorderTypes } from '../core/ArrayOps';
+import { BorderTypes } from '../core/ArrayOp';
 import { DataTypes } from '../core/HalInterface';
 import { Mat } from '../core/Mat';
 import { Scalar } from '../core/Scalar';
@@ -169,7 +169,7 @@ declare module ImageFiltering {
         GaussianBlur(
             src: Mat,
             dst: Mat,
-            ksize: Mat,
+            ksize: number | Size,
             sigmaX: number,
             sigmaY: number,
             borderType: BorderTypes

@@ -3,14 +3,13 @@ import { DataTypes, _DataTypes } from './HalInterface';
 import { Scalar } from './Scalar';
 import { Size } from './Size';
 import { Range } from './Range';
-import { DecompTypes } from './ArrayOps';
+import { DecompTypes } from './ArrayOp';
 import { Rect } from './Rect';
 
 declare module Mat {
     interface Mat {
         new (): Mat;
         new (mat: Mat): Mat;
-        new (size: Size, type: DataTypes): Mat;
         new (rows: number, cols: number, type: DataTypes, s?: Scalar): Mat;
         /**
          * The method returns a Matlab-style identity matrix initializer, similarly to Mat::zeros. Similarly to

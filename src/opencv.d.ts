@@ -20,7 +20,7 @@ import {
     ImageFiltering,
 } from './ImageProcessing/ImageFiltering';
 import { TermCriteria } from './core/TermCriteria';
-import { BorderTypes } from './core/ArrayOps';
+import { BorderTypes, _BorderTypes } from './core/ArrayOp';
 
 declare module opencv {
     interface VideoCapture {
@@ -41,8 +41,19 @@ declare module opencv {
             _MorphShapes,
             _MorphTypes,
             _SpecialFilter,
+            _BorderTypes,
             ImageFiltering,
             ColorConversions {
+        // Array Operations
+        BORDER_CONSTANT: BorderTypes.BORDER_CONSTANT;
+        BORDER_REPLICATE: BorderTypes.BORDER_REPLICATE;
+        BORDER_REFLECT: BorderTypes.BORDER_REFLECT;
+        BORDER_WRAP: BorderTypes.BORDER_WRAP;
+        BORDER_REFLECT_101: BorderTypes.BORDER_REFLECT_101;
+        BORDER_TRANSPARENT: BorderTypes.BORDER_TRANSPARENT;
+        BORDER_REFLECT101: BorderTypes.BORDER_REFLECT101;
+        BORDER_DEFAULT: BorderTypes.BORDER_DEFAULT;
+        BORDER_ISOLATED: BorderTypes.BORDER_ISOLATED;
         // Color Conversions
         COLOR_BGR2BGRA: ColorConversionCodes.COLOR_BGR2BGRA;
         COLOR_RGB2RGBA: ColorConversionCodes.COLOR_RGB2RGBA;
@@ -426,7 +437,7 @@ declare module opencv {
         GaussianBlur(
             src: Mat,
             dst: Mat,
-            ksize: Mat,
+            ksize: number | Mat | Size,
             sigmaX: number,
             sigmaY: number,
             borderType: BorderTypes
