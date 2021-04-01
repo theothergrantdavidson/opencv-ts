@@ -1,4 +1,5 @@
-import { BorderTypes } from '../core/ArrayOp';
+import { NDArray } from '../core/Core';
+import { BorderTypes } from '../core/CoreArray';
 import { DataTypes } from '../core/HalInterface';
 import { Mat } from '../core/Mat';
 import { Scalar } from '../core/Scalar';
@@ -152,7 +153,7 @@ declare module ImageFiltering {
             src: Mat,
             dst: Mat,
             ddepth: number | DataTypes,
-            kernel: number[][] | Mat,
+            kernel: NDArray<number> | Mat,
             anchor: Point,
             delat: number,
             borderType: BorderTypes
@@ -185,8 +186,8 @@ declare module ImageFiltering {
          * @param ktype Type of filter coefficients. It can be CV_32f or CV_64F .
          */
         getDerivKernels(
-            kx: number[],
-            ky: number[],
+            kx: NDArray<number> | Mat,
+            ky: NDArray<number> | Mat,
             dx: number,
             dy: number,
             ksize: 1 | 3 | 5 | 7 | SpecialFilter.FILTER_SCHARR,
@@ -366,8 +367,8 @@ declare module ImageFiltering {
             src: Mat,
             dst: Mat,
             ddepth: number | DataTypes,
-            kernelX: number[][] | Mat,
-            kernelY: number[][] | Mat,
+            kernelX: NDArray<number> | Mat,
+            kernelY: NDArray<number> | Mat,
             anchor: Point,
             delta: number,
             borderType: BorderTypes
@@ -416,8 +417,8 @@ declare module ImageFiltering {
          */
         spatialGradient(
             src: Mat,
-            dx: number[][] | Mat,
-            dy: number[][] | Mat,
+            dx: NDArray<number> | Mat,
+            dy: NDArray<number> | Mat,
             ksize: number,
             borderType: BorderTypes
         ): void;

@@ -20,7 +20,27 @@ import {
     ImageFiltering,
 } from './ImageProcessing/ImageFiltering';
 import { TermCriteria } from './core/TermCriteria';
-import { BorderTypes, _BorderTypes } from './core/ArrayOp';
+import {
+    BorderTypes,
+    _BorderTypes,
+    DecompTypes,
+    _DecompTypes,
+    CmpTypes,
+    _CmpTypes,
+    DftFlags,
+    _DftFlags,
+    GemmFlags,
+    _GemmFlags,
+    NormTypes,
+    _NormTypes,
+    ReduceTypes,
+    _ReduceTypes,
+    RotateFlags,
+    _RotateFlags,
+    CoreArray,
+} from './core/CoreArray';
+import { CovarFlags, _CovarFlags, NDArray } from './core/Core';
+import { SortFlags, _SortFlags } from './core/Utils';
 
 declare module opencv {
     interface VideoCapture {
@@ -42,37 +62,103 @@ declare module opencv {
             _MorphTypes,
             _SpecialFilter,
             _BorderTypes,
+            _DecompTypes,
+            _CmpTypes,
+            _DftFlags,
+            _GemmFlags,
+            _NormTypes,
+            _ReduceTypes,
+            _RotateFlags,
+            _CovarFlags,
+            _SortFlags,
+            CoreArray,
             ImageFiltering,
             ColorConversions {
-        // Array Operations
-        BORDER_CONSTANT: BorderTypes.BORDER_CONSTANT;
-        BORDER_REPLICATE: BorderTypes.BORDER_REPLICATE;
-        BORDER_REFLECT: BorderTypes.BORDER_REFLECT;
-        BORDER_WRAP: BorderTypes.BORDER_WRAP;
-        BORDER_REFLECT_101: BorderTypes.BORDER_REFLECT_101;
-        BORDER_TRANSPARENT: BorderTypes.BORDER_TRANSPARENT;
-        BORDER_REFLECT101: BorderTypes.BORDER_REFLECT101;
-        BORDER_DEFAULT: BorderTypes.BORDER_DEFAULT;
-        BORDER_ISOLATED: BorderTypes.BORDER_ISOLATED;
-        // Color Conversions
+        // JS only helper functions
+        /**
+         * Renders an input Mat to a canvas object
+         * @param canvasSource HTMLCanvas element or id of HTMLCanvas to output Mat to
+         * @param mat input source mat
+         */
+        imshow(canvasSource: string | HTMLCanvasElement, mat: Mat): void;
+        /**
+         * Reads image data from a source canvas and outputs it to an instance of cv.Mat
+         * @param imageSource source canvas to read imagedata from
+         */
+        imread(imageSource: string): Mat;
+        /**
+         * Function called when opencv is initialized
+         */
+        onRuntimeInitialized: () => void;
+
+        VideoCapture: VideoCapture;
+
+        // Core classes
+        Mat: Mat;
+        Size: Size;
+        Point: Point;
+        Range: Range;
+        Scalar: Scalar;
+        Rect: Rect;
+
+        CV_8U: DataTypes.CV_8U;
+        CV_8S: DataTypes.CV_8S;
+        CV_16U: DataTypes.CV_16U;
+        CV_16S: DataTypes.CV_16S;
+        CV_32S: DataTypes.CV_32S;
+        CV_32F: DataTypes.CV_32F;
+        CV_64F: DataTypes.CV_64F;
+        CV_16F: DataTypes.CV_16F;
+        CV_8UC1: DataTypes.CV_8UC1;
+        CV_8UC2: DataTypes.CV_8UC2;
+        CV_8UC3: DataTypes.CV_8UC3;
+        CV_8UC4: DataTypes.CV_8UC4;
+        CV_8SC1: DataTypes.CV_8SC1;
+        CV_8SC2: DataTypes.CV_8SC2;
+        CV_8SC3: DataTypes.CV_8SC3;
+        CV_8SC4: DataTypes.CV_8SC4;
+        CV_16UC1: DataTypes.CV_16UC1;
+        CV_16UC2: DataTypes.CV_16UC2;
+        CV_16UC3: DataTypes.CV_16UC3;
+        CV_16UC4: DataTypes.CV_16UC4;
+        CV_16SC1: DataTypes.CV_16SC1;
+        CV_16SC2: DataTypes.CV_16SC2;
+        CV_16SC3: DataTypes.CV_16SC3;
+        CV_16SC4: DataTypes.CV_16SC4;
+        CV_32SC1: DataTypes.CV_32SC1;
+        CV_32SC2: DataTypes.CV_32SC2;
+        CV_32SC3: DataTypes.CV_32SC3;
+        CV_32SC4: DataTypes.CV_32SC4;
+        CV_32FC1: DataTypes.CV_32FC1;
+        CV_32FC2: DataTypes.CV_32FC2;
+        CV_32FC3: DataTypes.CV_32FC3;
+        CV_32FC4: DataTypes.CV_32FC4;
+        CV_64FC1: DataTypes.CV_64FC1;
+        CV_64FC2: DataTypes.CV_64FC2;
+        CV_64FC3: DataTypes.CV_64FC3;
+        CV_64FC4: DataTypes.CV_64FC4;
+        CV_16FC1: DataTypes.CV_16FC1;
+        CV_16FC2: DataTypes.CV_16FC2;
+        CV_16FC3: DataTypes.CV_16FC3;
+        CV_16FC4: DataTypes.CV_16FC4;
         COLOR_BGR2BGRA: ColorConversionCodes.COLOR_BGR2BGRA;
-        COLOR_RGB2RGBA: ColorConversionCodes.COLOR_RGB2RGBA;
+        COLOR_RGB2RGBA: ColorConversionCodes.COLOR_BGR2BGRA;
         COLOR_BGRA2BGR: ColorConversionCodes.COLOR_BGRA2BGR;
-        COLOR_RGBA2RGB: ColorConversionCodes.COLOR_RGBA2RGB;
+        COLOR_RGBA2RGB: ColorConversionCodes.COLOR_BGRA2BGR;
         COLOR_BGR2RGBA: ColorConversionCodes.COLOR_BGR2RGBA;
-        COLOR_RGB2BGRA: ColorConversionCodes.COLOR_RGB2BGRA;
+        COLOR_RGB2BGRA: ColorConversionCodes.COLOR_BGR2RGBA;
         COLOR_RGBA2BGR: ColorConversionCodes.COLOR_RGBA2BGR;
-        COLOR_BGRA2RGB: ColorConversionCodes.COLOR_BGRA2RGB;
+        COLOR_BGRA2RGB: ColorConversionCodes.COLOR_RGBA2BGR;
         COLOR_BGR2RGB: ColorConversionCodes.COLOR_BGR2RGB;
-        COLOR_RGB2BGR: ColorConversionCodes.COLOR_RGB2BGR;
+        COLOR_RGB2BGR: ColorConversionCodes.COLOR_BGR2RGB;
         COLOR_BGRA2RGBA: ColorConversionCodes.COLOR_BGRA2RGBA;
-        COLOR_RGBA2BGRA: ColorConversionCodes.COLOR_RGBA2BGRA;
+        COLOR_RGBA2BGRA: ColorConversionCodes.COLOR_BGRA2RGBA;
         COLOR_BGR2GRAY: ColorConversionCodes.COLOR_BGR2GRAY;
         COLOR_RGB2GRAY: ColorConversionCodes.COLOR_RGB2GRAY;
         COLOR_GRAY2BGR: ColorConversionCodes.COLOR_GRAY2BGR;
-        COLOR_GRAY2RGB: ColorConversionCodes.COLOR_GRAY2RGB;
+        COLOR_GRAY2RGB: ColorConversionCodes.COLOR_GRAY2BGR;
         COLOR_GRAY2BGRA: ColorConversionCodes.COLOR_GRAY2BGRA;
-        COLOR_GRAY2RGBA: ColorConversionCodes.COLOR_GRAY2RGBA;
+        COLOR_GRAY2RGBA: ColorConversionCodes.COLOR_GRAY2BGRA;
         COLOR_BGRA2GRAY: ColorConversionCodes.COLOR_BGRA2GRAY;
         COLOR_RGBA2GRAY: ColorConversionCodes.COLOR_RGBA2GRAY;
         COLOR_BGR2BGR565: ColorConversionCodes.COLOR_BGR2BGR565;
@@ -143,83 +229,83 @@ declare module opencv {
         COLOR_YUV2BGR_NV12: ColorConversionCodes.COLOR_YUV2BGR_NV12;
         COLOR_YUV2RGB_NV21: ColorConversionCodes.COLOR_YUV2RGB_NV21;
         COLOR_YUV2BGR_NV21: ColorConversionCodes.COLOR_YUV2BGR_NV21;
-        COLOR_YUV420sp2RGB: ColorConversionCodes.COLOR_YUV420sp2RGB;
-        COLOR_YUV420sp2BGR: ColorConversionCodes.COLOR_YUV420sp2BGR;
+        COLOR_YUV420sp2RGB: ColorConversionCodes.COLOR_YUV2RGB_NV21;
+        COLOR_YUV420sp2BGR: ColorConversionCodes.COLOR_YUV2BGR_NV21;
         COLOR_YUV2RGBA_NV12: ColorConversionCodes.COLOR_YUV2RGBA_NV12;
         COLOR_YUV2BGRA_NV12: ColorConversionCodes.COLOR_YUV2BGRA_NV12;
         COLOR_YUV2RGBA_NV21: ColorConversionCodes.COLOR_YUV2RGBA_NV21;
         COLOR_YUV2BGRA_NV21: ColorConversionCodes.COLOR_YUV2BGRA_NV21;
-        COLOR_YUV420sp2RGBA: ColorConversionCodes.COLOR_YUV420sp2RGBA;
-        COLOR_YUV420sp2BGRA: ColorConversionCodes.COLOR_YUV420sp2BGRA;
+        COLOR_YUV420sp2RGBA: ColorConversionCodes.COLOR_YUV2RGBA_NV21;
+        COLOR_YUV420sp2BGRA: ColorConversionCodes.COLOR_YUV2BGRA_NV21;
         COLOR_YUV2RGB_YV12: ColorConversionCodes.COLOR_YUV2RGB_YV12;
         COLOR_YUV2BGR_YV12: ColorConversionCodes.COLOR_YUV2BGR_YV12;
         COLOR_YUV2RGB_IYUV: ColorConversionCodes.COLOR_YUV2RGB_IYUV;
         COLOR_YUV2BGR_IYUV: ColorConversionCodes.COLOR_YUV2BGR_IYUV;
-        COLOR_YUV2RGB_I420: ColorConversionCodes.COLOR_YUV2RGB_I420;
-        COLOR_YUV2BGR_I420: ColorConversionCodes.COLOR_YUV2BGR_I420;
-        COLOR_YUV420p2RGB: ColorConversionCodes.COLOR_YUV420p2RGB;
-        COLOR_YUV420p2BGR: ColorConversionCodes.COLOR_YUV420p2BGR;
+        COLOR_YUV2RGB_I420: ColorConversionCodes.COLOR_YUV2RGB_IYUV;
+        COLOR_YUV2BGR_I420: ColorConversionCodes.COLOR_YUV2BGR_IYUV;
+        COLOR_YUV420p2RGB: ColorConversionCodes.COLOR_YUV2RGB_YV12;
+        COLOR_YUV420p2BGR: ColorConversionCodes.COLOR_YUV2BGR_YV12;
         COLOR_YUV2RGBA_YV12: ColorConversionCodes.COLOR_YUV2RGBA_YV12;
         COLOR_YUV2BGRA_YV12: ColorConversionCodes.COLOR_YUV2BGRA_YV12;
         COLOR_YUV2RGBA_IYUV: ColorConversionCodes.COLOR_YUV2RGBA_IYUV;
         COLOR_YUV2BGRA_IYUV: ColorConversionCodes.COLOR_YUV2BGRA_IYUV;
-        COLOR_YUV2RGBA_I420: ColorConversionCodes.COLOR_YUV2RGBA_I420;
-        COLOR_YUV2BGRA_I420: ColorConversionCodes.COLOR_YUV2BGRA_I420;
-        COLOR_YUV420p2RGBA: ColorConversionCodes.COLOR_YUV420p2RGBA;
-        COLOR_YUV420p2BGRA: ColorConversionCodes.COLOR_YUV420p2BGRA;
+        COLOR_YUV2RGBA_I420: ColorConversionCodes.COLOR_YUV2RGBA_IYUV;
+        COLOR_YUV2BGRA_I420: ColorConversionCodes.COLOR_YUV2BGRA_IYUV;
+        COLOR_YUV420p2RGBA: ColorConversionCodes.COLOR_YUV2RGBA_YV12;
+        COLOR_YUV420p2BGRA: ColorConversionCodes.COLOR_YUV2BGRA_YV12;
         COLOR_YUV2GRAY_420: ColorConversionCodes.COLOR_YUV2GRAY_420;
-        COLOR_YUV2GRAY_NV21: ColorConversionCodes.COLOR_YUV2GRAY_NV21;
-        COLOR_YUV2GRAY_NV12: ColorConversionCodes.COLOR_YUV2GRAY_NV12;
-        COLOR_YUV2GRAY_YV12: ColorConversionCodes.COLOR_YUV2GRAY_YV12;
-        COLOR_YUV2GRAY_IYUV: ColorConversionCodes.COLOR_YUV2GRAY_IYUV;
-        COLOR_YUV2GRAY_I420: ColorConversionCodes.COLOR_YUV2GRAY_I420;
-        COLOR_YUV420sp2GRAY: ColorConversionCodes.COLOR_YUV420sp2GRAY;
-        COLOR_YUV420p2GRAY: ColorConversionCodes.COLOR_YUV420p2GRAY;
+        COLOR_YUV2GRAY_NV21: ColorConversionCodes.COLOR_YUV2GRAY_420;
+        COLOR_YUV2GRAY_NV12: ColorConversionCodes.COLOR_YUV2GRAY_420;
+        COLOR_YUV2GRAY_YV12: ColorConversionCodes.COLOR_YUV2GRAY_420;
+        COLOR_YUV2GRAY_IYUV: ColorConversionCodes.COLOR_YUV2GRAY_420;
+        COLOR_YUV2GRAY_I420: ColorConversionCodes.COLOR_YUV2GRAY_420;
+        COLOR_YUV420sp2GRAY: ColorConversionCodes.COLOR_YUV2GRAY_420;
+        COLOR_YUV420p2GRAY: ColorConversionCodes.COLOR_YUV2GRAY_420;
         COLOR_YUV2RGB_UYVY: ColorConversionCodes.COLOR_YUV2RGB_UYVY;
         COLOR_YUV2BGR_UYVY: ColorConversionCodes.COLOR_YUV2BGR_UYVY;
-        COLOR_YUV2RGB_Y422: ColorConversionCodes.COLOR_YUV2RGB_Y422;
-        COLOR_YUV2BGR_Y422: ColorConversionCodes.COLOR_YUV2BGR_Y422;
-        COLOR_YUV2RGB_UYNV: ColorConversionCodes.COLOR_YUV2RGB_UYNV;
-        COLOR_YUV2BGR_UYNV: ColorConversionCodes.COLOR_YUV2BGR_UYNV;
+        COLOR_YUV2RGB_Y422: ColorConversionCodes.COLOR_YUV2RGB_UYVY;
+        COLOR_YUV2BGR_Y422: ColorConversionCodes.COLOR_YUV2BGR_UYVY;
+        COLOR_YUV2RGB_UYNV: ColorConversionCodes.COLOR_YUV2RGB_UYVY;
+        COLOR_YUV2BGR_UYNV: ColorConversionCodes.COLOR_YUV2BGR_UYVY;
         COLOR_YUV2RGBA_UYVY: ColorConversionCodes.COLOR_YUV2RGBA_UYVY;
         COLOR_YUV2BGRA_UYVY: ColorConversionCodes.COLOR_YUV2BGRA_UYVY;
-        COLOR_YUV2RGBA_Y422: ColorConversionCodes.COLOR_YUV2RGBA_Y422;
-        COLOR_YUV2BGRA_Y422: ColorConversionCodes.COLOR_YUV2BGRA_Y422;
-        COLOR_YUV2RGBA_UYNV: ColorConversionCodes.COLOR_YUV2RGBA_UYNV;
-        COLOR_YUV2BGRA_UYNV: ColorConversionCodes.COLOR_YUV2BGRA_UYNV;
+        COLOR_YUV2RGBA_Y422: ColorConversionCodes.COLOR_YUV2RGBA_UYVY;
+        COLOR_YUV2BGRA_Y422: ColorConversionCodes.COLOR_YUV2BGRA_UYVY;
+        COLOR_YUV2RGBA_UYNV: ColorConversionCodes.COLOR_YUV2RGBA_UYVY;
+        COLOR_YUV2BGRA_UYNV: ColorConversionCodes.COLOR_YUV2BGRA_UYVY;
         COLOR_YUV2RGB_YUY2: ColorConversionCodes.COLOR_YUV2RGB_YUY2;
         COLOR_YUV2BGR_YUY2: ColorConversionCodes.COLOR_YUV2BGR_YUY2;
         COLOR_YUV2RGB_YVYU: ColorConversionCodes.COLOR_YUV2RGB_YVYU;
         COLOR_YUV2BGR_YVYU: ColorConversionCodes.COLOR_YUV2BGR_YVYU;
-        COLOR_YUV2RGB_YUYV: ColorConversionCodes.COLOR_YUV2RGB_YUYV;
-        COLOR_YUV2BGR_YUYV: ColorConversionCodes.COLOR_YUV2BGR_YUYV;
-        COLOR_YUV2RGB_YUNV: ColorConversionCodes.COLOR_YUV2RGB_YUNV;
-        COLOR_YUV2BGR_YUNV: ColorConversionCodes.COLOR_YUV2BGR_YUNV;
+        COLOR_YUV2RGB_YUYV: ColorConversionCodes.COLOR_YUV2RGB_YUY2;
+        COLOR_YUV2BGR_YUYV: ColorConversionCodes.COLOR_YUV2BGR_YUY2;
+        COLOR_YUV2RGB_YUNV: ColorConversionCodes.COLOR_YUV2RGB_YUY2;
+        COLOR_YUV2BGR_YUNV: ColorConversionCodes.COLOR_YUV2BGR_YUY2;
         COLOR_YUV2RGBA_YUY2: ColorConversionCodes.COLOR_YUV2RGBA_YUY2;
         COLOR_YUV2BGRA_YUY2: ColorConversionCodes.COLOR_YUV2BGRA_YUY2;
         COLOR_YUV2RGBA_YVYU: ColorConversionCodes.COLOR_YUV2RGBA_YVYU;
         COLOR_YUV2BGRA_YVYU: ColorConversionCodes.COLOR_YUV2BGRA_YVYU;
-        COLOR_YUV2RGBA_YUYV: ColorConversionCodes.COLOR_YUV2RGBA_YUYV;
-        COLOR_YUV2BGRA_YUYV: ColorConversionCodes.COLOR_YUV2BGRA_YUYV;
-        COLOR_YUV2RGBA_YUNV: ColorConversionCodes.COLOR_YUV2RGBA_YUNV;
-        COLOR_YUV2BGRA_YUNV: ColorConversionCodes.COLOR_YUV2BGRA_YUNV;
+        COLOR_YUV2RGBA_YUYV: ColorConversionCodes.COLOR_YUV2RGBA_YUY2;
+        COLOR_YUV2BGRA_YUYV: ColorConversionCodes.COLOR_YUV2BGRA_YUY2;
+        COLOR_YUV2RGBA_YUNV: ColorConversionCodes.COLOR_YUV2RGBA_YUY2;
+        COLOR_YUV2BGRA_YUNV: ColorConversionCodes.COLOR_YUV2BGRA_YUY2;
         COLOR_YUV2GRAY_UYVY: ColorConversionCodes.COLOR_YUV2GRAY_UYVY;
         COLOR_YUV2GRAY_YUY2: ColorConversionCodes.COLOR_YUV2GRAY_YUY2;
-        COLOR_YUV2GRAY_Y422: ColorConversionCodes.COLOR_YUV2GRAY_Y422;
-        COLOR_YUV2GRAY_UYNV: ColorConversionCodes.COLOR_YUV2GRAY_UYNV;
-        COLOR_YUV2GRAY_YVYU: ColorConversionCodes.COLOR_YUV2GRAY_YVYU;
-        COLOR_YUV2GRAY_YUYV: ColorConversionCodes.COLOR_YUV2GRAY_YUYV;
-        COLOR_YUV2GRAY_YUNV: ColorConversionCodes.COLOR_YUV2GRAY_YUNV;
+        COLOR_YUV2GRAY_Y422: ColorConversionCodes.COLOR_YUV2GRAY_UYVY;
+        COLOR_YUV2GRAY_UYNV: ColorConversionCodes.COLOR_YUV2GRAY_UYVY;
+        COLOR_YUV2GRAY_YVYU: ColorConversionCodes.COLOR_YUV2GRAY_YUY2;
+        COLOR_YUV2GRAY_YUYV: ColorConversionCodes.COLOR_YUV2GRAY_YUY2;
+        COLOR_YUV2GRAY_YUNV: ColorConversionCodes.COLOR_YUV2GRAY_YUY2;
         COLOR_RGBA2mRGBA: ColorConversionCodes.COLOR_RGBA2mRGBA;
         COLOR_mRGBA2RGBA: ColorConversionCodes.COLOR_mRGBA2RGBA;
         COLOR_RGB2YUV_I420: ColorConversionCodes.COLOR_RGB2YUV_I420;
         COLOR_BGR2YUV_I420: ColorConversionCodes.COLOR_BGR2YUV_I420;
-        COLOR_RGB2YUV_IYUV: ColorConversionCodes.COLOR_RGB2YUV_IYUV;
-        COLOR_BGR2YUV_IYUV: ColorConversionCodes.COLOR_BGR2YUV_IYUV;
+        COLOR_RGB2YUV_IYUV: ColorConversionCodes.COLOR_RGB2YUV_I420;
+        COLOR_BGR2YUV_IYUV: ColorConversionCodes.COLOR_BGR2YUV_I420;
         COLOR_RGBA2YUV_I420: ColorConversionCodes.COLOR_RGBA2YUV_I420;
         COLOR_BGRA2YUV_I420: ColorConversionCodes.COLOR_BGRA2YUV_I420;
-        COLOR_RGBA2YUV_IYUV: ColorConversionCodes.COLOR_RGBA2YUV_IYUV;
-        COLOR_BGRA2YUV_IYUV: ColorConversionCodes.COLOR_BGRA2YUV_IYUV;
+        COLOR_RGBA2YUV_IYUV: ColorConversionCodes.COLOR_RGBA2YUV_I420;
+        COLOR_BGRA2YUV_IYUV: ColorConversionCodes.COLOR_BGRA2YUV_I420;
         COLOR_RGB2YUV_YV12: ColorConversionCodes.COLOR_RGB2YUV_YV12;
         COLOR_BGR2YUV_YV12: ColorConversionCodes.COLOR_BGR2YUV_YV12;
         COLOR_RGBA2YUV_YV12: ColorConversionCodes.COLOR_RGBA2YUV_YV12;
@@ -228,10 +314,10 @@ declare module opencv {
         COLOR_BayerGB2BGR: ColorConversionCodes.COLOR_BayerGB2BGR;
         COLOR_BayerRG2BGR: ColorConversionCodes.COLOR_BayerRG2BGR;
         COLOR_BayerGR2BGR: ColorConversionCodes.COLOR_BayerGR2BGR;
-        COLOR_BayerBG2RGB: ColorConversionCodes.COLOR_BayerBG2RGB;
-        COLOR_BayerGB2RGB: ColorConversionCodes.COLOR_BayerGB2RGB;
-        COLOR_BayerRG2RGB: ColorConversionCodes.COLOR_BayerRG2RGB;
-        COLOR_BayerGR2RGB: ColorConversionCodes.COLOR_BayerGR2RGB;
+        COLOR_BayerBG2RGB: ColorConversionCodes.COLOR_BayerRG2BGR;
+        COLOR_BayerGB2RGB: ColorConversionCodes.COLOR_BayerGR2BGR;
+        COLOR_BayerRG2RGB: ColorConversionCodes.COLOR_BayerBG2BGR;
+        COLOR_BayerGR2RGB: ColorConversionCodes.COLOR_BayerGB2BGR;
         COLOR_BayerBG2GRAY: ColorConversionCodes.COLOR_BayerBG2GRAY;
         COLOR_BayerGB2GRAY: ColorConversionCodes.COLOR_BayerGB2GRAY;
         COLOR_BayerRG2GRAY: ColorConversionCodes.COLOR_BayerRG2GRAY;
@@ -240,140 +326,30 @@ declare module opencv {
         COLOR_BayerGB2BGR_VNG: ColorConversionCodes.COLOR_BayerGB2BGR_VNG;
         COLOR_BayerRG2BGR_VNG: ColorConversionCodes.COLOR_BayerRG2BGR_VNG;
         COLOR_BayerGR2BGR_VNG: ColorConversionCodes.COLOR_BayerGR2BGR_VNG;
-        COLOR_BayerBG2RGB_VNG: ColorConversionCodes.COLOR_BayerBG2RGB_VNG;
-        COLOR_BayerGB2RGB_VNG: ColorConversionCodes.COLOR_BayerGB2RGB_VNG;
-        COLOR_BayerRG2RGB_VNG: ColorConversionCodes.COLOR_BayerRG2RGB_VNG;
-        COLOR_BayerGR2RGB_VNG: ColorConversionCodes.COLOR_BayerGR2RGB_VNG;
+        COLOR_BayerBG2RGB_VNG: ColorConversionCodes.COLOR_BayerRG2BGR_VNG;
+        COLOR_BayerGB2RGB_VNG: ColorConversionCodes.COLOR_BayerGR2BGR_VNG;
+        COLOR_BayerRG2RGB_VNG: ColorConversionCodes.COLOR_BayerBG2BGR_VNG;
+        COLOR_BayerGR2RGB_VNG: ColorConversionCodes.COLOR_BayerGB2BGR_VNG;
         COLOR_BayerBG2BGR_EA: ColorConversionCodes.COLOR_BayerBG2BGR_EA;
         COLOR_BayerGB2BGR_EA: ColorConversionCodes.COLOR_BayerGB2BGR_EA;
         COLOR_BayerRG2BGR_EA: ColorConversionCodes.COLOR_BayerRG2BGR_EA;
         COLOR_BayerGR2BGR_EA: ColorConversionCodes.COLOR_BayerGR2BGR_EA;
-        COLOR_BayerBG2RGB_EA: ColorConversionCodes.COLOR_BayerBG2RGB_EA;
-        COLOR_BayerGB2RGB_EA: ColorConversionCodes.COLOR_BayerGB2RGB_EA;
-        COLOR_BayerRG2RGB_EA: ColorConversionCodes.COLOR_BayerRG2RGB_EA;
-        COLOR_BayerGR2RGB_EA: ColorConversionCodes.COLOR_BayerGR2RGB_EA;
+        COLOR_BayerBG2RGB_EA: ColorConversionCodes.COLOR_BayerRG2BGR_EA;
+        COLOR_BayerGB2RGB_EA: ColorConversionCodes.COLOR_BayerGR2BGR_EA;
+        COLOR_BayerRG2RGB_EA: ColorConversionCodes.COLOR_BayerBG2BGR_EA;
+        COLOR_BayerGR2RGB_EA: ColorConversionCodes.COLOR_BayerGB2BGR_EA;
         COLOR_BayerBG2BGRA: ColorConversionCodes.COLOR_BayerBG2BGRA;
         COLOR_BayerGB2BGRA: ColorConversionCodes.COLOR_BayerGB2BGRA;
         COLOR_BayerRG2BGRA: ColorConversionCodes.COLOR_BayerRG2BGRA;
         COLOR_BayerGR2BGRA: ColorConversionCodes.COLOR_BayerGR2BGRA;
-        COLOR_BayerBG2RGBA: ColorConversionCodes.COLOR_BayerBG2RGBA;
-        COLOR_BayerGB2RGBA: ColorConversionCodes.COLOR_BayerGB2RGBA;
-        COLOR_BayerRG2RGBA: ColorConversionCodes.COLOR_BayerRG2RGBA;
-        COLOR_BayerGR2RGBA: ColorConversionCodes.COLOR_BayerGR2RGBA;
+        COLOR_BayerBG2RGBA: ColorConversionCodes.COLOR_BayerRG2BGRA;
+        COLOR_BayerGB2RGBA: ColorConversionCodes.COLOR_BayerGR2BGRA;
+        COLOR_BayerRG2RGBA: ColorConversionCodes.COLOR_BayerBG2BGRA;
+        COLOR_BayerGR2RGBA: ColorConversionCodes.COLOR_BayerGB2BGRA;
         COLORCOLORCVT_MAX: ColorConversionCodes.COLOR_COLORCVT_MAX;
-
-        cvtColor(src: Mat, dst: Mat, code: ColorConversionCodes, dstCn?: number): void;
-        cvtColorTwoPlane(
-            src1: Mat,
-            src2: Mat,
-            dst: Mat,
-            code:
-                | ColorConversionCodes.COLOR_YUV2RGB_NV12
-                | ColorConversionCodes.COLOR_YUV2BGR_NV12
-                | ColorConversionCodes.COLOR_YUV2RGB_NV21
-                | ColorConversionCodes.COLOR_YUV2BGR_NV21
-                | ColorConversionCodes.COLOR_YUV2RGBA_NV12
-                | ColorConversionCodes.COLOR_YUV2BGRA_NV12
-                | ColorConversionCodes.COLOR_YUV2RGBA_NV21
-                | ColorConversionCodes.COLOR_YUV2BGRA_NV21
-        ): void;
-        demosaicing(
-            src: Mat,
-            dst: Mat,
-            code:
-                | ColorConversionCodes.COLOR_BayerBG2BGR
-                | ColorConversionCodes.COLOR_BayerGB2BGR
-                | ColorConversionCodes.COLOR_BayerRG2BGR
-                | ColorConversionCodes.COLOR_BayerGR2BGR
-                | ColorConversionCodes.COLOR_BayerBG2GRAY
-                | ColorConversionCodes.COLOR_BayerGB2GRAY
-                | ColorConversionCodes.COLOR_BayerRG2GRAY
-                | ColorConversionCodes.COLOR_BayerGR2GRAY
-                | ColorConversionCodes.COLOR_BayerBG2BGR_VNG
-                | ColorConversionCodes.COLOR_BayerGB2BGR_VNG
-                | ColorConversionCodes.COLOR_BayerRG2BGR_VNG
-                | ColorConversionCodes.COLOR_BayerGR2BGR_VNG
-                | ColorConversionCodes.COLOR_BayerBG2BGR_EA
-                | ColorConversionCodes.COLOR_BayerGB2BGR_EA
-                | ColorConversionCodes.COLOR_BayerRG2BGR_EA
-                | ColorConversionCodes.COLOR_BayerGR2BGR_EA
-                | ColorConversionCodes.COLOR_BayerBG2BGRA
-                | ColorConversionCodes.COLOR_BayerGB2BGRA
-                | ColorConversionCodes.COLOR_BayerRG2BGRA
-                | ColorConversionCodes.COLOR_BayerGR2BGRA,
-            dstCn?: number
-        ): void;
-
-        // Mat data types
-        CV_8U: DataTypes.CV_8U;
-        CV_8S: DataTypes.CV_8S;
-        CV_16U: DataTypes.CV_16U;
-        CV_16S: DataTypes.CV_16S;
-        CV_32S: DataTypes.CV_32S;
-        CV_32F: DataTypes.CV_32F;
-        CV_64F: DataTypes.CV_64F;
-        CV_16F: DataTypes.CV_16F;
-        CV_8UC1: DataTypes.CV_8UC1;
-        CV_8UC2: DataTypes.CV_8UC2;
-        CV_8UC3: DataTypes.CV_8UC3;
-        CV_8UC4: DataTypes.CV_8UC4;
-        CV_8SC1: DataTypes.CV_8SC1;
-        CV_8SC2: DataTypes.CV_8SC2;
-        CV_8SC3: DataTypes.CV_8SC3;
-        CV_8SC4: DataTypes.CV_8SC4;
-        CV_16UC1: DataTypes.CV_16UC1;
-        CV_16UC2: DataTypes.CV_16UC2;
-        CV_16UC3: DataTypes.CV_16UC3;
-        CV_16UC4: DataTypes.CV_16UC4;
-        CV_16SC1: DataTypes.CV_16SC1;
-        CV_16SC2: DataTypes.CV_16SC2;
-        CV_16SC3: DataTypes.CV_16SC3;
-        CV_16SC4: DataTypes.CV_16SC4;
-        CV_32SC1: DataTypes.CV_32SC1;
-        CV_32SC2: DataTypes.CV_32SC2;
-        CV_32SC3: DataTypes.CV_32SC3;
-        CV_32SC4: DataTypes.CV_32SC4;
-        CV_32FC1: DataTypes.CV_32FC1;
-        CV_32FC2: DataTypes.CV_32FC2;
-        CV_32FC3: DataTypes.CV_32FC3;
-        CV_32FC4: DataTypes.CV_32FC4;
-        CV_64FC1: DataTypes.CV_64FC1;
-        CV_64FC2: DataTypes.CV_64FC2;
-        CV_64FC3: DataTypes.CV_64FC3;
-        CV_64FC4: DataTypes.CV_64FC4;
-        CV_16FC1: DataTypes.CV_16FC1;
-        CV_16FC2: DataTypes.CV_16FC2;
-        CV_16FC3: DataTypes.CV_16FC3;
-        CV_16FC4: DataTypes.CV_16FC4;
-
-        // JS only helper functions
-        /**
-         * Renders an input Mat to a canvas object
-         * @param canvasSource HTMLCanvas element or id of HTMLCanvas to output Mat to
-         * @param mat input source mat
-         */
-        imshow(canvasSource: string | HTMLCanvasElement, mat: Mat): void;
-        /**
-         * Reads image data from a source canvas and outputs it to an instance of cv.Mat
-         * @param imageSource source canvas to read imagedata from
-         */
-        imread(imageSource: string): Mat;
-        /**
-         * Function called when opencv is initialized
-         */
-        onRuntimeInitialized: () => void;
-
-        VideoCapture: VideoCapture;
-
-        // Core classes
-        Mat: Mat;
-        Size: Size;
-        Point: Point;
-        Range: Range;
-        Scalar: Scalar;
-        Rect: Rect;
-
-        // Image Processing
+        MORPH_RECT: MorphShapes.MORPH_RECT;
+        MORPH_CROSS: MorphShapes.MORPH_CROSS;
+        MORPH_ELLIPSE: MorphShapes.MORPH_ELLIPSE;
         MORPH_ERODE: MorphTypes.MORPH_ERODE;
         MORPH_DILATE: MorphTypes.MORPH_DILATE;
         MORPH_CLOSE: MorphTypes.MORPH_CLOSE;
@@ -381,13 +357,305 @@ declare module opencv {
         MORPH_TOPHAT: MorphTypes.MORPH_TOPHAT;
         MORPH_BLACKHAT: MorphTypes.MORPH_BLACKHAT;
         MORPH_HITMISS: MorphTypes.MORPH_HITMISS;
-
         FILTER_SCHARR: SpecialFilter;
+        BORDER_CONSTANT: BorderTypes.BORDER_CONSTANT;
+        BORDER_REPLICATE: BorderTypes.BORDER_REPLICATE;
+        BORDER_REFLECT: BorderTypes.BORDER_REFLECT;
+        BORDER_WRAP: BorderTypes.BORDER_WRAP;
+        BORDER_REFLECT_101: BorderTypes.BORDER_REFLECT_101;
+        BORDER_TRANSPARENT: BorderTypes.BORDER_TRANSPARENT;
+        BORDER_REFLECT101: BorderTypes.BORDER_REFLECT_101;
+        BORDER_DEFAULT: BorderTypes.BORDER_REFLECT_101;
+        BORDER_ISOLATED: BorderTypes.BORDER_ISOLATED;
+        DECOMP_LU: DecompTypes.DECOMP_LU;
+        DECOMP_SVD: DecompTypes.DECOMP_SVD;
+        DECOMP_EIG: DecompTypes.DECOMP_EIG;
+        DECOMP_CHOLESKY: DecompTypes.DECOMP_CHOLESKY;
+        DECOMP_QR: DecompTypes.DECOMP_QR;
+        DECOMP_NORMAL: DecompTypes.DECOMP_NORMAL;
+        CMP_EQ: CmpTypes.CMP_EQ;
+        CMP_GT: CmpTypes.CMP_GT;
+        CMP_GE: CmpTypes.CMP_GE;
+        CMP_LT: CmpTypes.CMP_LT;
+        CMP_LE: CmpTypes.CMP_LE;
+        CMP_NE: CmpTypes.CMP_NE;
+        DFT_INVERSE: DftFlags.DFT_INVERSE;
+        DFT_SCALE: DftFlags.DFT_SCALE;
+        DFT_ROWS: DftFlags.DFT_ROWS;
+        DFT_COMPLEX_OUTPUT: DftFlags.DFT_COMPLEX_OUTPUT;
+        DFT_REAL_OUTPUT: DftFlags.DFT_REAL_OUTPUT;
+        DFT_COMPLEX_INPUT: DftFlags.DFT_COMPLEX_INPUT;
+        DCT_INVERSE: DftFlags.DFT_INVERSE;
+        DCT_ROWS: DftFlags.DFT_ROWS;
+        GEMM_1_T: GemmFlags.GEMM_1_T;
+        GEMM_2_T: GemmFlags.GEMM_2_T;
+        GEMM_3_T: GemmFlags.GEMM_3_T;
+        NORM_INF: NormTypes.NORM_INF;
+        NORM_L1: NormTypes.NORM_L1;
+        NORM_L2: NormTypes.NORM_L2;
+        NORM_L2SQR: NormTypes.NORM_L2SQR;
+        NORM_HAMMING: NormTypes.NORM_HAMMING;
+        NORM_HAMMING2: NormTypes.NORM_HAMMING2;
+        NORM_TYPE_MASK: NormTypes.NORM_HAMMING2;
+        NORM_RELATIVE: NormTypes.NORM_RELATIVE;
+        NORM_MINMAX: NormTypes.NORM_MINMAX;
+        REDUCE_SUM: ReduceTypes.REDUCE_SUM;
+        REDUCE_AVG: ReduceTypes.REDUCE_AVG;
+        REDUCE_MAX: ReduceTypes.REDUCE_MAX;
+        REDUCE_MIN: ReduceTypes.REDUCE_MIN;
+        ROTATE_90_CLOCKWISE: RotateFlags.ROTATE_90_CLOCKWISE;
+        ROTATE_180: RotateFlags.ROTATE_180;
+        ROTATE_90_COUNTERCLOCKWISE: RotateFlags.ROTATE_90_COUNTERCLOCKWISE;
+        COVAR_SCRAMBLED: CovarFlags.COVAR_SCRAMBLED;
+        COVAR_NORMAL: CovarFlags.COVAR_NORMAL;
+        COVAR_USE_AVG: CovarFlags.COVAR_USE_AVG;
+        COVAR_SCALE: CovarFlags.COVAR_SCALE;
+        COVAR_ROWS: CovarFlags.COVAR_ROWS;
+        COVAR_COLS: CovarFlags.COVAR_COLS;
+        SORT_EVERY_ROW: SortFlags.SORT_EVERY_ROW;
+        SORT_EVERY_COLUMN: SortFlags.SORT_EVERY_COLUMN;
+        SORT_ASCENDING: SortFlags.SORT_EVERY_ROW;
+        SORT_DESCENDING: SortFlags.SORT_DESCENDING;
 
-        MORPH_RECT: MorphShapes.MORPH_RECT;
-        MORPH_CROSS: MorphShapes.MORPH_CROSS;
-        MORPH_ELLIPSE: MorphShapes.MORPH_ELLIPSE;
+        // Core Array functions
+        absdiff(src1: Mat, src2: Mat, dst: Mat): void;
+        add(src1: Mat, src2: Mat, dst: Mat, mask?: Mat): void;
+        add(src1: Mat, src2: Mat, dst: Mat, mask: Mat, dtype: number | DataTypes): void;
+        addWeighted(
+            src1: Mat,
+            alpha: number,
+            src2: Mat,
+            beta: number,
+            gamma: number,
+            dst: Mat,
+            dtype?: number | DataTypes
+        ): void;
+        batchDistance(
+            src1: Mat,
+            src2: Mat,
+            dist: Mat,
+            dtype: number | DataTypes,
+            nidx: Mat,
+            normType: NormTypes,
+            K: number,
+            mask: Mat,
+            update: number,
+            crosscheck: boolean
+        ): void;
+        bitwise_and(src1: Mat, src2: Mat, dst: Mat, mask?: Mat): void;
+        bitwise_not(src: Mat, dst: Mat, mask?: Mat): void;
+        bitwise_or(src1: Mat, src2: Mat, dst: Mat, mask?: Mat): void;
+        bitwise_xor(src1: Mat, src2: Mat, dst: Mat, mask?: Mat): void;
+        borderInterpolate(p: number, len: number, borderType: BorderTypes): number;
+        calcCovarMatrix(
+            samples: Mat,
+            nsamples: number,
+            covar: Mat,
+            mean: Mat,
+            flags: CovarFlags,
+            ctype: DataTypes
+        ): void;
+        calcCovarMatrix(
+            samples: Mat,
+            covar: Mat,
+            mean: Mat,
+            flags: CovarFlags,
+            ctype: DataTypes
+        ): void;
+        cartToPolar(
+            x: Mat | NDArray<number>,
+            y: Mat | NDArray<number>,
+            magnitude: Mat | NDArray<number>,
+            angle: Mat | NDArray<number>,
+            angleInDegrees: boolean
+        ): void;
+        checkRange(
+            a: Mat | NDArray<number>,
+            quiet: boolean,
+            pos: Point,
+            minVal: number,
+            maxVal: number
+        ): void;
+        compare(src1: Mat, src2: Mat, dst: Mat, cmpop: CmpTypes): void;
+        completeSymm(m: Mat | NDArray<number>, lowerToUpper: boolean): void;
+        convertFp16(src: Mat, dst: Mat): void;
+        convertScaleAbs(src: Mat, dst: Mat, alpha?: number): void;
+        convertScaleAbs(src: Mat, dst: Mat, alpha: number, beta?: number): void;
+        convertScaleAbs(src: Mat, dst: Mat, alpha: number, beta: number): void;
+        copyMakeBorder(
+            src: Mat,
+            dst: Mat,
+            top: number,
+            bottom: number,
+            left: number,
+            right: number,
+            borderType: BorderTypes,
+            value: Scalar
+        ): void;
+        copyTo(src: Mat, dst: Mat, mask: Mat): void;
+        countNonZero(src: Mat | NDArray<number>): number;
+        dct(src: Mat, dst: Mat, flags: DftFlags): void;
+        determinant(src: Mat): number;
+        dft(src: Mat, dst: Mat, flags: DftFlags, nonzeroRows: number): void;
+        divide(src1: Mat, src2: Mat, dst: Mat, scale: number, dtype?: number): void;
+        divide(scale: number, src2: Mat, dst: Mat, dtype?: number): void;
+        eigen(src: Mat, eigenvalues: Mat, eigenvectors: Mat): void;
+        eigenNonSymmetric(src: Mat, eigenvalues: Mat, eigenvectors: Mat): void;
+        exp(src: Mat, dst: Mat): void;
+        extractChannel(src: Mat, dst: Mat, coi: number): void;
+        findNonZero(src: Mat, idx: Mat | NDArray<Point>): void;
+        flip(src: Mat, dst: Mat, flipCode: number): void;
+        gemm(
+            src1: Mat,
+            src2: Mat,
+            alpha: number,
+            src3: Mat,
+            beta: number,
+            dst: Mat,
+            flags: GemmFlags
+        ): void;
+        getOptimalDFTSize(vecsize: number): number;
+        hconcat(src: Mat, nsrc: number, dst: number): void;
+        hconcat(src1: Mat, src2: Mat, dst: Mat): void;
+        hconcat(src: Mat, dst: Mat, flags: DftFlags): void;
+        idft(src: Mat, dst: Mat, flags: DftFlags, nonzeroRows: number): void;
+        inRange(
+            src: Mat,
+            lowerb: Mat | NDArray<number>,
+            upperb: Mat | NDArray<number>,
+            dst: Mat
+        ): void;
+        insertChannel(src: Mat, dst: Mat, coi: number): void;
+        invert(src: Mat, dst: Mat, flags: DecompTypes): void;
+        log(src: Mat, dst: Mat): void;
+        LUT(src: Mat, lut: Mat, dst: Mat): void;
+        magnitude(x: Mat | NDArray<number>, y: Mat | NDArray<number>, magnitude: Mat): void;
+        Mahalanobis(v1: Mat | NDArray<number>, v2: Mat | NDArray<number>, icovar: Mat): void;
+        max(src1: Mat, src2: Mat, dst: Mat): void;
+        mean(src: Mat, mask?: Mat): Scalar;
+        meanStdDev(src: Mat, mean: Mat, stddev: Mat, mask?: Mat): void;
+        merge(mv: Mat, count: number, dst: Mat): void;
+        merge(mv: Mat, dst: Mat): void;
+        min(src1: Mat, src2: Mat, dst: Mat): void;
+        minMaxIdx(
+            src: Mat,
+            minVal: number,
+            maxVal: number,
+            minIdx: number,
+            maxIdx: number,
+            mask: Mat
+        ): void;
+        minMaxLoc(
+            src: Mat,
+            minVal: number,
+            maxVal: number,
+            minLoc: Point,
+            maxLoc: Point,
+            mask: Mat
+        ): void;
+        mixChannels(
+            src: Mat,
+            nsrcs: number,
+            dst: Mat,
+            ndsts: number,
+            fromTo: number,
+            npairs: number
+        ): void;
+        mixChannels(src: Mat, dst: Mat, fromTo: number, npairs: number): void;
+        mixChannels(
+            src: Mat | NDArray<number>,
+            dst: Mat | NDArray<number>,
+            fromTo: NDArray<number>
+        ): void;
+        mulSpectrums(a: Mat, b: Mat, c: Mat, flags: DftFlags, conjB?: boolean): void;
+        multiply(src1: Mat, src2: Mat, dst: Mat, scale: number, dtype?: DataTypes): void;
+        mulTransposed(
+            src: Mat,
+            dst: Mat,
+            aTa: boolean,
+            delta: Mat,
+            scale: number,
+            dtype?: DataTypes
+        ): void;
+        norm(src1: Mat, normType: NormTypes, mask?: Mat): number;
+        norm(src1: Mat, src2: Mat, normType: NormTypes, mask?: Mat): number;
+        norm(src: Mat, normType: NormTypes): number;
+        normalize(
+            src: Mat,
+            dst: Mat,
+            alpha: number,
+            beta: number,
+            normType: NormTypes,
+            dtype: DataTypes,
+            mask?: Mat
+        ): void;
+        normalize(
+            src: Mat,
+            dst: Mat,
+            alpha: number,
+            beta: number,
+            normType: NormTypes,
+            dtype?: DataTypes
+        ): void;
+        normalize(src: Mat, dst: Mat, alpha: number, normType: NormTypes): void;
+        patchNaNs(a: Mat | NDArray<number>, val: number): void;
+        PCABackProject(
+            data: Mat | NDArray<number>,
+            mean: Mat | NDArray<number>,
+            eigenvectors: Mat | NDArray<number>,
+            result: Mat | NDArray<number>
+        ): void;
+        perspectiveTransform(src: Mat, dst: Mat, m: Mat | NDArray<number>): void;
+        phase(
+            x: Mat | NDArray<number>,
+            y: Mat | NDArray<number>,
+            angle: Mat,
+            angleInDegrees: boolean
+        ): void;
+        polarToCart(
+            magnitude: Mat | NDArray<number>,
+            angle: Mat | NDArray<number>,
+            x: Mat | NDArray<number>,
+            y: Mat | NDArray<number>,
+            angleInDegrees: boolean
+        ): void;
+        pow(src: Mat, power: number, dst: Mat): void;
+        PSNR(src1: Mat, src2: Mat, R: number): number;
+        randn(dst: Mat, mean: Mat | NDArray<number>, stddev: Mat | NDArray<number>): void;
+        randShuffle(dst: Mat, iterFactor: number, rng: number): void;
+        randu(dst: Mat, low: Mat | NDArray<number>, high: Mat | NDArray<number>): void;
+        reduce(
+            src: Mat,
+            dst: Mat,
+            dim: number,
+            rtype: ReduceTypes,
+            dtype: number | DataTypes
+        ): void;
+        repeat(src: Mat, ny: number, nx: number, dst: Mat): void;
+        repeat(src: Mat, ny: number, nx: number): Mat;
+        scaleAdd(src1: Mat, alpha: number, src2: Mat, dst: Mat): void;
+        setIdentity(mtx: Mat, s: Scalar): void;
+        setRNGSeed(seed: number): void;
+        solve(src1: Mat, src2: Mat, dst: Mat, flags: DecompTypes): boolean;
+        solveCubic(coeffs: Mat, roots: Mat): number;
+        solvePoly(src: Mat, dst: Mat, maxIters: number): number;
+        sort(src: Mat, dst: Mat, flags: SortFlags): void;
+        sortIdx(src: Mat, dst: Mat, flags: SortFlags): void;
+        split(src: Mat, mvbegin: Mat): void;
+        split(src: Mat, mv: Mat): void;
+        sqrt(src: Mat, dst: Mat): void;
+        subtract(src1: Mat, src2: Mat, dst: Mat, mask: Mat, dtype: number | DataTypes): void;
+        subtract(src1: Mat, src2: Mat, dst: Mat, mask: Mat): void;
+        subtract(src1: Mat, src2: Mat, dst: Mat): void;
+        sum(src: Mat | NDArray<number>): Scalar;
+        trace(mtx: Mat): Scalar;
+        transform(src: Mat, dst: Mat, m: Mat | NDArray<number>): void;
+        transpose(src: Mat, dst: Mat): void;
+        vconcat(src: Mat, nsrc: number, dst: Mat): void;
+        vconcat(src1: Mat, src2: Mat, dst: Mat): void;
+        vconcat(src: Mat, dst: Mat): void;
 
+        // Image Filtering Module
         bilateralFilter(
             src: Mat,
             dst: Mat,
@@ -429,7 +697,7 @@ declare module opencv {
             src: Mat,
             dst: Mat,
             ddepth: number | DataTypes,
-            kernel: Mat | number[][],
+            kernel: Mat | NDArray<number>,
             anchor: Point,
             delat: number,
             borderType: BorderTypes
@@ -437,17 +705,17 @@ declare module opencv {
         GaussianBlur(
             src: Mat,
             dst: Mat,
-            ksize: number | Mat | Size,
+            ksize: number | Size,
             sigmaX: number,
             sigmaY: number,
             borderType: BorderTypes
         ): void;
         getDerivKernels(
-            kx: number[],
-            ky: number[],
+            kx: Mat | NDArray<number>,
+            ky: Mat | NDArray<number>,
             dx: number,
             dy: number,
-            ksize: 1 | 3 | 5 | 7 | SpecialFilter,
+            ksize: SpecialFilter | 1 | 3 | 5 | 7,
             normalize: boolean,
             ktype: DataTypes.CV_32F | DataTypes.CV_64F
         ): void;
@@ -511,8 +779,8 @@ declare module opencv {
             src: Mat,
             dst: Mat,
             ddepth: number | DataTypes,
-            kernelX: Mat | number[][],
-            kernelY: Mat | number[][],
+            kernelX: Mat | NDArray<number>,
+            kernelY: Mat | NDArray<number>,
             anchor: Point,
             delta: number,
             borderType: BorderTypes
@@ -530,8 +798,8 @@ declare module opencv {
         ): void;
         spatialGradient(
             src: Mat,
-            dx: Mat | number[][],
-            dy: Mat | number[][],
+            dx: Mat | NDArray<number>,
+            dy: Mat | NDArray<number>,
             ksize: number,
             borderType: BorderTypes
         ): void;
@@ -543,6 +811,47 @@ declare module opencv {
             anchor: Point,
             normalize: boolean,
             borderType: BorderTypes
+        ): void;
+        cvtColor(src: Mat, dst: Mat, code: ColorConversionCodes, dstCn?: number): void;
+        cvtColorTwoPlane(
+            src1: Mat,
+            src2: Mat,
+            dst: Mat,
+            code:
+                | ColorConversionCodes.COLOR_YUV2RGB_NV12
+                | ColorConversionCodes.COLOR_YUV2BGR_NV12
+                | ColorConversionCodes.COLOR_YUV2RGB_NV21
+                | ColorConversionCodes.COLOR_YUV2BGR_NV21
+                | ColorConversionCodes.COLOR_YUV2RGBA_NV12
+                | ColorConversionCodes.COLOR_YUV2BGRA_NV12
+                | ColorConversionCodes.COLOR_YUV2RGBA_NV21
+                | ColorConversionCodes.COLOR_YUV2BGRA_NV21
+        ): void;
+        demosaicing(
+            src: Mat,
+            dst: Mat,
+            code:
+                | ColorConversionCodes.COLOR_BayerBG2BGR
+                | ColorConversionCodes.COLOR_BayerGB2BGR
+                | ColorConversionCodes.COLOR_BayerRG2BGR
+                | ColorConversionCodes.COLOR_BayerGR2BGR
+                | ColorConversionCodes.COLOR_BayerBG2GRAY
+                | ColorConversionCodes.COLOR_BayerGB2GRAY
+                | ColorConversionCodes.COLOR_BayerRG2GRAY
+                | ColorConversionCodes.COLOR_BayerGR2GRAY
+                | ColorConversionCodes.COLOR_BayerBG2BGR_VNG
+                | ColorConversionCodes.COLOR_BayerGB2BGR_VNG
+                | ColorConversionCodes.COLOR_BayerRG2BGR_VNG
+                | ColorConversionCodes.COLOR_BayerGR2BGR_VNG
+                | ColorConversionCodes.COLOR_BayerBG2BGR_EA
+                | ColorConversionCodes.COLOR_BayerGB2BGR_EA
+                | ColorConversionCodes.COLOR_BayerRG2BGR_EA
+                | ColorConversionCodes.COLOR_BayerGR2BGR_EA
+                | ColorConversionCodes.COLOR_BayerBG2BGRA
+                | ColorConversionCodes.COLOR_BayerGB2BGRA
+                | ColorConversionCodes.COLOR_BayerRG2BGRA
+                | ColorConversionCodes.COLOR_BayerGR2BGRA,
+            dstCn?: number
         ): void;
     }
 }
