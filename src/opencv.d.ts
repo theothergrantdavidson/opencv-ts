@@ -41,6 +41,15 @@ import {
 } from './core/CoreArray';
 import { CovarFlags, _CovarFlags, NDArray } from './core/Core';
 import { SortFlags, _SortFlags } from './core/Utils';
+import {
+    InterpolationFlags,
+    _InterpolationFlags,
+    InterpolationMasks,
+    _InterpolationMasks,
+    WarpPolarMode,
+    _WarpPolarMode,
+    GeometricImageTransformations,
+} from './ImageProcessing/GeometricImageTransformations';
 
 declare module opencv {
     interface VideoCapture {
@@ -71,6 +80,10 @@ declare module opencv {
             _RotateFlags,
             _CovarFlags,
             _SortFlags,
+            _InterpolationFlags,
+            _InterpolationMasks,
+            _WarpPolarMode,
+            GeometricImageTransformations,
             CoreArray,
             ImageFiltering,
             ColorConversions {
@@ -100,6 +113,23 @@ declare module opencv {
         Range: Range;
         Scalar: Scalar;
         Rect: Rect;
+
+        INTER_NEAREST: InterpolationFlags.INTER_NEAREST;
+        INTER_LINEAR: InterpolationFlags.INTER_LINEAR;
+        INTER_CUBIC: InterpolationFlags.INTER_CUBIC;
+        INTER_AREA: InterpolationFlags.INTER_AREA;
+        INTER_LANCZOS4: InterpolationFlags.INTER_LANCZOS4;
+        INTER_LINEAR_EXACT: InterpolationFlags.INTER_LINEAR_EXACT;
+        INTER_NEAREST_EXACT: InterpolationFlags.INTER_NEAREST_EXACT;
+        INTER_MAX: InterpolationFlags.INTER_MAX;
+        WARP_FILL_OUTLIERS: InterpolationFlags.WARP_FILL_OUTLIERS;
+        WARP_INVERSE_MAP: InterpolationFlags.WARP_INVERSE_MAP;
+        INTER_BITS: InterpolationMasks.INTER_BITS;
+        INTER_BITS2: InterpolationMasks.INTER_BITS2;
+        INTER_TAB_SIZE: InterpolationMasks.INTER_TAB_SIZE;
+        INTER_TAB_SIZE2: InterpolationMasks.INTER_TAB_SIZE2;
+        WARP_POLAR_LINEAR: WarpPolarMode.WARP_POLAR_LINEAR;
+        WARP_POLAR_LOG: WarpPolarMode.WARP_POLAR_LOG;
 
         CV_8U: DataTypes.CV_8U;
         CV_8S: DataTypes.CV_8S;
@@ -852,6 +882,110 @@ declare module opencv {
                 | ColorConversionCodes.COLOR_BayerRG2BGRA
                 | ColorConversionCodes.COLOR_BayerGR2BGRA,
             dstCn?: number
+        ): void;
+
+        // Geometric ImageT ransformations
+        convertMaps(
+            map1: Mat,
+            map2: Mat,
+            dstmap1: Mat,
+            dstmap2: Mat,
+            dstmap1type: number | DataTypes,
+            nninterpolation: boolean
+        ): void;
+        getAffineTransform(src: Point, dst: Point): Mat;
+        getAffineTransform(src: Mat, dst: Mat): Mat;
+        getPerspectiveTransform(src: Mat, dst: Mat, solveMethod: number): void;
+        getRectSubPix(
+            image: Mat,
+            patchSize: Size,
+            center: Point,
+            patch: Mat,
+            patchType?: number | DataTypes
+        ): void;
+        getRotationMatrix2D(center: Point, angle: number, scale: number): Mat;
+        invertAffineTransform(M: Mat, iM: Mat): void;
+        linearPolar(
+            src: Mat,
+            dst: Mat,
+            center: Point,
+            maxRadius: number,
+            flags: WarpPolarMode
+        ): void;
+        logPolar(src: Mat, dst: Mat, center: Point, M: number, flags: WarpPolarMode): void;
+        remap(
+            src: Mat,
+            dst: Mat,
+            map1: Mat,
+            map2: Mat,
+            interpolation: number,
+            borderMode: number,
+            borderValue: Scalar
+        ): void;
+        remap(
+            src: Mat,
+            dst: Mat,
+            map1: Mat,
+            map2: Mat,
+            interpolation: number,
+            borderMode: number
+        ): void;
+        remap(src: Mat, dst: Mat, map1: Mat, map2: Mat, interpolation: number): void;
+        resize(
+            src: Mat,
+            dst: Mat,
+            dsize: Size,
+            fx: number,
+            fy: number,
+            interpolation: number
+        ): void;
+        resize(src: Mat, dst: Mat, dsize: Size, fx: number, fy: number): void;
+        resize(src: Mat, dst: Mat, dsize: Size): void;
+        warpAffine(
+            src: Mat,
+            dst: Mat,
+            M: Mat,
+            dsize: Size,
+            flags: InterpolationFlags,
+            borderMode: BorderTypes,
+            borderValue: Scalar
+        ): void;
+        warpAffine(
+            src: Mat,
+            dst: Mat,
+            M: Mat,
+            dsize: Size,
+            flags: InterpolationFlags,
+            borderMode: BorderTypes
+        ): void;
+        warpAffine(src: Mat, dst: Mat, M: Mat, dsize: Size, flags: InterpolationFlags): void;
+        warpAffine(src: Mat, dst: Mat, M: Mat, dsize: Size): void;
+        warpPerspective(
+            src: Mat,
+            dst: Mat,
+            M: Mat,
+            dsize: Size,
+            flags: InterpolationFlags,
+            borderMode: BorderTypes,
+            borderValue: Scalar
+        ): void;
+        warpPerspective(
+            src: Mat,
+            dst: Mat,
+            M: Mat,
+            dsize: Size,
+            flags: InterpolationFlags,
+            borderMode: BorderTypes
+        ): void;
+        warpPerspective(src: Mat, dst: Mat, M: Mat, dsize: Size, flags: InterpolationFlags): void;
+        warpPerspective(src: Mat, dst: Mat, M: Mat, dsize: Size): void;
+        warpPolar(
+            src: Mat,
+            dst: Mat,
+            dsize: Size,
+            center: Point,
+            maxRadius: number,
+            flags: number
         ): void;
     }
 }

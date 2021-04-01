@@ -3,7 +3,7 @@ import { DataTypes, _DataTypes } from './HalInterface';
 import { Scalar } from './Scalar';
 import { Size } from './Size';
 import { Range } from './Range';
-import { DecompTypes } from './ArrayOp';
+import { DecompTypes } from './CoreArray';
 import { Rect } from './Rect';
 
 declare module Mat {
@@ -272,7 +272,7 @@ declare module Mat {
         t(): Mat;
         /**
          * Creats a submatrix of Matrix
-         * @param r the are to create the submatrix of, cannot be lareger than the original Matrix
+         * @param r the area to create the submatrix of, cannot be lareger than the original Matrix
          * @returns submatrix of matrix
          */
         roi(r: Rect): Mat;
