@@ -142,14 +142,10 @@ declare module Mat {
          * same as the input has; if rtype is negative, the output matrix will have the same type as the input.
          * @param alpha optional scale factor.
          * @param beta optional delta added to the scaled values.
-         * @example
-         * const a = new cv.Mat(20, 20, cv.CV_8UC3); // RGB Mat
-         * const b = new cv.Mat(20, 20, cv.CV_8UC2); // Greyscale Mat
-         * a.convertTo(b, cv.COLOR_RGB2GRAY);
          */
-        convertTo(m: Mat, rtype: ColorConversionCodes, alpha?: number, beta?: number): void;
-        convertTo(m: Mat, rtype: ColorConversionCodes, alpha: number, beta?: number): void;
-        convertTo(m: Mat, rtype: ColorConversionCodes, alpha: number, beta: number): void;
+        convertTo(m: Mat, rtype: DataTypes, alpha?: number, beta?: number): void;
+        convertTo(m: Mat, rtype: DataTypes, alpha: number, beta?: number): void;
+        convertTo(m: Mat, rtype: DataTypes, alpha: number, beta: number): void;
         /**
          * The method returns the number of array elements (a number of pixels if the array represents an image).
          * @returns the total number of array elements.

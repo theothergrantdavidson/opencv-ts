@@ -50,6 +50,16 @@ import {
     _WarpPolarMode,
     GeometricImageTransformations,
 } from './ImageProcessing/GeometricImageTransformations';
+import {
+    HersheyFonts,
+    _HersheyFonts,
+    LineTypes,
+    _LineTypes,
+    MarkerTypes,
+    _MarkerTypes,
+    DrawingFunctions,
+} from './ImageProcessing/DrawingFunctions';
+import { RotatedRect } from './core/RotatedRect';
 
 declare module opencv {
     interface VideoCapture {
@@ -83,6 +93,10 @@ declare module opencv {
             _InterpolationFlags,
             _InterpolationMasks,
             _WarpPolarMode,
+            _HersheyFonts,
+            _LineTypes,
+            _MarkerTypes,
+            DrawingFunctions,
             GeometricImageTransformations,
             CoreArray,
             ImageFiltering,
@@ -113,6 +127,28 @@ declare module opencv {
         Range: Range;
         Scalar: Scalar;
         Rect: Rect;
+        RotatedRect: RotatedRect;
+
+        FONT_HERSHEY_SIMPLEX: HersheyFonts.FONT_HERSHEY_SIMPLEX;
+        FONT_HERSHEY_PLAIN: HersheyFonts.FONT_HERSHEY_SIMPLEX;
+        FONT_HERSHEY_DUPLEX: HersheyFonts.FONT_HERSHEY_SIMPLEX;
+        FONT_HERSHEY_COMPLEX: HersheyFonts.FONT_HERSHEY_SIMPLEX;
+        FONT_HERSHEY_TRIPLEX: HersheyFonts.FONT_HERSHEY_SIMPLEX;
+        FONT_HERSHEY_COMPLEX_SMALL: HersheyFonts.FONT_HERSHEY_SIMPLEX;
+        FONT_HERSHEY_SCRIPT_SIMPLEX: HersheyFonts.FONT_HERSHEY_SIMPLEX;
+        FONT_HERSHEY_SCRIPT_COMPLEX: HersheyFonts.FONT_HERSHEY_SIMPLEX;
+        FONT_ITALIC: HersheyFonts.FONT_HERSHEY_SIMPLEX;
+        FILLED: LineTypes.FILLED;
+        LINE_4: LineTypes.LINE_4;
+        LINE_8: LineTypes.LINE_8;
+        LINE_AA: LineTypes.LINE_AA;
+        MARKER_CROSS: MarkerTypes.MARKER_CROSS;
+        MARKER_TILTED_CROSS: MarkerTypes.MARKER_TILTED_CROSS;
+        MARKER_STAR: MarkerTypes.MARKER_STAR;
+        MARKER_DIAMOND: MarkerTypes.MARKER_DIAMOND;
+        MARKER_SQUARE: MarkerTypes.MARKER_SQUARE;
+        MARKER_TRIANGLE_UP: MarkerTypes.MARKER_TRIANGLE_UP;
+        MARKER_TRIANGLE_DOWN: MarkerTypes.MARKER_TRIANGLE_DOWN;
 
         INTER_NEAREST: InterpolationFlags.INTER_NEAREST;
         INTER_LINEAR: InterpolationFlags.INTER_LINEAR;
@@ -987,6 +1023,340 @@ declare module opencv {
             maxRadius: number,
             flags: number
         ): void;
+
+        // Drawing functions
+        arrowedLine(
+            img: Mat,
+            pt1: Point,
+            pt2: Point,
+            color: Scalar,
+            thickness: number,
+            line_type: LineTypes,
+            shift: number,
+            tipLength: number
+        ): void;
+        arrowedLine(
+            img: Mat,
+            pt1: Point,
+            pt2: Point,
+            color: Scalar,
+            thickness: number,
+            line_type: LineTypes,
+            shift: number
+        ): void;
+        arrowedLine(
+            img: Mat,
+            pt1: Point,
+            pt2: Point,
+            color: Scalar,
+            thickness: number,
+            line_type: LineTypes
+        ): void;
+        arrowedLine(img: Mat, pt1: Point, pt2: Point, color: Scalar, thickness: number): void;
+        arrowedLine(img: Mat, pt1: Point, pt2: Point, color: Scalar): void;
+        circle(
+            img: Mat,
+            center: Point,
+            radius: number,
+            color: Scalar,
+            thickness: number,
+            line_type: LineTypes,
+            shift: number
+        ): void;
+        circle(
+            img: Mat,
+            center: Point,
+            radius: number,
+            color: Scalar,
+            thickness: number,
+            line_type: LineTypes
+        ): void;
+        circle(img: Mat, center: Point, radius: number, color: Scalar, thickness: number): void;
+        circle(img: Mat, center: Point, radius: number, color: Scalar): void;
+        clipLine(imgSize: Size, pt1: Point, pt2: Point): boolean;
+        clipLine(imgRect: Rect, pt1: Point, pt2: Point): boolean;
+        drawContours(
+            image: Mat,
+            contours: NDArray<number>,
+            contourIdx: number,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes,
+            hierarchy: Mat,
+            maxLevel: number,
+            offset: Point
+        ): void;
+        drawContours(
+            image: Mat,
+            contours: NDArray<number>,
+            contourIdx: number,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes,
+            hierarchy: Mat,
+            maxLevel: number
+        ): void;
+        drawContours(
+            image: Mat,
+            contours: NDArray<number>,
+            contourIdx: number,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes,
+            hierarchy: Mat
+        ): void;
+        drawContours(
+            image: Mat,
+            contours: NDArray<number>,
+            contourIdx: number,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes
+        ): void;
+        drawContours(
+            image: Mat,
+            contours: NDArray<number>,
+            contourIdx: number,
+            color: Scalar,
+            thickness: number
+        ): void;
+        drawContours(
+            image: Mat,
+            contours: NDArray<number>,
+            contourIdx: number,
+            color: Scalar
+        ): void;
+        drawMarker(
+            img: Mat,
+            position: Point,
+            color: Scalar,
+            markerType: MarkerTypes,
+            markerSize: number,
+            thickness: number,
+            line_type: LineTypes
+        ): void;
+        drawMarker(
+            img: Mat,
+            position: Point,
+            color: Scalar,
+            markerType: MarkerTypes,
+            markerSize: number,
+            thickness: number
+        ): void;
+        drawMarker(
+            img: Mat,
+            position: Point,
+            color: Scalar,
+            markerType: MarkerTypes,
+            markerSize: number
+        ): void;
+        drawMarker(img: Mat, position: Point, color: Scalar, markerType: MarkerTypes): void;
+        drawMarker(img: Mat, position: Point, color: Scalar): void;
+        ellipse(
+            img: Mat,
+            center: Point,
+            axes: Size,
+            angle: number,
+            startAngle: number,
+            endAngle: number,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes,
+            shift: number
+        ): void;
+        ellipse(
+            img: Mat,
+            center: Point,
+            axes: Size,
+            angle: number,
+            startAngle: number,
+            endAngle: number,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes
+        ): void;
+        ellipse(
+            img: Mat,
+            center: Point,
+            axes: Size,
+            angle: number,
+            startAngle: number,
+            endAngle: number,
+            color: Scalar,
+            thickness: number
+        ): void;
+        ellipse(
+            img: Mat,
+            center: Point,
+            axes: Size,
+            angle: number,
+            startAngle: number,
+            endAngle: number,
+            color: Scalar
+        ): void;
+        ellipse(
+            img: Mat,
+            box: RotatedRect,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes
+        ): void;
+        ellipse(img: Mat, box: RotatedRect, color: Scalar, thickness: number): void;
+        ellipse(img: Mat, box: RotatedRect, color: Scalar): void;
+        ellipse2Poly(
+            center: Point,
+            angle: number,
+            axes: Size,
+            arcStart: number,
+            arcEnd: number,
+            delta: number,
+            pts: NDArray<Point>
+        ): void;
+        fillConvexPoly(
+            img: Mat,
+            pts: Point,
+            color: Scalar,
+            lineType: LineTypes,
+            shift: number
+        ): void;
+        fillConvexPoly(img: Mat, pts: Point, color: Scalar, lineType: LineTypes): void;
+        fillConvexPoly(img: Mat, pts: Point, color: Scalar): void;
+        fillPoly(
+            img: Mat,
+            pts: Point,
+            color: Scalar,
+            lineType: LineTypes,
+            shift: number,
+            offset: Point
+        ): void;
+        fillPoly(img: Mat, pts: Point, color: Scalar, lineType: LineTypes, shift: number): void;
+        fillPoly(img: Mat, pts: Point, color: Scalar, lineType: LineTypes): void;
+        fillPoly(img: Mat, pts: Point, color: Scalar): void;
+        getFontScaleFromHeight(
+            fontFace: HersheyFonts,
+            pixelHeight: number,
+            thickness: number
+        ): number;
+        getFontScaleFromHeight(fontFace: HersheyFonts, pixelHeight: number): number;
+        getTextSize(
+            text: string,
+            fontFace: HersheyFonts,
+            fontScale: number,
+            thickness: number,
+            baseLine: number
+        ): Size;
+        line(
+            img: Mat,
+            pt1: Point,
+            pt2: Point,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes,
+            shift: number
+        ): void;
+        line(
+            img: Mat,
+            pt1: Point,
+            pt2: Point,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes
+        ): void;
+        line(img: Mat, pt1: Point, pt2: Point, color: Scalar, thickness: number): void;
+        line(img: Mat, pt1: Point, pt2: Point, color: Scalar): void;
+        polylines(
+            img: Mat,
+            pts: NDArray<Point>,
+            isClosed: boolean,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes,
+            shift: number
+        ): void;
+        polylines(
+            img: Mat,
+            pts: NDArray<Point>,
+            isClosed: boolean,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes
+        ): void;
+        polylines(
+            img: Mat,
+            pts: NDArray<Point>,
+            isClosed: boolean,
+            color: Scalar,
+            thickness: number
+        ): void;
+        polylines(img: Mat, pts: NDArray<Point>, isClosed: boolean, color: Scalar): void;
+        putText(
+            img: Mat,
+            text: string,
+            org: Point,
+            fontFace: HersheyFonts,
+            fontScale: number,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes,
+            bottomLeftOrigin: boolean
+        ): void;
+        putText(
+            img: Mat,
+            text: string,
+            org: Point,
+            fontFace: HersheyFonts,
+            fontScale: number,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes
+        ): void;
+        putText(
+            img: Mat,
+            text: string,
+            org: Point,
+            fontFace: HersheyFonts,
+            fontScale: number,
+            color: Scalar,
+            thickness: number
+        ): void;
+        putText(
+            img: Mat,
+            text: string,
+            org: Point,
+            fontFace: HersheyFonts,
+            fontScale: number,
+            color: Scalar
+        ): void;
+        rectangle(
+            img: Mat,
+            pt1: Point,
+            pt2: Point,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes,
+            shift: number
+        ): void;
+        rectangle(
+            img: Mat,
+            pt1: Point,
+            pt2: Point,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes
+        ): void;
+        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar, thickness: number): void;
+        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar): void;
+        rectangle(
+            img: Mat,
+            rec: Rect,
+            color: Scalar,
+            thickness: number,
+            lineType: LineTypes,
+            shift: number
+        ): void;
+        rectangle(img: Mat, rec: Rect, color: Scalar, thickness: number, lineType: LineTypes): void;
+        rectangle(img: Mat, rec: Rect, color: Scalar, thickness: number): void;
+        rectangle(img: Mat, rec: Rect, color: Scalar): void;
     }
 }
 
