@@ -26,11 +26,11 @@ cv.onRuntimeInitialized = () => {
 * Modules
   * Core
     * Basic Structures: Done
-    * Operations on Arrays: In progress
+    * Operations on Arrays: Done
   * Image Processing
     * Image Filtering: Done
-    * Geometric Image Transformations: started
-    * Drawing Functions: Not started
+    * Geometric Image Transformations: Done
+    * Drawing Functions: Started
     * Color Space Conversions: Done
     * ColorMaps in OpenCV: Not started
     * Planar Subdivision: Not started
