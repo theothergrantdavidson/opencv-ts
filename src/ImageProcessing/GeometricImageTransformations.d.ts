@@ -186,6 +186,14 @@ declare module GeometricImageTransformations {
          * @param fx scale factor along the horizontal axis
          * @param fy scale factor along the vertical axis
          * @param interpolation interpolation method, see InterpolationFlags
+         * @example
+         * let src = cv.imread('canvasInput');
+         * let dst = new cv.Mat();
+         * let dsize = new cv.Size(300, 300);
+         * // You can try more different parameters
+         * cv.resize(src, dst, dsize, 0, 0, cv.INTER_AREA);
+         * cv.imshow('canvasOutput', dst);
+         * src.delete(); dst.delete();
          */
         resize(
             src: Mat,
@@ -256,7 +264,7 @@ declare module GeometricImageTransformations {
         warpPerspective(src: Mat, dst: Mat, M: Mat, dsize: Size, flags: InterpolationFlags): void;
         warpPerspective(src: Mat, dst: Mat, M: Mat, dsize: Size): void;
         /**
-         * 
+         *
          * @param src Source image
          * @param dst Destination image. It will have same type as src
          * @param dsize The destination image size (see description for valid options)
@@ -267,7 +275,14 @@ declare module GeometricImageTransformations {
          *      - Add cv.WARP_POLAR_LOG to select semilog polar mapping
          *      - Add cv.WARP_INVERSE_MAP for reverse mapping.
          */
-        warpPolar(src: Mat, dst: Mat, dsize: Size, center: Point, maxRadius: number, flags: number): void;
+        warpPolar(
+            src: Mat,
+            dst: Mat,
+            dsize: Size,
+            center: Point,
+            maxRadius: number,
+            flags: number
+        ): void;
     }
 }
 export = GeometricImageTransformations;

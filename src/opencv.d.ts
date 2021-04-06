@@ -60,6 +60,10 @@ import {
     DrawingFunctions,
 } from './ImageProcessing/DrawingFunctions';
 import { RotatedRect } from './core/RotatedRect';
+import { ColormapTypes, _ColormapTypes, ColorMap } from './ImageProcessing/ColorMap';
+import { Subdiv2D, QuadEdge, Vertex, _EdgeType, EdgeType } from './ImageProcessing/Subdiv2D';
+import { DistanceTypes, _DistanceTypes } from './ImageProcessing/Misc';
+import { HistCompMethods, _HistCompMethods, Histograms } from './ImageProcessing/Histograms';
 
 declare module opencv {
     interface VideoCapture {
@@ -96,6 +100,12 @@ declare module opencv {
             _HersheyFonts,
             _LineTypes,
             _MarkerTypes,
+            _ColormapTypes,
+            _EdgeType,
+            _DistanceTypes,
+            _HistCompMethods,
+            Histograms,
+            ColorMap,
             DrawingFunctions,
             GeometricImageTransformations,
             CoreArray,
@@ -128,6 +138,64 @@ declare module opencv {
         Scalar: Scalar;
         Rect: Rect;
         RotatedRect: RotatedRect;
+        Subdiv2D: Subdiv2D;
+        QuadEdge: QuadEdge;
+        Vertex: Vertex;
+
+        // Histogram
+        HISTCMP_CORREL: HistCompMethods.HISTCMP_CORREL;
+        HISTCMP_CHISQR: HistCompMethods.HISTCMP_CHISQR;
+        HISTCMP_INTERSECT: HistCompMethods.HISTCMP_INTERSECT;
+        HISTCMP_BHATTACHARYYA: HistCompMethods.HISTCMP_BHATTACHARYYA;
+        HISTCMP_HELLINGER: HistCompMethods.HISTCMP_BHATTACHARYYA;
+        HISTCMP_CHISQR_ALT: HistCompMethods.HISTCMP_CHISQR_ALT;
+        HISTCMP_KL_DIV: HistCompMethods.HISTCMP_KL_DIV;
+
+        calcBackProject(
+            images: Mat,
+            channels: number,
+            hist: Mat,
+            dst: Mat,
+            ranges: NDArray<number>,
+            scale?: number
+        ): void;
+        calcHist(
+            image: Mat,
+            channels: number,
+            mask: Mat,
+            hist: Mat,
+            histSize: number,
+            ranges: number,
+            accumulate?: boolean
+        ): void;
+        compareHist(H1: Mat, H2: Mat, method: HistCompMethods): number;
+        EMD(
+            signature1: Mat,
+            signature2: Mat,
+            distType: DistanceTypes,
+            cost: Mat | NDArray<number>,
+            lowerBound: number,
+            flow?: Mat
+        ): number;
+        equalizeHist(src: Mat, dst: Mat): void;
+
+        DIST_USER: DistanceTypes.DIST_USER;
+        DIST_L1: DistanceTypes.DIST_L1;
+        DIST_L2: DistanceTypes.DIST_L2;
+        DIST_C: DistanceTypes.DIST_C;
+        DIST_L12: DistanceTypes.DIST_L12;
+        DIST_FAIR: DistanceTypes.DIST_FAIR;
+        DIST_WELSCH: DistanceTypes.DIST_WELSCH;
+        DIST_HUBER: DistanceTypes.DIST_HUBER;
+
+        NEXT_AROUND_ORG: EdgeType.NEXT_AROUND_ORG;
+        NEXT_AROUND_DST: EdgeType.NEXT_AROUND_DST;
+        PREV_AROUND_ORG: EdgeType.PREV_AROUND_ORG;
+        PREV_AROUND_DST: EdgeType.PREV_AROUND_DST;
+        NEXT_AROUND_LEFT: EdgeType.NEXT_AROUND_LEFT;
+        NEXT_AROUND_RIGHT: EdgeType.NEXT_AROUND_RIGHT;
+        PREV_AROUND_LEFT: EdgeType.PREV_AROUND_LEFT;
+        PREV_AROUND_RIGHT: EdgeType.PREV_AROUND_RIGHT;
 
         FONT_HERSHEY_SIMPLEX: HersheyFonts.FONT_HERSHEY_SIMPLEX;
         FONT_HERSHEY_PLAIN: HersheyFonts.FONT_HERSHEY_SIMPLEX;
@@ -482,6 +550,32 @@ declare module opencv {
         SORT_EVERY_COLUMN: SortFlags.SORT_EVERY_COLUMN;
         SORT_ASCENDING: SortFlags.SORT_EVERY_ROW;
         SORT_DESCENDING: SortFlags.SORT_DESCENDING;
+
+        // ColorMap
+        COLORMAP_AUTUMN: ColormapTypes.COLORMAP_AUTUMN;
+        COLORMAP_BONE: ColormapTypes.COLORMAP_BONE;
+        COLORMAP_JET: ColormapTypes.COLORMAP_JET;
+        COLORMAP_WINTER: ColormapTypes.COLORMAP_WINTER;
+        COLORMAP_RAINBOW: ColormapTypes.COLORMAP_RAINBOW;
+        COLORMAP_OCEAN: ColormapTypes.COLORMAP_OCEAN;
+        COLORMAP_SUMMER: ColormapTypes.COLORMAP_SUMMER;
+        COLORMAP_SPRING: ColormapTypes.COLORMAP_SPRING;
+        COLORMAP_COOL: ColormapTypes.COLORMAP_COOL;
+        COLORMAP_HSV: ColormapTypes.COLORMAP_HSV;
+        COLORMAP_PINK: ColormapTypes.COLORMAP_PINK;
+        COLORMAP_HOT: ColormapTypes.COLORMAP_HOT;
+        COLORMAP_PARULA: ColormapTypes.COLORMAP_PARULA;
+        COLORMAP_MAGMA: ColormapTypes.COLORMAP_MAGMA;
+        COLORMAP_INFERNO: ColormapTypes.COLORMAP_INFERNO;
+        COLORMAP_PLASMA: ColormapTypes.COLORMAP_PLASMA;
+        COLORMAP_VIRIDIS: ColormapTypes.COLORMAP_VIRIDIS;
+        COLORMAP_CIVIDIS: ColormapTypes.COLORMAP_CIVIDIS;
+        COLORMAP_TWILIGHT: ColormapTypes.COLORMAP_TWILIGHT;
+        COLORMAP_TWILIGHT_SHIFTED: ColormapTypes.COLORMAP_TWILIGHT_SHIFTED;
+        COLORMAP_TURBO: ColormapTypes.COLORMAP_TURBO;
+        COLORMAP_DEEPGREEN: ColormapTypes.COLORMAP_DEEPGREEN;
+
+        applyColorMap(src: Mat, dst: Mat, colormap: ColormapTypes): void;
 
         // Core Array functions
         absdiff(src1: Mat, src2: Mat, dst: Mat): void;
