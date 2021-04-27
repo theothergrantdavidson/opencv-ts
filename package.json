@@ -17,5 +17,8 @@
     "repository": {
         "type": "git",
         "url": "https://github.com/theothergrantdavidson/opencv-ts"
+    },
+    "browser": {
+        "fs": false
     }
 }
