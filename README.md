@@ -40,6 +40,7 @@ cv.onRuntimeInitialized = () => {
     * ~~Feature Detection~~
     * ~~Object Detection~~
     * ~~Image Segmentation~~
+    * ~~Video: Object Tracking~~
     * 2D Features Framework
     * Computational Photography
       * Inpainting

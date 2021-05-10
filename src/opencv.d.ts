@@ -109,7 +109,8 @@ import { _TemplateMatchModes, TemplateMatchModes, ObjectDetection } from './Imag
 import { ImageSegmentation } from './ImageProcessing/Segmentation';
 import { BackgroundSubtractor } from './video/BackgroundSubtractor';
 import { BackgroundSubtractorMOG2 } from './video/BackgroundSubtractorMOG2';
-import { ObjectDetection as _ObjectDetection } from './ObjectDetection/ObjectDetection'
+import { ObjectDetection as _ObjectDetection } from './ObjectDetection/ObjectDetection';
+import { _Motion, _Optflow, Optflow, Motion, ObjectTracking } from './video/track';
 
 declare module opencv {
     interface VideoCapture {
@@ -178,8 +179,10 @@ declare module opencv {
             _TemplateMatchModes,
             ObjectDetection,
             ImageSegmentation,
-            _ObjectDetection {
-    
+            _ObjectDetection,
+            _Motion,
+            _Optflow,
+            ObjectTracking {
         // JS only helper functions
         /**
          * Renders an input Mat to a canvas object
@@ -198,6 +201,7 @@ declare module opencv {
         onRuntimeInitialized: () => void;
 
         VideoCapture: VideoCapture;
+        TermCriteria: TermCriteria;
 
         // Core classes
         Mat: Mat;
@@ -1679,7 +1683,11 @@ declare module opencv {
 
         // Object Detection
         matchTemplate(image: Mat, templ: Mat, result: Mat, method: TemplateMatchModes): void;
-        groupRectangles(rectList: NDArray<Rect>, weights: NDArray<number>, groupThreshold: number): void;
+        groupRectangles(
+            rectList: NDArray<Rect>,
+            weights: NDArray<number>,
+            groupThreshold: number
+        ): void;
         TM_SQDIFF: TemplateMatchModes.TM_SQDIFF;
         TM_SQDIFF_NORMED: TemplateMatchModes.TM_SQDIFF_NORMED;
         TM_CCORR: TemplateMatchModes.TM_CCORR;
@@ -1697,6 +1705,45 @@ declare module opencv {
             iterCount: number
         ): void;
         watershed(image: Mat, markers: Mat): void;
+
+        // Optical flow
+        calcOpticalFlowFarneback(
+            prev: Mat,
+            next: Mat,
+            flow: Mat,
+            pyr_scale: number,
+            levels: number,
+            winsize: number,
+            iterations: number,
+            poly_n: number,
+            poly_sigma: number,
+            flags: number
+        ): void;
+        calcOpticalFlowPyrLK(
+            prevImg: Mat,
+            nextImg: Mat,
+            prevPts: Mat,
+            nextPts: Mat,
+            status: Mat,
+            err: Mat
+        ): void;
+        CamShift(probImage: Mat, window: Rect, criteria: TermCriteria): RotatedRect;
+        findTransformECC(
+            templateImage: Mat,
+            inputImage: Mat,
+            warpMatrix: Mat,
+            motionType: number,
+            criteria: TermCriteria,
+            inputMask: Mat,
+            gaussFiltSize: number
+        ): void;
+        MOTION_TRANSLATION: Motion.MOTION_TRANSLATION;
+        MOTION_EUCLIDEAN: Motion.MOTION_EUCLIDEAN;
+        MOTION_AFFINE: Motion.MOTION_AFFINE;
+        MOTION_HOMOGRAPHY: Motion.MOTION_HOMOGRAPHY;
+        OPTFLOW_USE_INITIAL_FLOW: Optflow.OPTFLOW_USE_INITIAL_FLOW;
+        OPTFLOW_LK_GET_MIN_EIGENVALS: Optflow.OPTFLOW_LK_GET_MIN_EIGENVALS;
+        OPTFLOW_FARNEBACK_GAUSSIAN: Optflow.OPTFLOW_FARNEBACK_GAUSSIAN;
     }
 }
 
