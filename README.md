@@ -35,9 +35,9 @@ cv.onRuntimeInitialized = () => {
     * ~~ColorMaps in OpenCV~~
     * ~~Planar Subdivision~~
     * ~~Histograms~~
-    * ~~Miscellaneous Image Transformations: Started~~
-    * ~~Structural Analysis and Shape Descriptors: Started~~
-    * Motion Analysis and Object Tracking: Not started
-    * Feature Detection: Not started
-    * Object Detection: Not started
-    * Image Segmentation: Not started
+    * ~~Miscellaneous Image Transformations~~
+    * ~~Structural Analysis and Shape Descriptors~~
+    * ~~Feature Detection~~
+    * ~~Object Detection~~
+    * ~~Image Segmentation~~
+    * 2D Features Framework

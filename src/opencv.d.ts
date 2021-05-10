@@ -98,6 +98,18 @@ import {
     StructuralAnalysisShapeDescriptors,
 } from './ImageProcessing/Shape';
 import { Moments } from './core/Moments';
+import {
+    _HoughModes,
+    _LineSegmentDetectorModes,
+    HoughModes,
+    LineSegmentDetectorModes,
+    FeatureDetection,
+} from './ImageProcessing/Feature';
+import { _TemplateMatchModes, TemplateMatchModes, ObjectDetection } from './ImageProcessing/Object';
+import { ImageSegmentation } from './ImageProcessing/Segmentation';
+import { BackgroundSubtractor } from './video/BackgroundSubtractor';
+import { BackgroundSubtractorMOG2 } from './video/BackgroundSubtractorMOG2';
+import { ObjectDetection as _ObjectDetection } from './ObjectDetection/ObjectDetection'
 
 declare module opencv {
     interface VideoCapture {
@@ -159,7 +171,15 @@ declare module opencv {
             _RectanglesIntersectTypes,
             _RetrievalModes,
             _ShapeMatchModes,
-            StructuralAnalysisShapeDescriptors {
+            StructuralAnalysisShapeDescriptors,
+            _HoughModes,
+            _LineSegmentDetectorModes,
+            FeatureDetection,
+            _TemplateMatchModes,
+            ObjectDetection,
+            ImageSegmentation,
+            _ObjectDetection {
+    
         // JS only helper functions
         /**
          * Renders an input Mat to a canvas object
@@ -190,6 +210,8 @@ declare module opencv {
         Subdiv2D: Subdiv2D;
         QuadEdge: QuadEdge;
         Vertex: Vertex;
+        BackgroundSubtractor: BackgroundSubtractor;
+        BackgroundSubtractorMOG2: BackgroundSubtractorMOG2;
 
         // Histogram
         HISTCMP_CORREL: HistCompMethods.HISTCMP_CORREL;
@@ -1614,6 +1636,67 @@ declare module opencv {
         THRESH_MASK: ThresholdTypes.THRESH_MASK;
         THRESH_OTSU: ThresholdTypes.THRESH_OTSU;
         THRESH_TRIANGLE: ThresholdTypes.THRESH_TRIANGLE;
+
+        // Feature detection
+        Canny(image: Mat, edges: Mat, threshold1: number, threshold2: number): void;
+        Canny1(dx: Mat, dy: Mat, edges: Mat, threshold1: number, threshold2: number): void;
+        cornerHarris(src: Mat, dst: Mat, blockSize: number, ksize: number, k: number): void;
+        cornerMinEigenVal(src: Mat, dst: Mat, blockSize: number): void;
+        goodFeaturesToTrack(
+            image: Mat,
+            corners: Mat,
+            maxCorners: number,
+            qualityLevel: number,
+            minDistance: number
+        ): void;
+        goodFeaturesToTrack1(
+            image: Mat,
+            corners: Mat,
+            maxCorners: number,
+            qualityLevel: number,
+            minDistance: number,
+            mask: Mat,
+            blockSize: number,
+            gradientSize: number
+        ): void;
+        HoughCircles(
+            image: Mat,
+            circles: Mat,
+            method: HoughModes,
+            dp: number,
+            minDist: number
+        ): void;
+        HoughLines(image: Mat, lines: Mat, rho: number, theta: number, threshold: number): void;
+        HoughLinesP(image: Mat, lines: Mat, rho: number, theta: number, threshold: number): void;
+        LSD_REFINE_NONE: LineSegmentDetectorModes.LSD_REFINE_NONE;
+        LSD_REFINE_STD: LineSegmentDetectorModes.LSD_REFINE_STD;
+        LSD_REFINE_ADV: LineSegmentDetectorModes.LSD_REFINE_ADV;
+        HOUGH_STANDARD: HoughModes.HOUGH_STANDARD;
+        HOUGH_PROBABILISTIC: HoughModes.HOUGH_PROBABILISTIC;
+        HOUGH_MULTI_SCALE: HoughModes.HOUGH_MULTI_SCALE;
+        HOUGH_GRADIENT: HoughModes.HOUGH_GRADIENT;
+        HOUGH_GRADIENT_ALT: HoughModes.HOUGH_GRADIENT_ALT;
+
+        // Object Detection
+        matchTemplate(image: Mat, templ: Mat, result: Mat, method: TemplateMatchModes): void;
+        groupRectangles(rectList: NDArray<Rect>, weights: NDArray<number>, groupThreshold: number): void;
+        TM_SQDIFF: TemplateMatchModes.TM_SQDIFF;
+        TM_SQDIFF_NORMED: TemplateMatchModes.TM_SQDIFF_NORMED;
+        TM_CCORR: TemplateMatchModes.TM_CCORR;
+        TM_CCORR_NORMED: TemplateMatchModes.TM_CCORR_NORMED;
+        TM_CCOEFF: TemplateMatchModes.TM_CCOEFF;
+        TM_CCOEFF_NORMED: TemplateMatchModes.TM_CCOEFF_NORMED;
+
+        // Image segmentation
+        grabCut(
+            img: Mat,
+            mask: Mat,
+            rect: Rect,
+            bgdModel: Mat,
+            fgdModel: Mat,
+            iterCount: number
+        ): void;
+        watershed(image: Mat, markers: Mat): void;
     }
 }
 
