@@ -62,8 +62,42 @@ import {
 import { RotatedRect } from './core/RotatedRect';
 import { ColormapTypes, _ColormapTypes, ColorMap } from './ImageProcessing/ColorMap';
 import { Subdiv2D, QuadEdge, Vertex, _EdgeType, EdgeType } from './ImageProcessing/Subdiv2D';
-import { DistanceTypes, _DistanceTypes } from './ImageProcessing/Misc';
+import {
+    DistanceTypes,
+    _DistanceTypes,
+    _AdaptiveThresholdTypes,
+    _DistanceTransformLabelTypes,
+    _DistanceTransformMasks,
+    _FloodFillFlags,
+    _GrabCutClasses,
+    _GrabCutModes,
+    _ThresholdTypes,
+    AdaptiveThresholdTypes,
+    DistanceTransformLabelTypes,
+    DistanceTransformMasks,
+    FloodFillFlags,
+    GrabCutClasses,
+    GrabCutModes,
+    ThresholdTypes,
+    Misc,
+} from './ImageProcessing/Misc';
 import { HistCompMethods, _HistCompMethods, Histograms } from './ImageProcessing/Histograms';
+import {
+    _ConnectedComponentsAlgorithmsTypes,
+    _ConnectedComponentsTypes,
+    _ContourApproximationModes,
+    _RectanglesIntersectTypes,
+    _RetrievalModes,
+    _ShapeMatchModes,
+    ConnectedComponentsAlgorithmsTypes,
+    ConnectedComponentsTypes,
+    ContourApproximationModes,
+    RectanglesIntersectTypes,
+    RetrievalModes,
+    ShapeMatchModes,
+    StructuralAnalysisShapeDescriptors,
+} from './ImageProcessing/Shape';
+import { Moments } from './core/Moments';
 
 declare module opencv {
     interface VideoCapture {
@@ -103,6 +137,14 @@ declare module opencv {
             _ColormapTypes,
             _EdgeType,
             _DistanceTypes,
+            _AdaptiveThresholdTypes,
+            _DistanceTransformLabelTypes,
+            _DistanceTransformMasks,
+            _FloodFillFlags,
+            _GrabCutClasses,
+            _GrabCutModes,
+            _ThresholdTypes,
+            Misc,
             _HistCompMethods,
             Histograms,
             ColorMap,
@@ -110,7 +152,14 @@ declare module opencv {
             GeometricImageTransformations,
             CoreArray,
             ImageFiltering,
-            ColorConversions {
+            ColorConversions,
+            _ConnectedComponentsAlgorithmsTypes,
+            _ConnectedComponentsTypes,
+            _ContourApproximationModes,
+            _RectanglesIntersectTypes,
+            _RetrievalModes,
+            _ShapeMatchModes,
+            StructuralAnalysisShapeDescriptors {
         // JS only helper functions
         /**
          * Renders an input Mat to a canvas object
@@ -1451,6 +1500,120 @@ declare module opencv {
         rectangle(img: Mat, rec: Rect, color: Scalar, thickness: number, lineType: LineTypes): void;
         rectangle(img: Mat, rec: Rect, color: Scalar, thickness: number): void;
         rectangle(img: Mat, rec: Rect, color: Scalar): void;
+
+        // Distance Types
+        approxPolyDP(
+            curve: Mat | NDArray<number>,
+            approxCurve: Mat,
+            epsilon: number,
+            bool: boolean
+        ): void;
+        arcLength(curve: Mat | NDArray<number>, closed: boolean): number;
+        boundingRect(array: Mat | NDArray<number>): Rect;
+        connectedComponents(image: Mat, labels: Mat): number;
+        connectedComponentsWithStats(image: Mat, labels: Mat, stats: Mat, centroids: Mat): number;
+        contourArea(contour: Mat | NDArray<number>, oriented?: boolean): number;
+        convexHull(points: Mat, hull: Mat): void;
+        convexityDefects(contour: Mat, convexHull: Mat, convexityDefects: Mat): void;
+        findContours(
+            image: Mat,
+            contours: Mat,
+            hierarchy: Mat,
+            mode: RetrievalModes,
+            method: ContourApproximationModes
+        ): void;
+        fitEllipse(points: Mat): void;
+        fitLine(
+            points: Mat,
+            line: Mat,
+            disType: DistanceTypes,
+            param: number,
+            reps: number,
+            aeps: number
+        ): void;
+        isContourConvex(contour: Mat): boolean;
+        matchShapes(
+            contour1: Mat,
+            contour2: Mat,
+            method: ShapeMatchModes,
+            parameter: number
+        ): number;
+        minAreaRect(points: Mat): RotatedRect;
+        minEnclosingCircle(points: Mat): void;
+        moments(array: Mat): Moments;
+        pointPolygonTest(contour: Mat, pt: Point, measureDist: boolean): number;
+        CCL_DEFAULT: ConnectedComponentsAlgorithmsTypes.CCL_DEFAULT;
+        CCL_WU: ConnectedComponentsAlgorithmsTypes.CCL_WU;
+        CCL_GRANA: ConnectedComponentsAlgorithmsTypes.CCL_GRANA;
+        CCL_BOLELLI: ConnectedComponentsAlgorithmsTypes.CCL_BOLELLI;
+        CCL_SAUF: ConnectedComponentsAlgorithmsTypes.CCL_SAUF;
+        CCL_BBDT: ConnectedComponentsAlgorithmsTypes.CCL_BBDT;
+        CCL_SPAGHETTI: ConnectedComponentsAlgorithmsTypes.CCL_SPAGHETTI;
+        CC_STAT_LEFT: ConnectedComponentsTypes.CC_STAT_LEFT;
+        CC_STAT_TOP: ConnectedComponentsTypes.CC_STAT_TOP;
+        CC_STAT_WIDTH: ConnectedComponentsTypes.CC_STAT_WIDTH;
+        CC_STAT_HEIGHT: ConnectedComponentsTypes.CC_STAT_HEIGHT;
+        CC_STAT_AREA: ConnectedComponentsTypes.CC_STAT_AREA;
+        CHAIN_APPROX_NONE: ContourApproximationModes.CHAIN_APPROX_NONE;
+        CHAIN_APPROX_SIMPLE: ContourApproximationModes.CHAIN_APPROX_SIMPLE;
+        CHAIN_APPROX_TC89_L1: ContourApproximationModes.CHAIN_APPROX_TC89_L1;
+        CHAIN_APPROX_TC89_KCOS: ContourApproximationModes.CHAIN_APPROX_TC89_KCOS;
+        INTERSECT_NONE: RectanglesIntersectTypes.INTERSECT_NONE;
+        INTERSECT_PARTIAL: RectanglesIntersectTypes.INTERSECT_PARTIAL;
+        INTERSECT_FULL: RectanglesIntersectTypes.INTERSECT_FULL;
+        RETR_EXTERNAL: RetrievalModes.RETR_EXTERNAL;
+        RETR_LIST: RetrievalModes.RETR_LIST;
+        RETR_CCOMP: RetrievalModes.RETR_CCOMP;
+        RETR_TREE: RetrievalModes.RETR_TREE;
+        RETR_FLOODFILL: RetrievalModes.RETR_FLOODFILL;
+        CONTOURS_MATCH_I1: ShapeMatchModes.CONTOURS_MATCH_I1;
+        CONTOURS_MATCH_I2: ShapeMatchModes.CONTOURS_MATCH_I2;
+        CONTOURS_MATCH_I3: ShapeMatchModes.CONTOURS_MATCH_I3;
+
+        // Miscellaneous Image Transformations
+        adaptiveThreshold(
+            src: Mat,
+            dst: Mat,
+            maxValue: number,
+            adaptiveMethod: AdaptiveThresholdTypes,
+            thresholdType: ThresholdTypes.THRESH_BINARY | ThresholdTypes.THRESH_BINARY_INV,
+            blockSize: number,
+            C: number
+        ): void;
+        distanceTransform(
+            src: Mat,
+            dst: Mat,
+            distanceType: DistanceTypes,
+            maskSize: DistanceTransformMasks
+        ): void;
+        floodFill(image: Mat, seedPoint: Point, newVal: Scalar, rect: Rect): void;
+        integral(src: Mat, sum: Mat): void;
+        threshold(src: Mat, dst: Mat, thresh: number, maxval: number, type: number): void;
+        ADAPTIVE_THRESH_MEAN_C: AdaptiveThresholdTypes.ADAPTIVE_THRESH_MEAN_C;
+        ADAPTIVE_THRESH_GAUSSIAN_C: AdaptiveThresholdTypes.ADAPTIVE_THRESH_GAUSSIAN_C;
+        DIST_LABEL_CCOMP: DistanceTransformLabelTypes.DIST_LABEL_CCOMP;
+        DIST_LABEL_PIXEL: DistanceTransformLabelTypes.DIST_LABEL_PIXEL;
+        DIST_MASK_3: DistanceTransformMasks.DIST_MASK_3;
+        DIST_MASK_5: DistanceTransformMasks.DIST_MASK_5;
+        DIST_MASK_PRECISE: DistanceTransformMasks.DIST_MASK_PRECISE;
+        FLOODFILL_FIXED_RANGE: FloodFillFlags.FLOODFILL_FIXED_RANGE;
+        FLOODFILL_MASK_ONLY: FloodFillFlags.FLOODFILL_MASK_ONLY;
+        GC_BGD: GrabCutClasses.GC_BGD;
+        GC_FGD: GrabCutClasses.GC_FGD;
+        GC_PR_BGD: GrabCutClasses.GC_PR_BGD;
+        GC_PR_FGD: GrabCutClasses.GC_PR_FGD;
+        GC_INIT_WITH_RECT: GrabCutModes.GC_INIT_WITH_RECT;
+        GC_INIT_WITH_MASK: GrabCutModes.GC_INIT_WITH_MASK;
+        GC_EVAL: GrabCutModes.GC_EVAL;
+        GC_EVAL_FREEZE_MODEL: GrabCutModes.GC_EVAL_FREEZE_MODEL;
+        THRESH_BINARY: ThresholdTypes.THRESH_BINARY;
+        THRESH_BINARY_INV: ThresholdTypes.THRESH_BINARY_INV;
+        THRESH_TRUNC: ThresholdTypes.THRESH_TRUNC;
+        THRESH_TOZERO: ThresholdTypes.THRESH_TOZERO;
+        THRESH_TOZERO_INV: ThresholdTypes.THRESH_TOZERO_INV;
+        THRESH_MASK: ThresholdTypes.THRESH_MASK;
+        THRESH_OTSU: ThresholdTypes.THRESH_OTSU;
+        THRESH_TRIANGLE: ThresholdTypes.THRESH_TRIANGLE;
     }
 }
 
