@@ -41,3 +41,7 @@ cv.onRuntimeInitialized = () => {
     * ~~Object Detection~~
     * ~~Image Segmentation~~
     * 2D Features Framework
+    * Computational Photography
+      * Inpainting
+    * Camera Calibration and 3D Reconstruction
+      * Fisheye camera model
