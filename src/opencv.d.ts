@@ -19,7 +19,7 @@ import {
     _SpecialFilter,
     ImageFiltering,
 } from './ImageProcessing/ImageFiltering';
-import { TermCriteria } from './core/TermCriteria';
+import { _Type, Type, TermCriteria } from './core/TermCriteria';
 import {
     BorderTypes,
     _BorderTypes,
@@ -182,7 +182,12 @@ declare module opencv {
             _ObjectDetection,
             _Motion,
             _Optflow,
-            ObjectTracking {
+            _Type,
+            ObjectTracking
+    {
+        TERM_CRITERIA_COUNT: Type.TERM_CRITERIA_COUNT;
+        TERM_CRITERIA_MAX_ITER: Type.TERM_CRITERIA_MAX_ITER;
+        TERM_CRITERIA_EPS: Type.TERM_CRITERIA_EPS;
         // JS only helper functions
         /**
          * Renders an input Mat to a canvas object
@@ -1749,4 +1754,17 @@ declare module opencv {
 
 declare const cv: opencv.cv;
 export default cv;
-export { Mat, Size, Point, Range, Scalar, Rect };
+export {
+    Mat,
+    Size,
+    Point,
+    Range,
+    Scalar,
+    Rect,
+    Vertex,
+    QuadEdge,
+    Subdiv2D,
+    BackgroundSubtractor,
+    BackgroundSubtractorMOG2,
+    TermCriteria,
+};
