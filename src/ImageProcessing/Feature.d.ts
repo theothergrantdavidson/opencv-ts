@@ -98,7 +98,7 @@ declare module FeatureDetection {
             minDistance: number,
             mask: Mat,
             blockSize: number,
-            gradientSize: number
+            gradientSize?: number | 3
         ): void;
         /**
          * Finds circles in a grayscale image using the Hough transform

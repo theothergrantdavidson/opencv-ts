@@ -1,7 +1,8 @@
 import { Mat } from '../core/Mat';
+import { Rect } from '../core/Rect';
+import { Size } from '../core/Size';
 import { RotatedRect } from '../core/RotatedRect';
 import { TermCriteria } from '../core/TermCriteria';
-import { Rect } from '../opencv';
 
 declare module ObjectTracking {
     enum Optflow {
@@ -66,6 +67,9 @@ declare module ObjectTracking {
          * @param nextPts output vector of 2D points (with single-precision floating-point coordinates) containing the calculated new positions of input features in the second image; when OPTFLOW_USE_INITIAL_FLOW flag is passed, the vector must have the same size as in the input
          * @param status output status vector (of unsigned chars); each element of the vector is set to 1 if the flow for the corresponding features has been found, otherwise, it is set to 0
          * @param err output vector of errors; each element of the vector is set to an error for the corresponding feature, type of the error measure can be set in flags parameter; if the flow wasn't found then the error is not defined (use the status parameter to find such cases).
+         * @param winSize size of the search window at each pyramid level
+         * @param maxLevel 0-based maximal pyramid level number; if set to 0, pyramids are not used (single level), if set to 1, two levels are used, and so on; if pyramids are passed to input then algorithm will use as many levels as pyramids have but no more than maxLevel.
+         * @param criteria parameter, specifying the termination criteria of the iterative search algorithm (after the specified maximum number of iterations criteria.maxCount or when the search window moves by less than criteria.epsilon
          */
         calcOpticalFlowPyrLK(
             prevImg: Mat,
@@ -73,7 +77,10 @@ declare module ObjectTracking {
             prevPts: Mat,
             nextPts: Mat,
             status: Mat,
-            err: Mat
+            err: Mat,
+            winSize: Size,
+            maxLevel: number,
+            criteria: TermCriteria
         ): void;
         /**
          * Finds an object center, size, and orientation
@@ -82,7 +89,7 @@ declare module ObjectTracking {
          * @param criteria Stop criteria for the underlying meanShift. returns (in old interfaces) Number of iterations CAMSHIFT took to converge The function implements the CAMSHIFT object tracking algorithm [33] . First, it finds an object center using meanShift and then adjusts the window size and finds the optimal rotation. The function returns the rotated rectangle structure that includes the object position, size, and orientation. The next position of the search window can be obtained with RotatedRect::boundingRect()
          * @returns returns the rotated rectangle structure that includes the object position, size, and orientation.
          */
-        CamShift(probImage: Mat, window: Rect, criteria: TermCriteria): RotatedRect;
+        CamShift(probImage: Mat, window: Rect, criteria: TermCriteria): [RotatedRect, Rect];
         /**
          * Finds the geometric transform (warp) between two images in terms of the ECC criterion
          * @param templateImage single-channel template image; CV_8U or CV_32F array.
@@ -97,6 +104,13 @@ declare module ObjectTracking {
          * @param inputMask An optional mask to indicate valid values of inputImage
          * @param gaussFiltSize An optional value indicating size of gaussian blur filter
          */
+        /**
+         * Finds an object on a back projection image
+         * @param probImage Back projection of the object histogram. See calcBackProject for details
+         * @param window Initial search window
+         * @param criteria Stop criteria for the iterative search algorithm. returns : Number of iterations CAMSHIFT took to converge. The function implements the iterative object search algorithm. It takes the input back projection of an object and the initial position. The mass center in window of the back projection image is computed and the search window center shifts to the mass center. The procedure is repeated until the specified number of iterations criteria.maxCount is done or until the window center shifts by less than criteria.epsilon. The algorithm is used inside CamShift and, unlike CamShift , the search window size or orientation do not change during the search. You can simply pass the output of calcBackProject to this function. But better results can be obtained if you pre-filter the back projection and remove the noise. For example, you can do this by retrieving connected components with findContours , throwing away contours with small area ( contourArea ), and rendering the remaining contours with drawContours
+         */
+        meanShift(probImage: Mat, window: Rect, criteria: TermCriteria): [number, Rect];
         findTransformECC(
             templateImage: Mat,
             inputImage: Mat,

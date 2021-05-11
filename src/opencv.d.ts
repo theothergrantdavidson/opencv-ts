@@ -111,6 +111,7 @@ import { BackgroundSubtractor } from './video/BackgroundSubtractor';
 import { BackgroundSubtractorMOG2 } from './video/BackgroundSubtractorMOG2';
 import { ObjectDetection as _ObjectDetection } from './ObjectDetection/ObjectDetection';
 import { _Motion, _Optflow, Optflow, Motion, ObjectTracking } from './video/track';
+import { MatVector } from './core/MatVector';
 
 declare module opencv {
     interface VideoCapture {
@@ -185,6 +186,7 @@ declare module opencv {
             _Type,
             ObjectTracking
     {
+        meanShift(probImage: Mat, window: Rect, criteria: TermCriteria): [number, Rect];
         TERM_CRITERIA_COUNT: Type.TERM_CRITERIA_COUNT;
         TERM_CRITERIA_MAX_ITER: Type.TERM_CRITERIA_MAX_ITER;
         TERM_CRITERIA_EPS: Type.TERM_CRITERIA_EPS;
@@ -221,6 +223,7 @@ declare module opencv {
         Vertex: Vertex;
         BackgroundSubtractor: BackgroundSubtractor;
         BackgroundSubtractorMOG2: BackgroundSubtractorMOG2;
+        MatVector: MatVector;
 
         // Histogram
         HISTCMP_CORREL: HistCompMethods.HISTCMP_CORREL;
@@ -232,20 +235,20 @@ declare module opencv {
         HISTCMP_KL_DIV: HistCompMethods.HISTCMP_KL_DIV;
 
         calcBackProject(
-            images: Mat,
-            channels: number,
+            images: Mat | MatVector,
+            channels: number | number[],
             hist: Mat,
             dst: Mat,
             ranges: NDArray<number>,
             scale?: number
         ): void;
         calcHist(
-            image: Mat,
-            channels: number,
+            image: Mat | MatVector,
+            channels: number | number[],
             mask: Mat,
             hist: Mat,
-            histSize: number,
-            ranges: number,
+            histSize: number | number[],
+            ranges: number | number[],
             accumulate?: boolean
         ): void;
         compareHist(H1: Mat, H2: Mat, method: HistCompMethods): number;
@@ -881,8 +884,8 @@ declare module opencv {
         solvePoly(src: Mat, dst: Mat, maxIters: number): number;
         sort(src: Mat, dst: Mat, flags: SortFlags): void;
         sortIdx(src: Mat, dst: Mat, flags: SortFlags): void;
-        split(src: Mat, mvbegin: Mat): void;
-        split(src: Mat, mv: Mat): void;
+        split(src: Mat | MatVector, mvbegin: Mat | MatVector): void;
+        split(src: Mat | MatVector, mv: Mat | MatVector): void;
         sqrt(src: Mat, dst: Mat): void;
         subtract(src1: Mat, src2: Mat, dst: Mat, mask: Mat, dtype: number | DataTypes): void;
         subtract(src1: Mat, src2: Mat, dst: Mat, mask: Mat): void;
@@ -1423,7 +1426,7 @@ declare module opencv {
             img: Mat,
             pt1: Point,
             pt2: Point,
-            color: Scalar,
+            color: Scalar | number[],
             thickness: number,
             lineType: LineTypes,
             shift: number
@@ -1432,12 +1435,12 @@ declare module opencv {
             img: Mat,
             pt1: Point,
             pt2: Point,
-            color: Scalar,
+            color: Scalar | number[],
             thickness: number,
             lineType: LineTypes
         ): void;
-        line(img: Mat, pt1: Point, pt2: Point, color: Scalar, thickness: number): void;
-        line(img: Mat, pt1: Point, pt2: Point, color: Scalar): void;
+        line(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[], thickness: number): void;
+        line(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[]): void;
         polylines(
             img: Mat,
             pts: NDArray<Point>,
@@ -1666,7 +1669,7 @@ declare module opencv {
             minDistance: number,
             mask: Mat,
             blockSize: number,
-            gradientSize: number
+            gradientSize?: number | 3
         ): void;
         HoughCircles(
             image: Mat,
@@ -1730,9 +1733,12 @@ declare module opencv {
             prevPts: Mat,
             nextPts: Mat,
             status: Mat,
-            err: Mat
+            err: Mat,
+            winSize: Size,
+            maxLevel: number,
+            criteria: TermCriteria
         ): void;
-        CamShift(probImage: Mat, window: Rect, criteria: TermCriteria): RotatedRect;
+        CamShift(probImage: Mat, window: Rect, criteria: TermCriteria): [RotatedRect, Rect];
         findTransformECC(
             templateImage: Mat,
             inputImage: Mat,
@@ -1749,6 +1755,7 @@ declare module opencv {
         OPTFLOW_USE_INITIAL_FLOW: Optflow.OPTFLOW_USE_INITIAL_FLOW;
         OPTFLOW_LK_GET_MIN_EIGENVALS: Optflow.OPTFLOW_LK_GET_MIN_EIGENVALS;
         OPTFLOW_FARNEBACK_GAUSSIAN: Optflow.OPTFLOW_FARNEBACK_GAUSSIAN;
+        rotatedRectPoints(points: RotatedRect): Point[];
     }
 }
 
@@ -1767,4 +1774,6 @@ export {
     BackgroundSubtractor,
     BackgroundSubtractorMOG2,
     TermCriteria,
+    MatVector,
+    RotatedRect,
 };

@@ -1,5 +1,6 @@
 import { NDArray } from '../core/Core';
 import { Mat } from '../core/Mat';
+import { MatVector } from '../core/MatVector';
 import { DistanceTypes } from './Misc';
 
 declare module Histograms {
@@ -56,8 +57,8 @@ declare module Histograms {
          * backproj.delete(); mask.delete(); hist.delete(); none.delete();
          */
         calcBackProject(
-            images: Mat,
-            channels: number,
+            images: Mat | MatVector,
+            channels: number | number[],
             hist: Mat,
             dst: Mat,
             ranges: NDArray<number>,
@@ -101,12 +102,12 @@ declare module Histograms {
          * src.delete(); dst.delete(); srcVec.delete(); mask.delete(); hist.delete();
          */
         calcHist(
-            image: Mat,
-            channels: number,
+            image: Mat | MatVector,
+            channels: number | number[],
             mask: Mat,
             hist: Mat,
-            histSize: number,
-            ranges: number,
+            histSize: number | number[],
+            ranges: number | number[],
             accumulate?: boolean
         ): void;
         /**

@@ -11,6 +11,7 @@ declare module Mat {
         new (): Mat;
         new (mat: Mat): Mat;
         new (rows: number, cols: number, type: DataTypes, s?: Scalar): Mat;
+        delete(): void;
         /**
          * The method returns a Matlab-style identity matrix initializer, similarly to Mat::zeros. Similarly to
          * Mat::ones, you can use a scale operation to create a scaled identity matrix efficiently:
@@ -81,6 +82,10 @@ declare module Mat {
          * @returns Returns a zero array of the specified size and type.
          */
         zeros(rows: number, cols: number, type: DataTypes): Mat;
+        /**
+         * @returns Type of Mat
+         */
+        type(): DataTypes;
         /**
          * The number of rows in the matrix
          */
@@ -201,10 +206,6 @@ declare module Mat {
          * elements need to be copied. The mask has to be of type CV_8U and can have 1 or multiple channels.
          */
         copyTo(m: Mat, mask?: Mat): void;
-        /**
-         * Data type of the Mat
-         */
-        type: DataTypes;
         /**
          * @returns true if the array has no elements.
          */
