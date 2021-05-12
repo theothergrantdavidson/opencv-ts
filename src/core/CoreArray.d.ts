@@ -1,7 +1,7 @@
 import { Mat } from './Mat';
 import { DataTypes } from './HalInterface';
 import { CovarFlags, NDArray } from './Core';
-import { Point, Scalar } from '../opencv';
+import { MatVector, Point, Scalar } from '../opencv';
 import { SortFlags } from './Utils';
 
 declare module CoreArray {
@@ -277,7 +277,7 @@ declare module CoreArray {
             y: NDArray<number> | Mat,
             magnitude: NDArray<number> | Mat,
             angle: NDArray<number> | Mat,
-            angleInDegrees: boolean
+            angleInDegrees?: boolean
         ): void;
         /**
          * Checks every element of an input array for invalid values.
@@ -568,13 +568,13 @@ declare module CoreArray {
          * @param count number of input matrices when mv is a plain C array; it must be greater than zero
          * @param dst output array of the same size and the same depth as mv[0]; The number of channels will be equal to the parameter count
          */
-        merge(mv: Mat, count: number, dst: Mat): void;
+        merge(mv: Mat | MatVector, count: number, dst: Mat): void;
         /**
          * This is an overloaded member function, provided for convenience.
          * @param mv input vector of matrices to be merged; all the matrices in mv must have the same size and the same depth
          * @param dst output array of the same size and the same depth as mv[0]; The number of channels will be the total number of channels in the matrix array
          */
-        merge(mv: Mat, dst: Mat): void;
+        merge(mv: Mat | MatVector, dst: Mat): void;
         /**
          * Calculates per-element minimum of two arrays or an array and a scalar
          * @param src1 first input array
@@ -602,20 +602,12 @@ declare module CoreArray {
         /**
          * Finds the global minimum and maximum in an array
          * @param src input single-channel array
-         * @param minVal pointer to the returned minimum value; NULL is used if not required
-         * @param maxVal pointer to the returned maximum value; NULL is used if not required
-         * @param minLoc pointer to the returned minimum location (in 2D case); NULL is used if not required
-         * @param maxLoc pointer to the returned maximum location (in 2D case); NULL is used if not required
          * @param mask optional mask used to select a sub-array
          */
         minMaxLoc(
             src: Mat,
-            minVal: number,
-            maxVal: number,
-            minLoc: Point,
-            maxLoc: Point,
-            mask: Mat
-        ): void;
+            mask?: Mat
+        ): { minVal: number; maxVal: number; minLoc: Point; maxLoc: Point };
         /**
          * Copies specified channels from input arrays to the specified channels of output arrays
          * @param src input array or vector of matrices; all of the matrices must have the same size and the same depth

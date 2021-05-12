@@ -710,7 +710,7 @@ declare module opencv {
             y: Mat | NDArray<number>,
             magnitude: Mat | NDArray<number>,
             angle: Mat | NDArray<number>,
-            angleInDegrees: boolean
+            angleInDegrees?: boolean
         ): void;
         checkRange(
             a: Mat | NDArray<number>,
@@ -777,8 +777,8 @@ declare module opencv {
         max(src1: Mat, src2: Mat, dst: Mat): void;
         mean(src: Mat, mask?: Mat): Scalar;
         meanStdDev(src: Mat, mean: Mat, stddev: Mat, mask?: Mat): void;
-        merge(mv: Mat, count: number, dst: Mat): void;
-        merge(mv: Mat, dst: Mat): void;
+        merge(mv: Mat | MatVector, count: number, dst: Mat): void;
+        merge(mv: Mat | MatVector, dst: Mat): void;
         min(src1: Mat, src2: Mat, dst: Mat): void;
         minMaxIdx(
             src: Mat,
@@ -790,12 +790,8 @@ declare module opencv {
         ): void;
         minMaxLoc(
             src: Mat,
-            minVal: number,
-            maxVal: number,
-            minLoc: Point,
-            maxLoc: Point,
-            mask: Mat
-        ): void;
+            mask?: Mat
+        ): { minVal: number; maxVal: number; minLoc: Point; maxLoc: Point };
         mixChannels(
             src: Mat,
             nsrcs: number,
@@ -1508,7 +1504,7 @@ declare module opencv {
             img: Mat,
             pt1: Point,
             pt2: Point,
-            color: Scalar,
+            color: Scalar | number[],
             thickness: number,
             lineType: LineTypes,
             shift: number
@@ -1517,12 +1513,12 @@ declare module opencv {
             img: Mat,
             pt1: Point,
             pt2: Point,
-            color: Scalar,
+            color: Scalar | number[],
             thickness: number,
             lineType: LineTypes
         ): void;
-        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar, thickness: number): void;
-        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar): void;
+        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[], thickness: number): void;
+        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[]): void;
         rectangle(
             img: Mat,
             rec: Rect,
@@ -1690,7 +1686,13 @@ declare module opencv {
         HOUGH_GRADIENT_ALT: HoughModes.HOUGH_GRADIENT_ALT;
 
         // Object Detection
-        matchTemplate(image: Mat, templ: Mat, result: Mat, method: TemplateMatchModes): void;
+        matchTemplate(
+            image: Mat,
+            templ: Mat,
+            result: Mat,
+            method: TemplateMatchModes,
+            mask: Mat
+        ): void;
         groupRectangles(
             rectList: NDArray<Rect>,
             weights: NDArray<number>,
