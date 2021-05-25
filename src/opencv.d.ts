@@ -1250,7 +1250,7 @@ declare module opencv {
         clipLine(imgRect: Rect, pt1: Point, pt2: Point): boolean;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number,
@@ -1261,7 +1261,7 @@ declare module opencv {
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number,
@@ -1271,7 +1271,7 @@ declare module opencv {
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number,
@@ -1280,7 +1280,7 @@ declare module opencv {
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number,
@@ -1288,14 +1288,14 @@ declare module opencv {
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar
         ): void;
@@ -1546,9 +1546,9 @@ declare module opencv {
         convexHull(points: Mat, hull: Mat): void;
         convexityDefects(contour: Mat, convexHull: Mat, convexityDefects: Mat): void;
         findContours(
-            image: Mat,
-            contours: Mat,
-            hierarchy: Mat,
+            image: Mat | MatVector,
+            contours: Mat | MatVector,
+            hierarchy: Mat | MatVector,
             mode: RetrievalModes,
             method: ContourApproximationModes
         ): void;

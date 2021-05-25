@@ -5,6 +5,7 @@ import { Rect } from '../core/Rect';
 import { RotatedRect } from '../core/RotatedRect';
 import { Point } from '../core/Point';
 import { DistanceTypes } from './Misc';
+import { MatVector } from '../core/MatVector';
 
 declare module StructuralAnalysisShapeDescriptors {
     enum ConnectedComponentsAlgorithmsTypes {
@@ -169,9 +170,9 @@ declare module StructuralAnalysisShapeDescriptors {
          * @param method Contour approximation method, @see ContourApproximationModes
          */
         findContours(
-            image: Mat,
-            contours: Mat,
-            hierarchy: Mat,
+            image: Mat | MatVector,
+            contours: Mat | MatVector,
+            hierarchy: Mat | MatVector,
             mode: RetrievalModes,
             method: ContourApproximationModes
         ): void;

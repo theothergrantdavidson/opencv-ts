@@ -5,6 +5,7 @@ import { Rect } from '../core/Rect';
 import { RotatedRect } from '../core/RotatedRect';
 import { Scalar } from '../core/Scalar';
 import { Size } from '../core/Size';
+import { MatVector } from '../core/MatVector';
 
 declare module DrawingFunctions {
     enum HersheyFonts {
@@ -166,7 +167,7 @@ declare module DrawingFunctions {
          */
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number,
@@ -177,7 +178,7 @@ declare module DrawingFunctions {
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number,
@@ -187,7 +188,7 @@ declare module DrawingFunctions {
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number,
@@ -196,7 +197,7 @@ declare module DrawingFunctions {
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number,
@@ -204,14 +205,14 @@ declare module DrawingFunctions {
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar,
             thickness: number
         ): void;
         drawContours(
             image: Mat,
-            contours: NDArray<number>,
+            contours: MatVector,
             contourIdx: number,
             color: Scalar
         ): void;
