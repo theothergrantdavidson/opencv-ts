@@ -5,6 +5,7 @@ import { Mat } from '../core/Mat';
 import { Scalar } from '../core/Scalar';
 import { TermCriteria } from '../core/TermCriteria';
 import { Point, Size } from '../opencv';
+import { MatVector } from '../core/MatVector'
 
 declare module ImageFiltering {
     enum MorphShapes {
@@ -153,7 +154,7 @@ declare module ImageFiltering {
             src: Mat,
             dst: Mat,
             ddepth: number | DataTypes,
-            kernel: NDArray<number> | Mat,
+            kernel: MatVector | Mat,
             anchor: Point,
             delat: number,
             borderType: BorderTypes
@@ -186,8 +187,8 @@ declare module ImageFiltering {
          * @param ktype Type of filter coefficients. It can be CV_32f or CV_64F .
          */
         getDerivKernels(
-            kx: NDArray<number> | Mat,
-            ky: NDArray<number> | Mat,
+            kx: MatVector | Mat,
+            ky: MatVector | Mat,
             dx: number,
             dy: number,
             ksize: 1 | 3 | 5 | 7 | SpecialFilter.FILTER_SCHARR,
@@ -367,8 +368,8 @@ declare module ImageFiltering {
             src: Mat,
             dst: Mat,
             ddepth: number | DataTypes,
-            kernelX: NDArray<number> | Mat,
-            kernelY: NDArray<number> | Mat,
+            kernelX: MatVector | Mat,
+            kernelY: MatVector | Mat,
             anchor: Point,
             delta: number,
             borderType: BorderTypes
@@ -417,8 +418,8 @@ declare module ImageFiltering {
          */
         spatialGradient(
             src: Mat,
-            dx: NDArray<number> | Mat,
-            dy: NDArray<number> | Mat,
+            dx: MatVector | Mat,
+            dy: MatVector | Mat,
             ksize: number,
             borderType: BorderTypes
         ): void;

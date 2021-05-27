@@ -107,7 +107,7 @@ declare module StructuralAnalysisShapeDescriptors {
          * @param boolIf true, the approximated curve is closed (its first and last vertices are connected). Otherwise, it is not closed
          */
         approxPolyDP(
-            curve: Mat | NDArray<number>,
+            curve: Mat | MatVector,
             approxCurve: Mat,
             epsilon: number,
             bool: boolean
@@ -118,13 +118,13 @@ declare module StructuralAnalysisShapeDescriptors {
          * @param closed Flag indicating whether the curve is closed or not.
          * @returns a curve length or a closed contour perimeter.
          */
-        arcLength(curve: Mat | NDArray<number>, closed: boolean): number;
+        arcLength(curve: Mat | MatVector, closed: boolean): number;
         /**
          * Calculates the up-right bounding rectangle of a point set or non-zero pixels of gray-scale image.
          * @param array Input gray-scale image or 2D point set, stored in std::vector or Mat.
          * @returns the minimal up-right bounding rectangle for the specified point set or non-zero pixels of gray-scale image
          */
-        boundingRect(array: Mat | NDArray<number>): Rect;
+        boundingRect(array: Mat | MatVector): Rect;
         /**
          * computes the connected components labeled image of boolean image
          * @param image the 8-bit single-channel image to be labeled
@@ -147,7 +147,7 @@ declare module StructuralAnalysisShapeDescriptors {
          * @param oriented Oriented area flag. If it is true, the function returns a signed area value, depending on the contour orientation (clockwise or counter-clockwise). Using this feature you can determine orientation of a contour by taking the sign of an area. By default, the parameter is false, which means that the absolute value is returned
          * @returns area and the number of non-zero pixels,
          */
-        contourArea(contour: Mat | NDArray<number>, oriented?: boolean): number;
+        contourArea(contour: Mat | MatVector, oriented?: boolean): number;
         /**
          * Finds the convex hull of a point set.
          * @param points Input 2D point set, stored in std::vector or Mat.

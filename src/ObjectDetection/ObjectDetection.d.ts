@@ -1,4 +1,5 @@
 import { NDArray } from "../core/Core";
+import { MatVector } from "../core/MatVector";
 import { Rect } from "../core/Rect";
 
 declare module ObjectDetection {
@@ -9,7 +10,7 @@ declare module ObjectDetection {
          * @param weights Minimum possible number of rectangles minus 1. The threshold is used in a group of rectangles to retain it
          * @param groupThreshold 
          */
-        groupRectangles(rectList: NDArray<Rect>, weights: NDArray<number>, groupThreshold: number): void;
+        groupRectangles(rectList: NDArray<Rect>, weights: MatVector, groupThreshold: number): void;
     }
 }
 

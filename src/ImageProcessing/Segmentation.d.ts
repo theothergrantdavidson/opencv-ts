@@ -1,5 +1,6 @@
 import { Mat } from '../core/Mat';
 import { Rect } from '../core/Rect';
+import { GrabCutModes } from './Misc';
 
 declare module ImageSegmentation {
     interface ImageSegmentation {
@@ -18,7 +19,8 @@ declare module ImageSegmentation {
             rect: Rect,
             bgdModel: Mat,
             fgdModel: Mat,
-            iterCount: number
+            iterCount: number,
+            mode: GrabCutModes
         ): void;
         /**
          * Performs a marker-based image segmentation using the watershed algorithm

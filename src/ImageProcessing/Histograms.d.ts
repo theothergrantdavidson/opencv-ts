@@ -1,4 +1,3 @@
-import { NDArray } from '../core/Core';
 import { Mat } from '../core/Mat';
 import { MatVector } from '../core/MatVector';
 import { DistanceTypes } from './Misc';
@@ -61,7 +60,7 @@ declare module Histograms {
             channels: number | number[],
             hist: Mat,
             dst: Mat,
-            ranges: NDArray<number>,
+            ranges: MatVector,
             scale?: number
         ): void;
         /**
@@ -131,7 +130,7 @@ declare module Histograms {
             signature1: Mat,
             signature2: Mat,
             distType: DistanceTypes,
-            cost: NDArray<number> | Mat,
+            cost: MatVector | Mat,
             lowerBound: number,
             flow?: Mat
         ): number;

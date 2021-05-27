@@ -1,4 +1,5 @@
 import { NDArray } from '../core/Core';
+import { MatVector } from '../core/MatVector';
 import { Point } from '../core/Point';
 import { Rect } from '../core/Rect';
 
@@ -92,18 +93,18 @@ declare module Subdiv2D {
          * Returns a list of all edges
          * @param edgeList Output vector
          */
-        getEdgeList(edgeList: NDArray<number>): void;
+        getEdgeList(edgeList: MatVector): void;
         /**
          * Returns a list of the leading edge ID connected to each triangle
          * The function gives one edge ID for each triangle
          * @param leadingEdgeList Output vector
          */
-        getLeadingEdgeList(leadingEdgeList: NDArray<number>): void;
+        getLeadingEdgeList(leadingEdgeList: MatVector): void;
         /**
          * Returns a list of all triangles.
          * @param triangleList Output vector
          */
-        getTriangleList(triangleList: NDArray<number>): void;
+        getTriangleList(triangleList: MatVector): void;
         /**
          *Returns vertex location from vertex ID.
          * @param vertex vertex ID.
@@ -118,7 +119,7 @@ declare module Subdiv2D {
          * @param facetCenters Output vector of the Voronoi facets center points
          */
         getVoronoiFacetList(
-            idx: NDArray<number>,
+            idx: MatVector,
             facetList: NDArray<Point>,
             facetCenters: NDArray<Point>
         ): void;

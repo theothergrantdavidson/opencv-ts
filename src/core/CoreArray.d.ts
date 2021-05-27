@@ -273,10 +273,10 @@ declare module CoreArray {
          * @param angleInDegreesa flag, indicating whether the angles are measured in radians (which is by default), or in degrees.
          */
         cartToPolar(
-            x: NDArray<number> | Mat,
-            y: NDArray<number> | Mat,
-            magnitude: NDArray<number> | Mat,
-            angle: NDArray<number> | Mat,
+            x: MatVector | Mat,
+            y: MatVector | Mat,
+            magnitude: MatVector | Mat,
+            angle: MatVector | Mat,
             angleInDegrees?: boolean
         ): void;
         /**
@@ -288,7 +288,7 @@ declare module CoreArray {
          * @param maxVal exclusive upper boundary of valid values range.
          */
         checkRange(
-            a: NDArray<number> | Mat,
+            a: MatVector | Mat,
             quiet: boolean,
             pos: Point,
             minVal: number,
@@ -307,7 +307,7 @@ declare module CoreArray {
          * @param m input-output floating-point square matrix
          * @param lowerToUpper operation flag; if true, the lower half is copied to the upper half. Otherwise, the upper half is copied to the lower half.
          */
-        completeSymm(m: NDArray<number> | Mat, lowerToUpper: boolean): void;
+        completeSymm(m: MatVector | Mat, lowerToUpper: boolean): void;
         /**
          * Converts an array to half precision floating number.
          * @param src input array
@@ -357,7 +357,7 @@ declare module CoreArray {
          * @param src single-channel array
          * @returns the number of non-zero elements in src
          */
-        countNonZero(src: NDArray<number> | Mat): number;
+        countNonZero(src: MatVector | Mat): number;
         /**
          * Performs a forward or inverse discrete Cosine transform of 1D or 2D array.
          * @param src input floating-point array
@@ -495,8 +495,8 @@ declare module CoreArray {
          */
         inRange(
             src: Mat,
-            lowerb: NDArray<number> | Mat,
-            upperb: NDArray<number> | Mat,
+            lowerb: MatVector | Mat,
+            upperb: MatVector | Mat,
             dst: Mat
         ): void;
         /**
@@ -532,14 +532,14 @@ declare module CoreArray {
          * @param y floating-point array of y-coordinates of the vectors; it must have the same size as x.
          * @param magnitude output array of the same size and type as x
          */
-        magnitude(x: NDArray<number> | Mat, y: NDArray<number> | Mat, magnitude: Mat): void;
+        magnitude(x: MatVector | Mat, y: MatVector | Mat, magnitude: Mat): void;
         /**
          * Calculates the Mahalanobis distance between two vectors
          * @param v1 first 1D input vector
          * @param v2 second 1D input vector
          * @param icovar inverse covariance matrix
          */
-        Mahalanobis(v1: NDArray<number> | Mat, v2: NDArray<number> | Mat, icovar: Mat): void;
+        Mahalanobis(v1: MatVector | Mat, v2: MatVector | Mat, icovar: Mat): void;
         /**
          * Calculates per-element maximum of two arrays or an array and a scalar
          * @param src1 first input array
@@ -627,9 +627,9 @@ declare module CoreArray {
         ): void;
         mixChannels(src: Mat, dst: Mat, fromTo: number, npairs: number): void;
         mixChannels(
-            src: Mat | NDArray<number>,
-            dst: Mat | NDArray<number>,
-            fromTo: NDArray<number>
+            src: Mat | MatVector,
+            dst: Mat | MatVector,
+            fromTo: MatVector
         ): void;
         /**
          * Performs the per-element multiplication of two Fourier spectrums
@@ -729,7 +729,7 @@ declare module CoreArray {
          * @param a input/output matrix (CV_32F type).
          * @param val value to convert the NaNs
          */
-        patchNaNs(a: Mat | NDArray<number>, val: number): void;
+        patchNaNs(a: Mat | MatVector, val: number): void;
         /**
          * @todo update when documentation for this function is added
          * @param data
@@ -738,10 +738,10 @@ declare module CoreArray {
          * @param result
          */
         PCABackProject(
-            data: Mat | NDArray<number>,
-            mean: Mat | NDArray<number>,
-            eigenvectors: Mat | NDArray<number>,
-            result: Mat | NDArray<number>
+            data: Mat | MatVector,
+            mean: Mat | MatVector,
+            eigenvectors: Mat | MatVector,
+            result: Mat | MatVector
         ): void;
         /**
          * Performs the perspective matrix transformation of vectors
@@ -749,7 +749,7 @@ declare module CoreArray {
          * @param dst output array of the same size and type as src
          * @param m 3x3 or 4x4 floating-point transformation matrix.
          */
-        perspectiveTransform(src: Mat, dst: Mat, m: NDArray<number> | Mat): void;
+        perspectiveTransform(src: Mat, dst: Mat, m: MatVector | Mat): void;
         /**
          * Calculates the rotation angle of 2D vectors
          * @param x input floating-point array of x-coordinates of 2D vectors
@@ -758,8 +758,8 @@ declare module CoreArray {
          * @param angleInDegrees when true, the function calculates the angle in degrees, otherwise, they are measured in radians
          */
         phase(
-            x: NDArray<number> | Mat,
-            y: NDArray<number> | Mat,
+            x: MatVector | Mat,
+            y: MatVector | Mat,
             angle: Mat,
             angleInDegrees: boolean
         ): void;
@@ -772,10 +772,10 @@ declare module CoreArray {
          * @param angleInDegrees when true, the input angles are measured in degrees, otherwise, they are measured in radians
          */
         polarToCart(
-            magnitude: NDArray<number> | Mat,
-            angle: NDArray<number> | Mat,
-            x: NDArray<number> | Mat,
-            y: NDArray<number> | Mat,
+            magnitude: MatVector | Mat,
+            angle: MatVector | Mat,
+            x: MatVector | Mat,
+            y: MatVector | Mat,
             angleInDegrees: boolean
         ): void;
         /**
@@ -799,7 +799,7 @@ declare module CoreArray {
          * @param mean mean value (expectation) of the generated random numbers
          * @param stddev standard deviation of the generated random numbers; it can be either a vector (in which case a diagonal standard deviation matrix is assumed) or a square matrix.
          */
-        randn(dst: Mat, mean: NDArray<number> | Mat, stddev: NDArray<number> | Mat): void;
+        randn(dst: Mat, mean: MatVector | Mat, stddev: MatVector | Mat): void;
         /**
          * Shuffles the array elements randomly
          * @param dst input/output numerical 1D array
@@ -813,7 +813,7 @@ declare module CoreArray {
          * @param low inclusive lower boundary of the generated random numbers
          * @param high exclusive upper boundary of the generated random numbers
          */
-        randu(dst: Mat, low: NDArray<number> | Mat, high: NDArray<number> | Mat): void;
+        randu(dst: Mat, low: MatVector | Mat, high: MatVector | Mat): void;
         /**
          * Reduces a matrix to a vector.
          * @param src input 2D matrix
@@ -925,7 +925,7 @@ declare module CoreArray {
          * Calculates the sum of array elements
          * @param src input array that must have from 1 to 4 channels
          */
-        sum(src: NDArray<number> | Mat): Scalar;
+        sum(src: MatVector | Mat): Scalar;
         /**
          * Returns the trace of a matrix
          * @param mtx input matrix
@@ -937,7 +937,7 @@ declare module CoreArray {
          * @param dst output array of the same size and depth as src; it has as many channels as m.rows
          * @param m transformation 2x2 or 2x3 floating-point matrix
          */
-        transform(src: Mat, dst: Mat, m: NDArray<number> | Mat): void;
+        transform(src: Mat, dst: Mat, m: MatVector | Mat): void;
         /**
          * Transposes a matrix
          * @param src input array.
