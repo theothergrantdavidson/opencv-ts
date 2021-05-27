@@ -201,7 +201,7 @@ declare module opencv {
          * Reads image data from a source canvas and outputs it to an instance of cv.Mat
          * @param imageSource source canvas to read imagedata from
          */
-        imread(imageSource: string): Mat;
+        imread(imageSource: string | HTMLImageElement | HTMLCanvasElement): Mat;
         /**
          * Function called when opencv is initialized
          */
@@ -239,7 +239,7 @@ declare module opencv {
             channels: number | number[],
             hist: Mat,
             dst: Mat,
-            ranges: NDArray<number>,
+            ranges: MatVector,
             scale?: number
         ): void;
         calcHist(
@@ -256,7 +256,7 @@ declare module opencv {
             signature1: Mat,
             signature2: Mat,
             distType: DistanceTypes,
-            cost: Mat | NDArray<number>,
+            cost: Mat | MatVector,
             lowerBound: number,
             flow?: Mat
         ): number;
@@ -706,21 +706,21 @@ declare module opencv {
             ctype: DataTypes
         ): void;
         cartToPolar(
-            x: Mat | NDArray<number>,
-            y: Mat | NDArray<number>,
-            magnitude: Mat | NDArray<number>,
-            angle: Mat | NDArray<number>,
+            x: Mat | MatVector,
+            y: Mat | MatVector,
+            magnitude: Mat | MatVector,
+            angle: Mat | MatVector,
             angleInDegrees?: boolean
         ): void;
         checkRange(
-            a: Mat | NDArray<number>,
+            a: Mat | MatVector,
             quiet: boolean,
             pos: Point,
             minVal: number,
             maxVal: number
         ): void;
         compare(src1: Mat, src2: Mat, dst: Mat, cmpop: CmpTypes): void;
-        completeSymm(m: Mat | NDArray<number>, lowerToUpper: boolean): void;
+        completeSymm(m: Mat | MatVector, lowerToUpper: boolean): void;
         convertFp16(src: Mat, dst: Mat): void;
         convertScaleAbs(src: Mat, dst: Mat, alpha?: number): void;
         convertScaleAbs(src: Mat, dst: Mat, alpha: number, beta?: number): void;
@@ -736,7 +736,7 @@ declare module opencv {
             value: Scalar
         ): void;
         copyTo(src: Mat, dst: Mat, mask: Mat): void;
-        countNonZero(src: Mat | NDArray<number>): number;
+        countNonZero(src: Mat | MatVector): number;
         dct(src: Mat, dst: Mat, flags: DftFlags): void;
         determinant(src: Mat): number;
         dft(src: Mat, dst: Mat, flags: DftFlags, nonzeroRows: number): void;
@@ -762,18 +762,13 @@ declare module opencv {
         hconcat(src1: Mat, src2: Mat, dst: Mat): void;
         hconcat(src: Mat, dst: Mat, flags: DftFlags): void;
         idft(src: Mat, dst: Mat, flags: DftFlags, nonzeroRows: number): void;
-        inRange(
-            src: Mat,
-            lowerb: Mat | NDArray<number>,
-            upperb: Mat | NDArray<number>,
-            dst: Mat
-        ): void;
+        inRange(src: Mat, lowerb: Mat | MatVector, upperb: Mat | MatVector, dst: Mat): void;
         insertChannel(src: Mat, dst: Mat, coi: number): void;
         invert(src: Mat, dst: Mat, flags: DecompTypes): void;
         log(src: Mat, dst: Mat): void;
         LUT(src: Mat, lut: Mat, dst: Mat): void;
-        magnitude(x: Mat | NDArray<number>, y: Mat | NDArray<number>, magnitude: Mat): void;
-        Mahalanobis(v1: Mat | NDArray<number>, v2: Mat | NDArray<number>, icovar: Mat): void;
+        magnitude(x: Mat | MatVector, y: Mat | MatVector, magnitude: Mat): void;
+        Mahalanobis(v1: Mat | MatVector, v2: Mat | MatVector, icovar: Mat): void;
         max(src1: Mat, src2: Mat, dst: Mat): void;
         mean(src: Mat, mask?: Mat): Scalar;
         meanStdDev(src: Mat, mean: Mat, stddev: Mat, mask?: Mat): void;
@@ -801,11 +796,7 @@ declare module opencv {
             npairs: number
         ): void;
         mixChannels(src: Mat, dst: Mat, fromTo: number, npairs: number): void;
-        mixChannels(
-            src: Mat | NDArray<number>,
-            dst: Mat | NDArray<number>,
-            fromTo: NDArray<number>
-        ): void;
+        mixChannels(src: Mat | MatVector, dst: Mat | MatVector, fromTo: MatVector): void;
         mulSpectrums(a: Mat, b: Mat, c: Mat, flags: DftFlags, conjB?: boolean): void;
         multiply(src1: Mat, src2: Mat, dst: Mat, scale: number, dtype?: DataTypes): void;
         mulTransposed(
@@ -837,32 +828,27 @@ declare module opencv {
             dtype?: DataTypes
         ): void;
         normalize(src: Mat, dst: Mat, alpha: number, normType: NormTypes): void;
-        patchNaNs(a: Mat | NDArray<number>, val: number): void;
+        patchNaNs(a: Mat | MatVector, val: number): void;
         PCABackProject(
-            data: Mat | NDArray<number>,
-            mean: Mat | NDArray<number>,
-            eigenvectors: Mat | NDArray<number>,
-            result: Mat | NDArray<number>
+            data: Mat | MatVector,
+            mean: Mat | MatVector,
+            eigenvectors: Mat | MatVector,
+            result: Mat | MatVector
         ): void;
-        perspectiveTransform(src: Mat, dst: Mat, m: Mat | NDArray<number>): void;
-        phase(
-            x: Mat | NDArray<number>,
-            y: Mat | NDArray<number>,
-            angle: Mat,
-            angleInDegrees: boolean
-        ): void;
+        perspectiveTransform(src: Mat, dst: Mat, m: Mat | MatVector): void;
+        phase(x: Mat | MatVector, y: Mat | MatVector, angle: Mat, angleInDegrees: boolean): void;
         polarToCart(
-            magnitude: Mat | NDArray<number>,
-            angle: Mat | NDArray<number>,
-            x: Mat | NDArray<number>,
-            y: Mat | NDArray<number>,
+            magnitude: Mat | MatVector,
+            angle: Mat | MatVector,
+            x: Mat | MatVector,
+            y: Mat | MatVector,
             angleInDegrees: boolean
         ): void;
         pow(src: Mat, power: number, dst: Mat): void;
         PSNR(src1: Mat, src2: Mat, R: number): number;
-        randn(dst: Mat, mean: Mat | NDArray<number>, stddev: Mat | NDArray<number>): void;
+        randn(dst: Mat, mean: Mat | MatVector, stddev: Mat | MatVector): void;
         randShuffle(dst: Mat, iterFactor: number, rng: number): void;
-        randu(dst: Mat, low: Mat | NDArray<number>, high: Mat | NDArray<number>): void;
+        randu(dst: Mat, low: Mat | MatVector, high: Mat | MatVector): void;
         reduce(
             src: Mat,
             dst: Mat,
@@ -886,9 +872,9 @@ declare module opencv {
         subtract(src1: Mat, src2: Mat, dst: Mat, mask: Mat, dtype: number | DataTypes): void;
         subtract(src1: Mat, src2: Mat, dst: Mat, mask: Mat): void;
         subtract(src1: Mat, src2: Mat, dst: Mat): void;
-        sum(src: Mat | NDArray<number>): Scalar;
+        sum(src: Mat | MatVector): Scalar;
         trace(mtx: Mat): Scalar;
-        transform(src: Mat, dst: Mat, m: Mat | NDArray<number>): void;
+        transform(src: Mat, dst: Mat, m: Mat | MatVector): void;
         transpose(src: Mat, dst: Mat): void;
         vconcat(src: Mat, nsrc: number, dst: Mat): void;
         vconcat(src1: Mat, src2: Mat, dst: Mat): void;
@@ -936,7 +922,7 @@ declare module opencv {
             src: Mat,
             dst: Mat,
             ddepth: number | DataTypes,
-            kernel: Mat | NDArray<number>,
+            kernel: Mat | MatVector,
             anchor: Point,
             delat: number,
             borderType: BorderTypes
@@ -950,8 +936,8 @@ declare module opencv {
             borderType: BorderTypes
         ): void;
         getDerivKernels(
-            kx: Mat | NDArray<number>,
-            ky: Mat | NDArray<number>,
+            kx: Mat | MatVector,
+            ky: Mat | MatVector,
             dx: number,
             dy: number,
             ksize: SpecialFilter | 1 | 3 | 5 | 7,
@@ -1018,8 +1004,8 @@ declare module opencv {
             src: Mat,
             dst: Mat,
             ddepth: number | DataTypes,
-            kernelX: Mat | NDArray<number>,
-            kernelY: Mat | NDArray<number>,
+            kernelX: Mat | MatVector,
+            kernelY: Mat | MatVector,
             anchor: Point,
             delta: number,
             borderType: BorderTypes
@@ -1037,8 +1023,8 @@ declare module opencv {
         ): void;
         spatialGradient(
             src: Mat,
-            dx: Mat | NDArray<number>,
-            dy: Mat | NDArray<number>,
+            dx: Mat | MatVector,
+            dy: Mat | MatVector,
             ksize: number,
             borderType: BorderTypes
         ): void;
@@ -1293,12 +1279,7 @@ declare module opencv {
             color: Scalar,
             thickness: number
         ): void;
-        drawContours(
-            image: Mat,
-            contours: MatVector,
-            contourIdx: number,
-            color: Scalar
-        ): void;
+        drawContours(image: Mat, contours: MatVector, contourIdx: number, color: Scalar): void;
         drawMarker(
             img: Mat,
             position: Point,
@@ -1517,7 +1498,13 @@ declare module opencv {
             thickness: number,
             lineType: LineTypes
         ): void;
-        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[], thickness: number): void;
+        rectangle(
+            img: Mat,
+            pt1: Point,
+            pt2: Point,
+            color: Scalar | number[],
+            thickness: number
+        ): void;
         rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[]): void;
         rectangle(
             img: Mat,
@@ -1533,16 +1520,16 @@ declare module opencv {
 
         // Distance Types
         approxPolyDP(
-            curve: Mat | NDArray<number>,
+            curve: Mat | MatVector,
             approxCurve: Mat,
             epsilon: number,
             bool: boolean
         ): void;
-        arcLength(curve: Mat | NDArray<number>, closed: boolean): number;
-        boundingRect(array: Mat | NDArray<number>): Rect;
+        arcLength(curve: Mat | MatVector, closed: boolean): number;
+        boundingRect(array: Mat | MatVector): Rect;
         connectedComponents(image: Mat, labels: Mat): number;
         connectedComponentsWithStats(image: Mat, labels: Mat, stats: Mat, centroids: Mat): number;
-        contourArea(contour: Mat | NDArray<number>, oriented?: boolean): number;
+        contourArea(contour: Mat | MatVector, oriented?: boolean): number;
         convexHull(points: Mat, hull: Mat): void;
         convexityDefects(contour: Mat, convexHull: Mat, convexityDefects: Mat): void;
         findContours(
@@ -1693,11 +1680,7 @@ declare module opencv {
             method: TemplateMatchModes,
             mask: Mat
         ): void;
-        groupRectangles(
-            rectList: NDArray<Rect>,
-            weights: NDArray<number>,
-            groupThreshold: number
-        ): void;
+        groupRectangles(rectList: NDArray<Rect>, weights: MatVector, groupThreshold: number): void;
         TM_SQDIFF: TemplateMatchModes.TM_SQDIFF;
         TM_SQDIFF_NORMED: TemplateMatchModes.TM_SQDIFF_NORMED;
         TM_CCORR: TemplateMatchModes.TM_CCORR;
@@ -1712,7 +1695,8 @@ declare module opencv {
             rect: Rect,
             bgdModel: Mat,
             fgdModel: Mat,
-            iterCount: number
+            iterCount: number,
+            mode: GrabCutModes
         ): void;
         watershed(image: Mat, markers: Mat): void;
 
