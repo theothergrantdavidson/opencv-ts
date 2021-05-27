@@ -112,6 +112,7 @@ import { BackgroundSubtractorMOG2 } from './video/BackgroundSubtractorMOG2';
 import { ObjectDetection as _ObjectDetection } from './ObjectDetection/ObjectDetection';
 import { _Motion, _Optflow, Optflow, Motion, ObjectTracking } from './video/track';
 import { MatVector } from './core/MatVector';
+import { dnn, dnn_Net } from './dnn/dnn';
 
 declare module opencv {
     interface VideoCapture {
@@ -184,8 +185,11 @@ declare module opencv {
             _Motion,
             _Optflow,
             _Type,
-            ObjectTracking
+            ObjectTracking,
+            dnn
     {
+        blobFromImage(image: Mat, scalefactor: number, size: Size, mean: Scalar, swapRB: boolean): Mat;
+        readNet(config: string, model: string): dnn_Net;
         meanShift(probImage: Mat, window: Rect, criteria: TermCriteria): [number, Rect];
         TERM_CRITERIA_COUNT: Type.TERM_CRITERIA_COUNT;
         TERM_CRITERIA_MAX_ITER: Type.TERM_CRITERIA_MAX_ITER;
