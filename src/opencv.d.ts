@@ -1625,7 +1625,7 @@ declare module opencv {
         ): void;
         floodFill(image: Mat, seedPoint: Point, newVal: Scalar, rect: Rect): void;
         integral(src: Mat, sum: Mat): void;
-        threshold(src: Mat, dst: Mat, thresh: number, maxval: number, type: number): void;
+        threshold(src: Mat, dst: Mat, thresh: number, maxval: number, type: ThresholdTypes): void;
         ADAPTIVE_THRESH_MEAN_C: AdaptiveThresholdTypes.ADAPTIVE_THRESH_MEAN_C;
         ADAPTIVE_THRESH_GAUSSIAN_C: AdaptiveThresholdTypes.ADAPTIVE_THRESH_GAUSSIAN_C;
         DIST_LABEL_CCOMP: DistanceTransformLabelTypes.DIST_LABEL_CCOMP;
