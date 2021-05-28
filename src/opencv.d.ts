@@ -220,7 +220,7 @@ declare module opencv {
          * @param type data type of the Mat.
          * @param array source data array.
          */
-         matFromArray(rows: number, cols: number, type: DataTypes, array: Array<any>): Mat;
+         matFromArray(rows: number, cols: number, type: DataTypes, array: Array<number>): Mat;
          
         /**
          * Function called when opencv is initialized
