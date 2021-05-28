@@ -206,6 +206,13 @@ declare module opencv {
          * @param imageSource source canvas to read imagedata from
          */
         imread(imageSource: string | HTMLImageElement | HTMLCanvasElement): Mat;
+
+        /**
+         * Create a Mat from the specified image data.
+         * @param imageData image data used to create the Mat
+         */
+        matFromImageData(imageData: ImageData): Mat;
+
         /**
          * Function called when opencv is initialized
          */
