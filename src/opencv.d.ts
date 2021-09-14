@@ -1110,7 +1110,7 @@ declare module opencv {
         ): void;
         getAffineTransform(src: Point, dst: Point): Mat;
         getAffineTransform(src: Mat, dst: Mat): Mat;
-        getPerspectiveTransform(src: Mat, dst: Mat, solveMethod: number): void;
+        getPerspectiveTransform(src: Mat, dst: Mat, solveMethod: number): Mat;
         getRectSubPix(
             image: Mat,
             patchSize: Size,
