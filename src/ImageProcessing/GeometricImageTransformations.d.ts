@@ -91,7 +91,7 @@ declare module GeometricImageTransformations {
          * @param dst Coordinates of the corresponding quadrangle vertices in the destination image
          * @param solveMethod method passed to cv::solve (DecompTypes)
          */
-        getPerspectiveTransform(src: Mat, dst: Mat, solveMethod: number | DecompTypes): void;
+        getPerspectiveTransform(src: Mat, dst: Mat, solveMethod?: number | DecompTypes): Mat;
         /**
          * Retrieves a pixel rectangle from an image with sub-pixel accuracy.
          * @param image Source image
