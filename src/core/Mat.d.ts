@@ -7,10 +7,63 @@ import { DecompTypes } from './CoreArray';
 import { Rect } from './Rect';
 
 declare module Mat {
+    interface zeros {
+        /**
+         * The method returns a Matlab-style zero array initializer. It can be used to quickly form a constant
+         * array as a function parameter, part of a matrix expression, or as a matrix initializer:
+         * @example
+         * const m: Mat = cv.Mat.zeros(new cv.Size(3, 3), cv.CV_8UC3);
+         * @param size Alternative to the matrix size specification Size(cols, rows) .
+         * @param type Created matrix type.
+         * @returns Returns a zero array of the specified size and type.
+         */
+        new (size: Size, type: DataTypes): Mat;
+        /**
+         * The method returns a Matlab-style zero array initializer. It can be used to quickly form a constant
+         * array as a function parameter, part of a matrix expression, or as a matrix initializer:
+         * @example
+         * const m: Mat = cv.Mat.zeros(3, 3, cv.CV_8UC3);
+         * @param rows Number of rows.
+         * @param cols Number of columns.
+         * @param type Created matrix type.
+         * @returns Returns a zero array of the specified size and type.
+         */
+        new (rows: number, cols: number, type: DataTypes): Mat;
+    }
+
+    interface ones {
+        /**
+         * The method returns a Matlab-style 1's array initializer, similarly to Mat::zeros. Note that using
+         * this method you can initialize an array with an arbitrary value, using the following Matlab idiom:
+         * Note: In case of multi-channels type, only the first channel will be initialized with 1's, the
+         * others will be set to 0's.
+         * @example
+         * const m: Mat = cv.Mat.ones(new cv.Size(3, 3), cv.CV_8UC3);
+         * @param size Alternative to the matrix size specification Size(cols, rows) .
+         * @param type Created matrix type.
+         * @return Returns a zero array of the specified size and type.
+         */
+        new (size: Size, type: DataTypes): Mat;
+        /**
+         * The method returns a Matlab-style 1's array initializer, similarly to Mat::zeros. Note that using
+         * this method you can initialize an array with an arbitrary value, using the following Matlab idiom:
+         * Note: In case of multi-channels type, only the first channel will be initialized with 1's, the
+         * others will be set to 0's.
+         * @example
+         * const m: Mat = cv.Mat.ones(3, 3, cv.CV_8UC3);
+         * @param rows Number of rows.
+         * @param cols Number of columns.
+         * @param type Created matrix type.
+         * @returns Returns a zero array of the specified size and type.
+         */
+        new (rows: number, cols: number, type: DataTypes): Mat;
+    }
     interface Mat {
         new (): Mat;
         new (mat: Mat): Mat;
         new (rows: number, cols: number, type: DataTypes, s?: Scalar): Mat;
+        zeros: zeros;
+        ones: ones;
         delete(): void;
         /**
          * The method returns a Matlab-style identity matrix initializer, similarly to Mat::zeros. Similarly to
@@ -36,52 +89,7 @@ declare module Mat {
          * @returns Returns an identity matrix of the specified size and type.
          */
         eye(rows: number, cols: number, type: DataTypes): Mat;
-        /**
-         * The method returns a Matlab-style 1's array initializer, similarly to Mat::zeros. Note that using
-         * this method you can initialize an array with an arbitrary value, using the following Matlab idiom:
-         * Note: In case of multi-channels type, only the first channel will be initialized with 1's, the
-         * others will be set to 0's.
-         * @example
-         * const m: Mat = cv.Mat.ones(new cv.Size(3, 3), cv.CV_8UC3);
-         * @param size Alternative to the matrix size specification Size(cols, rows) .
-         * @param type Created matrix type.
-         * @return Returns a zero array of the specified size and type.
-         */
-        ones(size: Size, type: DataTypes): Mat;
-        /**
-         * The method returns a Matlab-style 1's array initializer, similarly to Mat::zeros. Note that using
-         * this method you can initialize an array with an arbitrary value, using the following Matlab idiom:
-         * Note: In case of multi-channels type, only the first channel will be initialized with 1's, the
-         * others will be set to 0's.
-         * @example
-         * const m: Mat = cv.Mat.ones(3, 3, cv.CV_8UC3);
-         * @param rows Number of rows.
-         * @param cols Number of columns.
-         * @param type Created matrix type.
-         * @returns Returns a zero array of the specified size and type.
-         */
-        ones(rows: number, cols: number, type: DataTypes): Mat;
-        /**
-         * The method returns a Matlab-style zero array initializer. It can be used to quickly form a constant
-         * array as a function parameter, part of a matrix expression, or as a matrix initializer:
-         * @example
-         * const m: Mat = cv.Mat.zeros(new cv.Size(3, 3), cv.CV_8UC3);
-         * @param size Alternative to the matrix size specification Size(cols, rows) .
-         * @param type Created matrix type.
-         * @returns Returns a zero array of the specified size and type.
-         */
-        zeros(size: Size, type: DataTypes): Mat;
-        /**
-         * The method returns a Matlab-style zero array initializer. It can be used to quickly form a constant
-         * array as a function parameter, part of a matrix expression, or as a matrix initializer:
-         * @example
-         * const m: Mat = cv.Mat.zeros(3, 3, cv.CV_8UC3);
-         * @param rows Number of rows.
-         * @param cols Number of columns.
-         * @param type Created matrix type.
-         * @returns Returns a zero array of the specified size and type.
-         */
-        zeros(rows: number, cols: number, type: DataTypes): Mat;
+
         /**
          * @returns Type of Mat
          */

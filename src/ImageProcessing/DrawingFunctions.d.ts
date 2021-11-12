@@ -341,7 +341,7 @@ declare module DrawingFunctions {
             arcStart: number,
             arcEnd: number,
             delta: number,
-            pts: NDArray<Point>
+            pts: MatVector
         ): void;
         /**
          * Fills a convex polygon.
@@ -353,13 +353,13 @@ declare module DrawingFunctions {
          */
         fillConvexPoly(
             img: Mat,
-            pts: Point,
+            pts: MatVector,
             color: Scalar,
             lineType: LineTypes,
             shift: number
         ): void;
-        fillConvexPoly(img: Mat, pts: Point, color: Scalar, lineType: LineTypes): void;
-        fillConvexPoly(img: Mat, pts: Point, color: Scalar): void;
+        fillConvexPoly(img: Mat, pts: MatVector, color: Scalar, lineType: LineTypes): void;
+        fillConvexPoly(img: Mat, pts: MatVector, color: Scalar): void;
         /**
          * Fills the area bounded by one or more polygons
          * @param img Image
@@ -371,15 +371,15 @@ declare module DrawingFunctions {
          */
         fillPoly(
             img: Mat,
-            pts: Point,
+            pts: MatVector,
             color: Scalar,
             lineType: LineTypes,
             shift: number,
             offset: Point
         ): void;
-        fillPoly(img: Mat, pts: Point, color: Scalar, lineType: LineTypes, shift: number): void;
-        fillPoly(img: Mat, pts: Point, color: Scalar, lineType: LineTypes): void;
-        fillPoly(img: Mat, pts: Point, color: Scalar): void;
+        fillPoly(img: Mat, pts: MatVector, color: Scalar, lineType: LineTypes, shift: number): void;
+        fillPoly(img: Mat, pts: MatVector, color: Scalar, lineType: LineTypes): void;
+        fillPoly(img: Mat, pts: MatVector, color: Scalar): void;
         /**
          * Calculates the font-specific size to use to achieve a given height in pixels.
          * @param fontFace Font to use, see HersheyFonts.
@@ -450,7 +450,7 @@ declare module DrawingFunctions {
          */
         polylines(
             img: Mat,
-            pts: NDArray<Point>,
+            pts: MatVector,
             isClosed: boolean,
             color: Scalar,
             thickness: number,
@@ -459,7 +459,7 @@ declare module DrawingFunctions {
         ): void;
         polylines(
             img: Mat,
-            pts: NDArray<Point>,
+            pts: MatVector,
             isClosed: boolean,
             color: Scalar,
             thickness: number,
@@ -472,7 +472,7 @@ declare module DrawingFunctions {
             color: Scalar,
             thickness: number
         ): void;
-        polylines(img: Mat, pts: NDArray<Point>, isClosed: boolean, color: Scalar): void;
+        polylines(img: Mat, pts: MatVector, isClosed: boolean, color: Scalar): void;
         /**
          * Draws a text string.
          * @param img Image
