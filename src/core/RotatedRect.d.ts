@@ -11,6 +11,9 @@ declare module RotatedRect {
         points(pts: Point[]): void;
         boundingRect(): Rect;
         boundingRect2f(): Rect;
+        angle: number;
+        center: Point;
+        size: Size;
     }
 }
 export = RotatedRect;
