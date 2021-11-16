@@ -226,7 +226,7 @@ declare module opencv {
          * @param type data type of the Mat.
          * @param array source data array.
          */
-        matFromArray(rows: number, cols: number, type: DataTypes, array: Uint8Array): Mat;
+        matFromArray(rows: number, cols: number, type: DataTypes, array: number[]): Mat;
 
         /**
          * Function called when opencv is initialized
