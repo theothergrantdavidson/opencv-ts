@@ -932,23 +932,9 @@ declare module CoreArray {
         /**
          * Applies vertical concatenation to given matrices
          * @param src input array or vector of matrices. all of the matrices must have the same number of cols and the same depth
-         * @param nsrc number of matrices in src
-         * @param dst output array. It has the same number of cols and depth as the src, and the sum of rows of the src
-         */
-        vconcat(src: Mat, nsrc: number, dst: Mat): void;
-        /**
-         * Applies vertical concatenation to given matrices
-         * @param src1 first input array to be considered for vertical concatenation
-         * @param src2 second input array to be considered for vertical concatenation
-         * @param dst output array. It has the same number of cols and depth as the src1 and src2, and the sum of rows of the src1 and src2
-         */
-        vconcat(src1: Mat, src2: Mat, dst: Mat): void;
-        /**
-         * Applies vertical concatenation to given matrices
-         * @param src input array or vector of matrices. all of the matrices must have the same number of cols and the same depth
          * @param dst output array. It has the same number of cols and depth as the src, and the sum of rows of the src. same depth
          */
-        vconcat(src: Mat, dst: Mat): void;
+        vconcat(src: MatVector, dst: Mat): void;
     }
 }
 export = CoreArray;
