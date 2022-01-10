@@ -25,10 +25,6 @@ cv.onRuntimeInitialized = () => {
 
 ```
 
-## Requirements
-
-It is necessary that opencv is installed on your computer, and the paths configured (windows) correctly as instructed by [OpenCV.org](https://opencv.org/)
-
 ## Typings Progress
 * Modules
   * Core
