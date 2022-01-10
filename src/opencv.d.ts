@@ -1773,4 +1773,5 @@ export {
     TermCriteria,
     MatVector,
     RotatedRect,
+    BorderTypes,
 };
