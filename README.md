@@ -1,6 +1,9 @@
 # opencv-ts
 Package for opencvjs in typescript (WIP), adding class and function definiitons progresssively.
 
+## compatibility
+
+Compatible with OpenCV 4.5 version
 
 ## example use
 
@@ -21,6 +24,10 @@ cv.onRuntimeInitialized = () => {
 };
 
 ```
+
+## Requirements
+
+It is necessary that opencv is installed on your computer, and the paths configured (windows) correctly as instructed by [OpenCV.org](https://opencv.org/)
 
 ## Typings Progress
 * Modules
