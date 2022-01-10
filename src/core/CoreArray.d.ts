@@ -460,24 +460,9 @@ declare module CoreArray {
         /**
          * Applies horizontal concatenation to given matrices
          * @param src input array or vector of matrices. all of the matrices must have the same number of rows and the same depth
-         * @param nsrc number of matrices in src
          * @param dst output array. It has the same number of rows and depth as the src, and the sum of cols of the src
          */
-        hconcat(src: Mat, nsrc: number, dst: number): void;
-        /**
-         * This is an overloaded member function, provided for convenience. It differs from the above function only in what argument(s) it accepts
-         * @param src1 first input array to be considered for horizontal concatenation
-         * @param src2 second input array to be considered for horizontal concatenation
-         * @param dst output array. It has the same number of rows and depth as the src1 and src2, and the sum of cols of the src1 and src2
-         */
-        hconcat(src1: Mat, src2: Mat, dst: Mat): void;
-        /**
-         * Calculates the inverse Discrete Cosine Transform of a 1D or 2D array
-         * @param src input floating-point single-channel array.
-         * @param dst output array of the same size and type as src
-         * @param flags operation flags
-         */
-        hconcat(src: Mat, dst: Mat, flags: DftFlags): void;
+        hconcat(srcs: MatVector, dst: Mat): void;
         /**
          * Calculates the inverse Discrete Fourier Transform of a 1D or 2D array
          * @param src input floating-point real or complex array
