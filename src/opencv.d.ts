@@ -784,6 +784,7 @@ declare module opencv {
             flags: GemmFlags
         ): void;
         getOptimalDFTSize(vecsize: number): number;
+        hconcat(srcs: MatVector, dst: Mat): void;
         hconcat(src: Mat, nsrc: number, dst: number): void;
         hconcat(src1: Mat, src2: Mat, dst: Mat): void;
         hconcat(src: Mat, dst: Mat, flags: DftFlags): void;
@@ -902,6 +903,7 @@ declare module opencv {
         trace(mtx: Mat): Scalar;
         transform(src: Mat, dst: Mat, m: Mat | MatVector): void;
         transpose(src: Mat, dst: Mat): void;
+        vconcat(srcs: MatVector, dst: Mat): void;
         vconcat(src: Mat, nsrc: number, dst: Mat): void;
         vconcat(src1: Mat, src2: Mat, dst: Mat): void;
         vconcat(src: Mat, dst: Mat): void;
