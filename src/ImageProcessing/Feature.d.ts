@@ -107,13 +107,19 @@ declare module FeatureDetection {
          * @param method Detection method, see HoughModes. The available methods are HOUGH_GRADIENT and HOUGH_GRADIENT_ALT.
          * @param dp Inverse ratio of the accumulator resolution to the image resolution. For example, if dp=1 , the accumulator has the same resolution as the input image. If dp=2 , the accumulator has half as big width and height. For HOUGH_GRADIENT_ALT the recommended value is dp=1.5, unless some small very circles need to be detected
          * @param minDist Minimum distance between the centers of the detected circles. If the parameter is too small, multiple neighbor circles may be falsely detected in addition to a true one. If it is too large, some circles may be missed
-         */
+         * this two parameter will be helpful to increase the accuracy of the circle detection
+         * this two parameter are also available in opencv original documentation
+         * @param param1 it is the higher threshold of the two passed to the Canny edge detector (the lower canny threshold is twice smaller)
+         * @param param2 it is the accumulator threshold for the circle centers at the detection stage as discussed above.
+        */
         HoughCircles(
             image: Mat,
             circles: Mat,
             method: HoughModes,
             dp: number,
-            minDist: number
+            minDist: number,
+            param1?: number,
+            param2?: number
         ): void;
         /**
          * Finds lines in a binary image using the standard Hough transform

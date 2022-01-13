@@ -1665,7 +1665,9 @@ declare module opencv {
             circles: Mat,
             method: HoughModes,
             dp: number,
-            minDist: number
+            minDist: number,
+            param1?: number,
+            param2?: number
         ): void;
         HoughLines(image: Mat, lines: Mat, rho: number, theta: number, threshold: number): void;
         HoughLinesP(image: Mat, lines: Mat, rho: number, theta: number, threshold: number): void;
