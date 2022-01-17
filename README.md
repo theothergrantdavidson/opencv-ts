@@ -1,6 +1,9 @@
 # opencv-ts
 Package for opencvjs in typescript (WIP), adding class and function definiitons progresssively.
 
+## compatibility
+
+Compatible with OpenCV 4.5 version
 
 ## example use
 
