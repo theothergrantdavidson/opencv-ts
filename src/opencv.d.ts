@@ -1686,7 +1686,7 @@ declare module opencv {
             templ: Mat,
             result: Mat,
             method: TemplateMatchModes,
-            mask: Mat
+            mask?: Mat
         ): void;
         groupRectangles(rectList: NDArray<Rect>, weights: MatVector, groupThreshold: number): void;
         TM_SQDIFF: TemplateMatchModes.TM_SQDIFF;
