@@ -878,7 +878,7 @@ declare module opencv {
             dst: Mat,
             dim: number,
             rtype: ReduceTypes,
-            dtype: number | DataTypes
+            dtype?: number | DataTypes
         ): void;
         repeat(src: Mat, ny: number, nx: number, dst: Mat): void;
         repeat(src: Mat, ny: number, nx: number): Mat;
