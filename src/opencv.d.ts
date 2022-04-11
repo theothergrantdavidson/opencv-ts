@@ -1540,7 +1540,7 @@ declare module opencv {
         convexityDefects(contour: Mat, convexHull: Mat, convexityDefects: Mat): void;
         findContours(
             image: Mat | MatVector,
-            contours: Mat | MatVector,
+            contours: MatVector,
             hierarchy: Mat | MatVector,
             mode: RetrievalModes,
             method: ContourApproximationModes
