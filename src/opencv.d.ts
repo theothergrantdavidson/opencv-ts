@@ -265,7 +265,7 @@ declare module opencv {
             channels: number | number[],
             hist: Mat,
             dst: Mat,
-            ranges: MatVector,
+            ranges: MatVector | number[],
             scale?: number
         ): void;
         calcHist(
@@ -1217,8 +1217,8 @@ declare module opencv {
             thickness: number,
             lineType: LineTypes
         ): void;
-        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar, thickness: number): void;
-        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar): void;
+        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[], thickness: number): void;
+        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[]): void;
 
         // Image Filtering Module
         bilateralFilter(

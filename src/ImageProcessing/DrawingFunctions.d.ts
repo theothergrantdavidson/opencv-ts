@@ -550,8 +550,8 @@ declare module DrawingFunctions {
             thickness: number,
             lineType: LineTypes
         ): void;
-        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar, thickness: number): void;
-        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar): void;
+        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[], thickness: number): void;
+        rectangle(img: Mat, pt1: Point, pt2: Point, color: Scalar | number[]): void;
     }
 }
 export = DrawingFunctions;

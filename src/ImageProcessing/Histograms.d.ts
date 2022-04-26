@@ -60,7 +60,7 @@ declare module Histograms {
             channels: number | number[],
             hist: Mat,
             dst: Mat,
-            ranges: MatVector,
+            ranges: MatVector | number[],
             scale?: number
         ): void;
         /**
