@@ -23,6 +23,7 @@ declare module ImageFiltering {
     enum MorphTypes {
         MORPH_ERODE = 'MORPH_ERODE',
         MORPH_DILATE = 'MORPH_DILATE',
+        MORPH_OPEN = 'MORPH_OPEN',
         MORPH_CLOSE = 'MORPH_CLOSE',
         MORPH_GRADIENT = 'MORPH_GRADIENT',
         MORPH_TOPHAT = 'MORPH_TOPHAT',

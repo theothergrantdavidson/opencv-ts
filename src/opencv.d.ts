@@ -595,6 +595,7 @@ declare module opencv {
         MORPH_ELLIPSE: MorphShapes.MORPH_ELLIPSE;
         MORPH_ERODE: MorphTypes.MORPH_ERODE;
         MORPH_DILATE: MorphTypes.MORPH_DILATE;
+        MORPH_OPEN: MorphTypes.MORPH_OPEN;
         MORPH_CLOSE: MorphTypes.MORPH_CLOSE;
         MORPH_GRADIENT: MorphTypes.MORPH_GRADIENT;
         MORPH_TOPHAT: MorphTypes.MORPH_TOPHAT;
