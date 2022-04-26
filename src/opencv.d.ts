@@ -1244,19 +1244,19 @@ declare module opencv {
             src: Mat,
             dst: Mat,
             kernel: Mat,
-            anchor: Point,
-            iterations: number,
-            borderType: BorderTypes,
-            borderValue: Scalar
+            anchor?: Point,
+            iterations?: number,
+            borderType?: BorderTypes,
+            borderValue?: Scalar
         ): void;
         erode(
             src: Mat,
             dst: Mat,
             kernel: Mat,
-            anchor: Point,
-            iterations: number,
-            borderType: BorderTypes,
-            borderValue: Scalar
+            anchor?: Point,
+            iterations?: number,
+            borderType?: BorderTypes,
+            borderValue?: Scalar
         ): void;
         filter2D(
             src: Mat,
