@@ -879,7 +879,7 @@ declare module opencv {
             dst: Mat,
             dim: number,
             rtype: ReduceTypes,
-            dtype: number | DataTypes
+            dtype?: number | DataTypes
         ): void;
         repeat(src: Mat, ny: number, nx: number, dst: Mat): void;
         repeat(src: Mat, ny: number, nx: number): Mat;
@@ -1687,7 +1687,7 @@ declare module opencv {
             templ: Mat,
             result: Mat,
             method: TemplateMatchModes,
-            mask: Mat
+            mask?: Mat
         ): void;
         groupRectangles(rectList: NDArray<Rect>, weights: MatVector, groupThreshold: number): void;
         TM_SQDIFF: TemplateMatchModes.TM_SQDIFF;
