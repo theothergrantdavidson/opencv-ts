@@ -1751,6 +1751,7 @@ declare module opencv {
         OPTFLOW_LK_GET_MIN_EIGENVALS: Optflow.OPTFLOW_LK_GET_MIN_EIGENVALS;
         OPTFLOW_FARNEBACK_GAUSSIAN: Optflow.OPTFLOW_FARNEBACK_GAUSSIAN;
         rotatedRectPoints(points: RotatedRect): Point[];
+        exceptionFromPtr(pointer: number): { code: number, msg: string };
     }
 }
 
