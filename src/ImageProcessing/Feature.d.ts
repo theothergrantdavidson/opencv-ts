@@ -38,7 +38,7 @@ declare module FeatureDetection {
          * @param threshold2 second threshold for the hysteresis procedure
          * @param apertureSize aperture size for the Sobel operator
          */
-        Canny(image: Mat, edges: Mat, threshold1: number, threshold2: number): void;
+        Canny(image: Mat, edges: Mat, threshold1: number, threshold2: number, apertureSize?: number, L2Gradient?: boolean): void;
         /**
          * Finds edges in an image using the Canny algorithm
          * @param dx 16-bit x derivative of input image (CV_16SC1 or CV_16SC3).

@@ -1640,7 +1640,7 @@ declare module opencv {
         THRESH_TRIANGLE: ThresholdTypes.THRESH_TRIANGLE;
 
         // Feature detection
-        Canny(image: Mat, edges: Mat, threshold1: number, threshold2: number): void;
+        Canny(image: Mat, edges: Mat, threshold1: number, threshold2: number, apertureSize?: number, L2Gradient?: boolean): void;
         Canny1(dx: Mat, dy: Mat, edges: Mat, threshold1: number, threshold2: number): void;
         cornerHarris(src: Mat, dst: Mat, blockSize: number, ksize: number, k: number): void;
         cornerMinEigenVal(src: Mat, dst: Mat, blockSize: number): void;
