@@ -107,30 +107,13 @@ declare module Mat {
          */
         matSize: Array<number>;
         step: Array<number>;
-        /**
-         * @todo figure out return type shape for object
-         */
-        data: Array<any>;
-        /**
-         * @todo figure out return type shape for object
-         */
-        data16U: Array<any>;
-        /**
-         * @todo figure out return type shape for object
-         */
-        data16S: Array<any>;
-        /**
-         * @todo figure out return type shape for object
-         */
-        data32S: Array<any>;
-        /**
-         * @todo figure out return type shape for object
-         */
-        data32F: Array<any>;
-        /**
-         * @todo figure out return type shape for object
-         */
-        data64F: Array<any>;
+        data: Uint8Array;
+        data8S: Int8Array;
+        data16U: Uint16Array;
+        data16S: Int16Array;
+        data32S: Int32Array;
+        data32F: Float32Array;
+        data64F: Float64Array;
         /**
          * The method returns the matrix element size in bytes. For example, if the matrix type is CV_16SC3 , the method returns 3*sizeof(short) or 6.
          * @returns matrix element size in bytes.
@@ -322,105 +305,105 @@ declare module Mat {
          * @param i0 A 0-based row index.
          * @returns pointer to the specified element (1D case)
          */
-        ptr(i0: number): Array<number>;
+        ptr(i0: number): Uint8Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param i0 A 0-based row index.
          * @param i1 A 0-based column index.
          * @returns pointer to the specified element (2D case)
          */
-        ptr(i0: number, i1: number): Array<number>;
+        ptr(i0: number, i1: number): Uint8Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param i0 A 0-based row index.
          * @returns the specified matrix row.
          */
-        ucharPtr(i0: number): Array<number>;
+        ucharPtr(i0: number): Uint8Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param row Index along the dimension 0
          * @param col Index along the dimension 1
          * @returns the specified matrix row.
          */
-        ucharPtr(row: number, col: number): Array<number>;
+        ucharPtr(row: number, col: number): Uint8Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param i0 A 0-based row index.
          * @returns the specified matrix row.
          */
-        charPtr(i0: number): Array<number>;
+        charPtr(i0: number): Int8Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param row Index along the dimension 0
          * @param col Index along the dimension 1
          * @returns the specified matrix row.
          */
-        charPtr(row: number, col: number): Array<number>;
+        charPtr(row: number, col: number): Int8Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param i0 A 0-based row index.
          * @returns the specified matrix row.
          */
-        shortPtr(i0: number): Array<number>;
+        shortPtr(i0: number): Int16Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param row Index along the dimension 0
          * @param col Index along the dimension 1
          * @returns the specified matrix row.
          */
-        shortPtr(row: number, col: number): Array<number>;
+        shortPtr(row: number, col: number): Int16Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param i0 A 0-based row index.
          * @returns the specified matrix row.
          */
-        ushortPtr(i0: number): Array<number>;
+        ushortPtr(i0: number): Uint16Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param row Index along the dimension 0
          * @param col Index along the dimension 1
          * @returns the specified matrix row.
          */
-        ushortPtr(row: number, col: number): Array<number>;
+        ushortPtr(row: number, col: number): Uint16Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param i0 A 0-based row index.
          * @returns the specified matrix row.
          */
-        intPtr(i0: number): Array<number>;
+        intPtr(i0: number): Int8Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param row Index along the dimension 0
          * @param col Index along the dimension 1
          * @returns the specified matrix row.
          */
-        intPtr(row: number, col: number): Array<number>;
+        intPtr(row: number, col: number): Int8Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param i0 A 0-based row index.
          * @returns the specified matrix row.
          */
-        floatPtr(i0: number): Array<number>;
+        floatPtr(i0: number): Float32Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param row Index along the dimension 0
          * @param col Index along the dimension 1
          * @returns the specified matrix row.
          */
-        floatPtr(row: number, col: number): Array<number>;
+        floatPtr(row: number, col: number): Float32Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param i0 A 0-based row index.
          * @returns the specified matrix row.
          */
-        doublePtr(i0: number): Array<number>;
+        doublePtr(i0: number): Float64Array;
         /**
          * Returns a pointer to the specified matrix row.
          * @param row Index along the dimension 0
          * @param col Index along the dimension 1
          * @returns the specified matrix row.
          */
-        doublePtr(row: number, col: number): Array<number>;
+        doublePtr(row: number, col: number): Float64Array;
 
         charAt(i0: number): number;
         charAt(i0: number, i1: number): number;
