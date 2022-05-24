@@ -1670,8 +1670,8 @@ declare module opencv {
             param1?: number,
             param2?: number
         ): void;
-        HoughLines(image: Mat, lines: Mat, rho: number, theta: number, threshold: number): void;
-        HoughLinesP(image: Mat, lines: Mat, rho: number, theta: number, threshold: number): void;
+        HoughLines(image: Mat, lines: Mat, rho: number, theta: number, threshold: number, srn?: number, stn?: number, minTheta?: number, maxTheta?: number): void;
+        HoughLinesP(image: Mat, lines: Mat, rho: number, theta: number, threshold: number, minLineLenght?: number, maxLineGap?: number): void;
         LSD_REFINE_NONE: LineSegmentDetectorModes.LSD_REFINE_NONE;
         LSD_REFINE_STD: LineSegmentDetectorModes.LSD_REFINE_STD;
         LSD_REFINE_ADV: LineSegmentDetectorModes.LSD_REFINE_ADV;

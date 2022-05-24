@@ -129,7 +129,7 @@ declare module FeatureDetection {
          * @param theta Angle resolution of the accumulator in radians
          * @param threshold Accumulator threshold parameter. Only those lines are returned that get enough votes ( >𝚝𝚑𝚛𝚎𝚜𝚑𝚘𝚕𝚍 ).
          */
-        HoughLines(image: Mat, lines: Mat, rho: number, theta: number, threshold: number): void;
+        HoughLines(image: Mat, lines: Mat, rho: number, theta: number, threshold: number, srn?: number, stn?: number, minTheta?: number, maxTheta?: number): void;
         /**
          * Finds line segments in a binary image using the probabilistic Hough transform
          * @param image 8-bit, single-channel binary source image. The image may be modified by the function.
@@ -138,7 +138,7 @@ declare module FeatureDetection {
          * @param theta Angle resolution of the accumulator in radians
          * @param threshold Accumulator threshold parameter. Only those lines are returned that get enough votes ( >𝚝𝚑𝚛𝚎𝚜𝚑𝚘𝚕𝚍 ).
          */
-        HoughLinesP(image: Mat, lines: Mat, rho: number, theta: number, threshold: number): void;
+        HoughLinesP(image: Mat, lines: Mat, rho: number, theta: number, threshold: number, minLineLenght?: number, maxLineGap?: number): void;
     }
 }
 
