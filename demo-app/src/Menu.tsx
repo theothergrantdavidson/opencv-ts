@@ -1,7 +1,6 @@
 import React from 'react';
 import styled from 'styled-components';
 import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { UsingOpencvTs } from './using-opencv-ts/using-opencv-ts';
 
 const Host = styled.div`
     width: 100%;

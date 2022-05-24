@@ -2,10 +2,11 @@ import React, { useState } from 'react';
 import cv from 'opencv-ts';
 import { CvContext } from './cv/useOpencv';
 import { Loader } from './shared/Loader';
-import { Menu } from './Menu';
 import styled from 'styled-components';
-import { BrowserRouter as Router, Routes, Route, Link } from 'react-router-dom';
-import { Caret } from './icons/caret';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { Dropdown } from './components/Dropdown';
+import { IntroductionToUsingOpencv } from './IntroductionToOpencvTS/IntroductionToUsingOpencv';
+import { UsingOpencv } from './IntroductionToOpencvTS/UsingOpencv';
 
 const AppHost = styled.div`
     height: 100vh;
@@ -31,37 +32,23 @@ const TextContainer = styled.div`
     font-size: x-large;
 `;
 
-const StyledLink = styled(Link)`
-    display: flex;
-    align-items: center;
-    text-decoration: none;
-    padding-left: 12px;
-    width: inherit;
-    height: 50px;
-    font-family: 'Catamaran', sans-serif;
-    font-weight: 600;
-    color: #616161;
-    font-size: larger;
-    :hover {
-        cursor: pointer;
-        background-color: #e0e0e0;
-        color: #3178c6 ;
-    }
-`;
-
 const ContentHost = styled.div`
     width: 100%;
+    height: 100%;
+    display: flex;
+`;
+
+const Content = styled.div`
+    width: calc(100vw - 200px);
+    height: 100%;
+    padding: 12px;
 `;
 
 const Sidebar = styled.div`
-    width: 200px;
+    width: 300px;
     height: 100%;
     background-color: #f2f2f2;
 `;
-
-function Home() {
-    return <h2>Home</h2>;
-}
 
 function App() {
     const [_cv, setCv] = useState<typeof cv>();
@@ -69,24 +56,41 @@ function App() {
 
     return (
         <AppHost className="App">
+            <Menubar>
+                <TextContainer>opencv-ts</TextContainer>
+            </Menubar>
             <CvContext.Provider value={_cv}>
-                <Router>
-                    <Menubar>
-                        <TextContainer>opencv-ts</TextContainer>
-                    </Menubar>
-                    <Sidebar>
-                        <StyledLink to="/">Home</StyledLink><Caret/>
-                    </Sidebar>
-                    {_cv == undefined ? (
-                        <Loader />
-                    ) : (
-                        <ContentHost>
-                            <Routes>
-                                <Route path="/" element={<Home />} />
-                            </Routes>
-                        </ContentHost>
-                    )}
-                </Router>
+                <ContentHost>
+                    <Router>
+                        <Sidebar>
+                            <Dropdown
+                                title="Introduction to opencv-ts"
+                                menuItems={[
+                                    {
+                                        route: '/using-opencv-ts',
+                                        title: 'using opencv-ts'
+                                    }
+                                ]}
+                            />
+                        </Sidebar>
+                        {_cv == undefined ? (
+                            <Loader />
+                        ) : (
+                            <Content>
+                                <Routes>
+                                    <Route
+                                        path="/"
+                                        element={<IntroductionToUsingOpencv />}
+                                    />
+                                    <Route
+                                        path="/using-opencv-ts"
+                                        element={<UsingOpencv />}
+                                    />
+                                </Routes>
+                            </Content>
+                        )}
+                    </Router>
+                </ContentHost>
             </CvContext.Provider>
         </AppHost>
     );

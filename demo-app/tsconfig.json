@@ -19,9 +19,10 @@
     "isolatedModules": true,
     "noEmit": true,
     "jsx": "react-jsx",
+    "rootDir": "./",
     "paths": {
-      "@opencv": [
-        "../opencv-ts/src/opencv"
+      "@demo-app": [
+        "./demo-app/src"
       ]
     }
   },

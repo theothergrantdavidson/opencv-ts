@@ -5,5 +5,5 @@ export const CvContext = createContext<typeof cv | undefined>(undefined);
 
 export const useOpenCV = () => {
     const cv = useContext(CvContext);
-    return { cv: cv };
+    return cv;
 };
