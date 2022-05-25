@@ -282,10 +282,10 @@ declare module ImageFiltering {
             dst: Mat,
             op: MorphTypes,
             kernel: Mat,
-            anchor: Point,
-            iterations: number,
-            borderType: BorderTypes,
-            borderValue: Scalar
+            anchor?: Point,
+            iterations?: number,
+            borderType?: BorderTypes,
+            borderValue?: Scalar
         ): void;
         /**
          * Blurs an image and downsamples it.

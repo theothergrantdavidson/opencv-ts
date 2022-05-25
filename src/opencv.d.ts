@@ -1315,10 +1315,10 @@ declare module opencv {
             dst: Mat,
             op: MorphTypes,
             kernel: Mat,
-            anchor: Point,
-            iterations: number,
-            borderType: BorderTypes,
-            borderValue: Scalar
+            anchor?: Point,
+            iterations?: number,
+            borderType?: BorderTypes,
+            borderValue?: Scalar
         ): void;
         pyrDown(src: Mat, dst: Mat, dstsize: Size, borderType: BorderTypes): void;
         pyrMeanShiftFiltering(
