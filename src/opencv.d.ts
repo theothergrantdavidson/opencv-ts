@@ -233,6 +233,8 @@ declare module opencv {
          */
         onRuntimeInitialized: () => void;
 
+        getBuildInformation: string
+
         VideoCapture: VideoCapture;
         TermCriteria: TermCriteria;
 
