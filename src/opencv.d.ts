@@ -113,6 +113,7 @@ declare namespace cv {
 
     // JS functions
     export const imshow: (src: string | HTMLCanvasElement, mat: Mat) => void;
+    export const imread: (src: string | HTMLImageElement) => Mat;
     export let onRuntimeInitialized: () => void;
     export const matFromImageData: (imageData: ImageData) => Mat;
     export const matFromFileAsync: (file: File) => Promise<Mat>;
